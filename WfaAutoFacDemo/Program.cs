@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Imagenation
+namespace WfaAutoFacDemo
 {
     static class Program
     {
@@ -16,7 +16,7 @@ namespace Imagenation
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new TestForm());
+            Application.Run(new Form1());
         }
     }
 }
