@@ -20,18 +20,37 @@ namespace WfaAutoFacDemo
             InitializeComponent();
         }
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        private void CheckBox_Algo1_Gauss_CheckedChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
+        public Mat imgOrigin;//定义初始图像
 
-        }
-
-        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        private void StartButton_Click(object sender, EventArgs e)
         {
+            int img_num = Convert.ToInt32(ImgNum.Value); //获取输入框中的数字,目标图片总数
+            imgOrigin = new Mat(openFileDialog1.FileName);
+
+            //判断一共有几种算法，统计有多少变量，
+
+
+
+
+            if (CheckBoxAlgo1Gauss.Checked)
+            {
+                double miuMin = Convert.ToDouble(Value_ParaMiuMin.Value);
+                double miuMax = Convert.ToDouble(Value_ParaMiuMax.Value);
+                double sigmaMin = Convert.ToDouble(Value_ParaSigmaMin.Value);
+                double sigmaMax = Convert.ToDouble(Value_ParaSigmaMax.Value);
+
+
+            }
+
+            if (CheckBoxAlgo2GrayScale.Checked)
+            {
+                ;
+            }
 
         }
 
@@ -45,7 +64,9 @@ namespace WfaAutoFacDemo
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
+
+
+        private void ImageScanButton_Click(object sender, EventArgs e)
         {
             //OpenFileDialog openFileDialog1 = new OpenFileDialog();     //显示选择文件对话框
             openFileDialog1.InitialDirectory = "C:\\Users\\zjsyzyt\\Pictures";//初始加载路径为C盘；
@@ -55,13 +76,12 @@ namespace WfaAutoFacDemo
             {
                 textBox1.Text = Path.GetFileName(openFileDialog1.FileName);//显示文件的名字
                 this.pictureBox1.Load(openFileDialog1.FileName);
+                
             }
-
-
 
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void FilePathScanButton_Click(object sender, EventArgs e)
         {
             //folderBrowserDialog1.SelectedPath ="D:\\";
             if (this.folderBrowserDialog1.ShowDialog() == DialogResult.OK)
@@ -82,6 +102,51 @@ namespace WfaAutoFacDemo
         }
 
         private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
+        {
+
+        }
+
+        private void ImgNum_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Value_ParaMiuMin_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Value_ParaMiuMax_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CheckBoxAlgo1Gauss_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CheckBoxAlgo2GrayScale_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Value_ParaSigmaMin_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Value_ParaSigmaMax_ValueChanged(object sender, EventArgs e)
         {
 
         }
