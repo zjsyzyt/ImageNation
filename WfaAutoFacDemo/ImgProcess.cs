@@ -5,14 +5,48 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenCvSharp;
 
-
 namespace WfaAutoFacDemo
 {
-    class ImgProcess
+    public class ImgProcess
     {
+        private Mat ImgPreProcess(Mat Mat)
+        {
+            Mat dstImage=Mat.Clone();//先要初始化；
+            int channels = dstImage.Channels();
+            switch (channels)
+            {
+                case 1:
+                    dstImage = Mat.Clone();
+                    break;
+                case 3:
+                    dstImage = Mat.CvtColor(ColorConversionCodes.BGR2GRAY);
+                    break;
+                default:
+                    Console.WriteLine("图像格式有误，请重新导入");
+                    break;
+            }
+            return dstImage;
+
+            //if (channels==1)
+            //{
+            //    dstImage = Mat;
+            //    return dstImage;
+            //}
+            //else if(channels==3)
+            //{
+            //    dstImage = Mat.CvtColor(ColorConversionCodes.BGR2GRAY);
+            //    return dstImage;
+            //}
+        }
+
         public Mat GaussianNoise(Mat Mat, double miu, double sigma)
         {
-            Mat dstImage = Mat.Clone();
+            Mat dstImage = ImgPreProcess(Mat);
+            //Mat dstImage0 = Mat.Clone();
+            //Mat dstImage;
+            //Mat src = new Mat(imagePath, ImreadModes.Grayscale);
+            //dstImage.ImDecode(byte[] imageBytes, ImreadModes.Grayscale);//ImreadModes.Grayscale
+            //dstImage0.ConvertTo(dstImage, 0);//CV_8U
             int channels = dstImage.Channels();
             int rowsNumber = dstImage.Rows;
             int colsNumber = dstImage.Cols * channels;
@@ -28,12 +62,14 @@ namespace WfaAutoFacDemo
                 {
                     //添加高斯噪声
                     int addval = (int)(generateGaussianNoise(miu, sigma));
-                    byte color = (byte)Math.Abs(dstImage.Get<byte>(i, j) + addval);
+                    int bigcolor = (int)Math.Abs(dstImage.Get<byte>(i, j) + addval);
 
-                    if (color < 0)
-                        color = 0;
-                    if (color > 255)
-                        color = 255;
+                    if (bigcolor < 0)
+                        bigcolor = 0;
+                    if (bigcolor > 255)
+                        bigcolor = 255;
+
+                    byte color = (byte)bigcolor;
                     dstImage.Set(i, j, color);
                 }
             }
@@ -56,7 +92,8 @@ namespace WfaAutoFacDemo
                 return z1 * sigma + miu;
             }
             double u1, u2;//根据Box-Muller变换原理构造随机变量
-            Random rnd = new Random();
+            //ParaProcess Para = new ParaProcess();
+            Random rnd = new Random(ParaProcess.GetRandomSeed());
             do
             {
                 u1 = rnd.NextDouble();//0~1之间的随机数
@@ -75,7 +112,41 @@ namespace WfaAutoFacDemo
         //    rng.GetBytes(bytes);
         //    return BitConverter.ToInt32(bytes, 0);
         //} 
-    }
 
+        public Mat GrayScale(Mat Mat, double k, double b)
+        {
+            Mat dstImage = ImgPreProcess(Mat);
+
+
+            int rowsNumber = dstImage.Rows;
+            int colsNumber = dstImage.Cols;
+            if (dstImage.IsContinuous())
+            {
+                colsNumber *= rowsNumber;
+                rowsNumber = 1;
+            }
+            for (int i = 0; i < rowsNumber; i++)
+            {
+                for (int j = 0; j < colsNumber; j++)
+                {
+                    //灰度线性变化
+                    int bigcolor = (int)Math.Abs(k * (dstImage.Get<byte>(i, j)) + b);
+
+                    if (bigcolor < 0)
+                        bigcolor = 0;
+                    if (bigcolor > 255)
+                        bigcolor = 255;
+
+                    byte color = (byte)bigcolor;
+                    dstImage.Set(i, j, color);
+                    if(j==34786)
+                    {
+                        byte dstcolor = color;
+                    }
+                }
+            }
+            return dstImage;
+        }
+    }
 
 }
