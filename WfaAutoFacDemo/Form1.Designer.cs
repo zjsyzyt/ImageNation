@@ -65,6 +65,13 @@
             this.TrackBar_ParaIntercept = new System.Windows.Forms.TrackBar();
             this.TrackBar_ParaSlope = new System.Windows.Forms.TrackBar();
             this.pBarImg = new System.Windows.Forms.ProgressBar();
+            this.Value_ParaSigma2Max = new System.Windows.Forms.NumericUpDown();
+            this.Value_ParaSigma2Min = new System.Windows.Forms.NumericUpDown();
+            this.Label_Para3Max = new System.Windows.Forms.Label();
+            this.Label_Para3Min = new System.Windows.Forms.Label();
+            this.Label_ParaSigma2 = new System.Windows.Forms.Label();
+            this.TrackBar_ParaSigma2 = new System.Windows.Forms.TrackBar();
+            this.CheckBoxAlgo3GaussianBlur = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ImgNum)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TrackBar_ParaMiu)).BeginInit();
@@ -79,15 +86,17 @@
             ((System.ComponentModel.ISupportInitialize)(this.Value_ParaSlopeMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TrackBar_ParaIntercept)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TrackBar_ParaSlope)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Value_ParaSigma2Max)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Value_ParaSigma2Min)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TrackBar_ParaSigma2)).BeginInit();
             this.SuspendLayout();
             // 
             // CheckBoxAlgo1Gauss
             // 
             this.CheckBoxAlgo1Gauss.AutoSize = true;
-            this.CheckBoxAlgo1Gauss.Location = new System.Drawing.Point(926, 25);
-            this.CheckBoxAlgo1Gauss.Margin = new System.Windows.Forms.Padding(6);
+            this.CheckBoxAlgo1Gauss.Location = new System.Drawing.Point(463, 12);
             this.CheckBoxAlgo1Gauss.Name = "CheckBoxAlgo1Gauss";
-            this.CheckBoxAlgo1Gauss.Size = new System.Drawing.Size(128, 29);
+            this.CheckBoxAlgo1Gauss.Size = new System.Drawing.Size(72, 16);
             this.CheckBoxAlgo1Gauss.TabIndex = 4;
             this.CheckBoxAlgo1Gauss.Text = "高斯噪声";
             this.CheckBoxAlgo1Gauss.UseVisualStyleBackColor = true;
@@ -97,10 +106,9 @@
             // CheckBoxAlgo2GrayScale
             // 
             this.CheckBoxAlgo2GrayScale.AutoSize = true;
-            this.CheckBoxAlgo2GrayScale.Location = new System.Drawing.Point(926, 256);
-            this.CheckBoxAlgo2GrayScale.Margin = new System.Windows.Forms.Padding(6);
+            this.CheckBoxAlgo2GrayScale.Location = new System.Drawing.Point(463, 123);
             this.CheckBoxAlgo2GrayScale.Name = "CheckBoxAlgo2GrayScale";
-            this.CheckBoxAlgo2GrayScale.Size = new System.Drawing.Size(128, 29);
+            this.CheckBoxAlgo2GrayScale.Size = new System.Drawing.Size(72, 16);
             this.CheckBoxAlgo2GrayScale.TabIndex = 5;
             this.CheckBoxAlgo2GrayScale.Text = "灰度变化";
             this.CheckBoxAlgo2GrayScale.UseVisualStyleBackColor = true;
@@ -111,20 +119,18 @@
             // 
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBox1.Location = new System.Drawing.Point(28, 25);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(6);
+            this.pictureBox1.Location = new System.Drawing.Point(14, 12);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(838, 729);
+            this.pictureBox1.Size = new System.Drawing.Size(421, 352);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 6;
             this.pictureBox1.TabStop = false;
             // 
             // Button_StartDegradation
             // 
-            this.Button_StartDegradation.Location = new System.Drawing.Point(926, 792);
-            this.Button_StartDegradation.Margin = new System.Windows.Forms.Padding(6);
+            this.Button_StartDegradation.Location = new System.Drawing.Point(463, 380);
             this.Button_StartDegradation.Name = "Button_StartDegradation";
-            this.Button_StartDegradation.Size = new System.Drawing.Size(330, 48);
+            this.Button_StartDegradation.Size = new System.Drawing.Size(165, 23);
             this.Button_StartDegradation.TabIndex = 0;
             this.Button_StartDegradation.Text = "启动退化";
             this.Button_StartDegradation.UseVisualStyleBackColor = true;
@@ -132,15 +138,14 @@
             // 
             // ImgNum
             // 
-            this.ImgNum.Location = new System.Drawing.Point(1064, 665);
-            this.ImgNum.Margin = new System.Windows.Forms.Padding(6);
+            this.ImgNum.Location = new System.Drawing.Point(532, 319);
             this.ImgNum.Maximum = new decimal(new int[] {
             1000,
             0,
             0,
             0});
             this.ImgNum.Name = "ImgNum";
-            this.ImgNum.Size = new System.Drawing.Size(192, 31);
+            this.ImgNum.Size = new System.Drawing.Size(96, 21);
             this.ImgNum.TabIndex = 8;
             this.ImgNum.Value = new decimal(new int[] {
             20,
@@ -153,19 +158,17 @@
             // 
             this.Label_ImgNum.AutoSize = true;
             this.Label_ImgNum.Font = new System.Drawing.Font("宋体", 9F);
-            this.Label_ImgNum.Location = new System.Drawing.Point(922, 669);
-            this.Label_ImgNum.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.Label_ImgNum.Location = new System.Drawing.Point(461, 321);
             this.Label_ImgNum.Name = "Label_ImgNum";
-            this.Label_ImgNum.Size = new System.Drawing.Size(130, 24);
+            this.Label_ImgNum.Size = new System.Drawing.Size(65, 12);
             this.Label_ImgNum.TabIndex = 9;
             this.Label_ImgNum.Text = "图像数量：";
             // 
             // Button_ImageScan
             // 
-            this.Button_ImageScan.Location = new System.Drawing.Point(720, 792);
-            this.Button_ImageScan.Margin = new System.Windows.Forms.Padding(6);
+            this.Button_ImageScan.Location = new System.Drawing.Point(360, 380);
             this.Button_ImageScan.Name = "Button_ImageScan";
-            this.Button_ImageScan.Size = new System.Drawing.Size(150, 48);
+            this.Button_ImageScan.Size = new System.Drawing.Size(75, 23);
             this.Button_ImageScan.TabIndex = 10;
             this.Button_ImageScan.Text = "浏览";
             this.Button_ImageScan.UseVisualStyleBackColor = true;
@@ -173,10 +176,9 @@
             // 
             // Button_FilePathScan
             // 
-            this.Button_FilePathScan.Location = new System.Drawing.Point(720, 854);
-            this.Button_FilePathScan.Margin = new System.Windows.Forms.Padding(6);
+            this.Button_FilePathScan.Location = new System.Drawing.Point(360, 410);
             this.Button_FilePathScan.Name = "Button_FilePathScan";
-            this.Button_FilePathScan.Size = new System.Drawing.Size(150, 48);
+            this.Button_FilePathScan.Size = new System.Drawing.Size(75, 23);
             this.Button_FilePathScan.TabIndex = 11;
             this.Button_FilePathScan.Text = "浏览";
             this.Button_FilePathScan.UseVisualStyleBackColor = true;
@@ -189,28 +191,25 @@
             // 
             // TextBox_ImgPath
             // 
-            this.TextBox_ImgPath.Location = new System.Drawing.Point(154, 794);
-            this.TextBox_ImgPath.Margin = new System.Windows.Forms.Padding(6);
+            this.TextBox_ImgPath.Location = new System.Drawing.Point(77, 381);
             this.TextBox_ImgPath.Name = "TextBox_ImgPath";
-            this.TextBox_ImgPath.Size = new System.Drawing.Size(560, 31);
+            this.TextBox_ImgPath.Size = new System.Drawing.Size(282, 21);
             this.TextBox_ImgPath.TabIndex = 12;
             // 
             // TextBox_ImgStoragePath
             // 
-            this.TextBox_ImgStoragePath.Location = new System.Drawing.Point(154, 856);
-            this.TextBox_ImgStoragePath.Margin = new System.Windows.Forms.Padding(6);
+            this.TextBox_ImgStoragePath.Location = new System.Drawing.Point(77, 411);
             this.TextBox_ImgStoragePath.Name = "TextBox_ImgStoragePath";
-            this.TextBox_ImgStoragePath.Size = new System.Drawing.Size(560, 31);
+            this.TextBox_ImgStoragePath.Size = new System.Drawing.Size(282, 21);
             this.TextBox_ImgStoragePath.TabIndex = 13;
             // 
             // Label_ImgPath
             // 
             this.Label_ImgPath.AutoSize = true;
             this.Label_ImgPath.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Label_ImgPath.Location = new System.Drawing.Point(24, 800);
-            this.Label_ImgPath.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.Label_ImgPath.Location = new System.Drawing.Point(12, 384);
             this.Label_ImgPath.Name = "Label_ImgPath";
-            this.Label_ImgPath.Size = new System.Drawing.Size(118, 24);
+            this.Label_ImgPath.Size = new System.Drawing.Size(59, 12);
             this.Label_ImgPath.TabIndex = 14;
             this.Label_ImgPath.Text = "图像路径:";
             // 
@@ -218,10 +217,9 @@
             // 
             this.Label_ImgStoragePath.AutoSize = true;
             this.Label_ImgStoragePath.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label_ImgStoragePath.Location = new System.Drawing.Point(24, 862);
-            this.Label_ImgStoragePath.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.Label_ImgStoragePath.Location = new System.Drawing.Point(12, 414);
             this.Label_ImgStoragePath.Name = "Label_ImgStoragePath";
-            this.Label_ImgStoragePath.Size = new System.Drawing.Size(118, 24);
+            this.Label_ImgStoragePath.Size = new System.Drawing.Size(59, 12);
             this.Label_ImgStoragePath.TabIndex = 15;
             this.Label_ImgStoragePath.Text = "存储路径:";
             // 
@@ -233,85 +231,77 @@
             // 
             // TextBox_FileNamePrefix
             // 
-            this.TextBox_FileNamePrefix.Location = new System.Drawing.Point(1138, 712);
-            this.TextBox_FileNamePrefix.Margin = new System.Windows.Forms.Padding(6);
+            this.TextBox_FileNamePrefix.Location = new System.Drawing.Point(569, 342);
             this.TextBox_FileNamePrefix.Name = "TextBox_FileNamePrefix";
-            this.TextBox_FileNamePrefix.Size = new System.Drawing.Size(118, 31);
+            this.TextBox_FileNamePrefix.Size = new System.Drawing.Size(61, 21);
             this.TextBox_FileNamePrefix.TabIndex = 16;
+            this.TextBox_FileNamePrefix.Text = "Images";
             this.TextBox_FileNamePrefix.TextChanged += new System.EventHandler(this.FileNamePrefix_TextChanged);
             // 
             // Label_FileNamePrefix
             // 
             this.Label_FileNamePrefix.AutoSize = true;
-            this.Label_FileNamePrefix.Location = new System.Drawing.Point(922, 719);
-            this.Label_FileNamePrefix.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.Label_FileNamePrefix.Location = new System.Drawing.Point(461, 345);
             this.Label_FileNamePrefix.Name = "Label_FileNamePrefix";
-            this.Label_FileNamePrefix.Size = new System.Drawing.Size(180, 25);
+            this.Label_FileNamePrefix.Size = new System.Drawing.Size(101, 12);
             this.Label_FileNamePrefix.TabIndex = 17;
             this.Label_FileNamePrefix.Text = "文件名（前缀）：";
             // 
             // TrackBar_ParaMiu
             // 
             this.TrackBar_ParaMiu.AutoSize = false;
-            this.TrackBar_ParaMiu.Location = new System.Drawing.Point(1036, 81);
-            this.TrackBar_ParaMiu.Margin = new System.Windows.Forms.Padding(6);
+            this.TrackBar_ParaMiu.Location = new System.Drawing.Point(518, 39);
             this.TrackBar_ParaMiu.Name = "TrackBar_ParaMiu";
-            this.TrackBar_ParaMiu.Size = new System.Drawing.Size(232, 44);
+            this.TrackBar_ParaMiu.Size = new System.Drawing.Size(116, 21);
             this.TrackBar_ParaMiu.TabIndex = 18;
             // 
             // TrackBar_ParaSigma
             // 
             this.TrackBar_ParaSigma.AutoSize = false;
-            this.TrackBar_ParaSigma.Location = new System.Drawing.Point(1036, 165);
-            this.TrackBar_ParaSigma.Margin = new System.Windows.Forms.Padding(6);
+            this.TrackBar_ParaSigma.Location = new System.Drawing.Point(518, 79);
             this.TrackBar_ParaSigma.Name = "TrackBar_ParaSigma";
-            this.TrackBar_ParaSigma.Size = new System.Drawing.Size(232, 44);
+            this.TrackBar_ParaSigma.Size = new System.Drawing.Size(116, 21);
             this.TrackBar_ParaSigma.TabIndex = 19;
             // 
             // Label_ParaMiu
             // 
             this.Label_ParaMiu.AutoSize = true;
-            this.Label_ParaMiu.Location = new System.Drawing.Point(922, 90);
-            this.Label_ParaMiu.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.Label_ParaMiu.Location = new System.Drawing.Point(461, 43);
             this.Label_ParaMiu.Name = "Label_ParaMiu";
-            this.Label_ParaMiu.Size = new System.Drawing.Size(96, 25);
+            this.Label_ParaMiu.Size = new System.Drawing.Size(53, 12);
             this.Label_ParaMiu.TabIndex = 20;
             this.Label_ParaMiu.Text = "噪声幅度";
             // 
             // Label_ParaSigma
             // 
             this.Label_ParaSigma.AutoSize = true;
-            this.Label_ParaSigma.Location = new System.Drawing.Point(922, 173);
-            this.Label_ParaSigma.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.Label_ParaSigma.Location = new System.Drawing.Point(461, 83);
             this.Label_ParaSigma.Name = "Label_ParaSigma";
-            this.Label_ParaSigma.Size = new System.Drawing.Size(96, 25);
+            this.Label_ParaSigma.Size = new System.Drawing.Size(53, 12);
             this.Label_ParaSigma.TabIndex = 21;
             this.Label_ParaSigma.Text = "噪声密度";
             // 
             // Label_Para1Min
             // 
             this.Label_Para1Min.AutoSize = true;
-            this.Label_Para1Min.Location = new System.Drawing.Point(1300, 42);
-            this.Label_Para1Min.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.Label_Para1Min.Location = new System.Drawing.Point(650, 20);
             this.Label_Para1Min.Name = "Label_Para1Min";
-            this.Label_Para1Min.Size = new System.Drawing.Size(75, 25);
+            this.Label_Para1Min.Size = new System.Drawing.Size(41, 12);
             this.Label_Para1Min.TabIndex = 22;
             this.Label_Para1Min.Text = "最小值";
             // 
             // Label_Para1Max
             // 
             this.Label_Para1Max.AutoSize = true;
-            this.Label_Para1Max.Location = new System.Drawing.Point(1466, 42);
-            this.Label_Para1Max.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.Label_Para1Max.Location = new System.Drawing.Point(733, 20);
             this.Label_Para1Max.Name = "Label_Para1Max";
-            this.Label_Para1Max.Size = new System.Drawing.Size(75, 25);
+            this.Label_Para1Max.Size = new System.Drawing.Size(41, 12);
             this.Label_Para1Max.TabIndex = 23;
             this.Label_Para1Max.Text = "最大值";
             // 
             // Value_ParaMiuMin
             // 
-            this.Value_ParaMiuMin.Location = new System.Drawing.Point(1284, 81);
-            this.Value_ParaMiuMin.Margin = new System.Windows.Forms.Padding(6);
+            this.Value_ParaMiuMin.Location = new System.Drawing.Point(642, 39);
             this.Value_ParaMiuMin.Maximum = new decimal(new int[] {
             0,
             0,
@@ -323,7 +313,7 @@
             0,
             -2147483648});
             this.Value_ParaMiuMin.Name = "Value_ParaMiuMin";
-            this.Value_ParaMiuMin.Size = new System.Drawing.Size(112, 31);
+            this.Value_ParaMiuMin.Size = new System.Drawing.Size(56, 21);
             this.Value_ParaMiuMin.TabIndex = 28;
             this.Value_ParaMiuMin.Value = new decimal(new int[] {
             100,
@@ -334,10 +324,9 @@
             // 
             // Value_ParaMiuMax
             // 
-            this.Value_ParaMiuMax.Location = new System.Drawing.Point(1450, 81);
-            this.Value_ParaMiuMax.Margin = new System.Windows.Forms.Padding(6);
+            this.Value_ParaMiuMax.Location = new System.Drawing.Point(725, 39);
             this.Value_ParaMiuMax.Name = "Value_ParaMiuMax";
-            this.Value_ParaMiuMax.Size = new System.Drawing.Size(112, 31);
+            this.Value_ParaMiuMax.Size = new System.Drawing.Size(56, 21);
             this.Value_ParaMiuMax.TabIndex = 29;
             this.Value_ParaMiuMax.Value = new decimal(new int[] {
             100,
@@ -348,10 +337,9 @@
             // 
             // Value_ParaSigmaMax
             // 
-            this.Value_ParaSigmaMax.Location = new System.Drawing.Point(1450, 165);
-            this.Value_ParaSigmaMax.Margin = new System.Windows.Forms.Padding(6);
+            this.Value_ParaSigmaMax.Location = new System.Drawing.Point(725, 79);
             this.Value_ParaSigmaMax.Name = "Value_ParaSigmaMax";
-            this.Value_ParaSigmaMax.Size = new System.Drawing.Size(112, 31);
+            this.Value_ParaSigmaMax.Size = new System.Drawing.Size(56, 21);
             this.Value_ParaSigmaMax.TabIndex = 31;
             this.Value_ParaSigmaMax.Value = new decimal(new int[] {
             60,
@@ -362,15 +350,14 @@
             // 
             // Value_ParaSigmaMin
             // 
-            this.Value_ParaSigmaMin.Location = new System.Drawing.Point(1284, 165);
-            this.Value_ParaSigmaMin.Margin = new System.Windows.Forms.Padding(6);
+            this.Value_ParaSigmaMin.Location = new System.Drawing.Point(642, 79);
             this.Value_ParaSigmaMin.Minimum = new decimal(new int[] {
             20,
             0,
             0,
             0});
             this.Value_ParaSigmaMin.Name = "Value_ParaSigmaMin";
-            this.Value_ParaSigmaMin.Size = new System.Drawing.Size(112, 31);
+            this.Value_ParaSigmaMin.Size = new System.Drawing.Size(56, 21);
             this.Value_ParaSigmaMin.TabIndex = 30;
             this.Value_ParaSigmaMin.Value = new decimal(new int[] {
             20,
@@ -381,10 +368,9 @@
             // 
             // Value_ParaInterceptMax
             // 
-            this.Value_ParaInterceptMax.Location = new System.Drawing.Point(1450, 387);
-            this.Value_ParaInterceptMax.Margin = new System.Windows.Forms.Padding(6);
+            this.Value_ParaInterceptMax.Location = new System.Drawing.Point(725, 186);
             this.Value_ParaInterceptMax.Name = "Value_ParaInterceptMax";
-            this.Value_ParaInterceptMax.Size = new System.Drawing.Size(112, 31);
+            this.Value_ParaInterceptMax.Size = new System.Drawing.Size(56, 21);
             this.Value_ParaInterceptMax.TabIndex = 41;
             this.Value_ParaInterceptMax.Value = new decimal(new int[] {
             50,
@@ -394,8 +380,7 @@
             // 
             // Value_ParaInterceptMin
             // 
-            this.Value_ParaInterceptMin.Location = new System.Drawing.Point(1284, 387);
-            this.Value_ParaInterceptMin.Margin = new System.Windows.Forms.Padding(6);
+            this.Value_ParaInterceptMin.Location = new System.Drawing.Point(642, 186);
             this.Value_ParaInterceptMin.Maximum = new decimal(new int[] {
             0,
             0,
@@ -407,7 +392,7 @@
             0,
             -2147483648});
             this.Value_ParaInterceptMin.Name = "Value_ParaInterceptMin";
-            this.Value_ParaInterceptMin.Size = new System.Drawing.Size(112, 31);
+            this.Value_ParaInterceptMin.Size = new System.Drawing.Size(56, 21);
             this.Value_ParaInterceptMin.TabIndex = 40;
             this.Value_ParaInterceptMin.Value = new decimal(new int[] {
             50,
@@ -417,15 +402,14 @@
             // 
             // Value_ParaSlopeMax
             // 
-            this.Value_ParaSlopeMax.Location = new System.Drawing.Point(1450, 304);
-            this.Value_ParaSlopeMax.Margin = new System.Windows.Forms.Padding(6);
+            this.Value_ParaSlopeMax.Location = new System.Drawing.Point(725, 146);
             this.Value_ParaSlopeMax.Minimum = new decimal(new int[] {
             25,
             0,
             0,
             0});
             this.Value_ParaSlopeMax.Name = "Value_ParaSlopeMax";
-            this.Value_ParaSlopeMax.Size = new System.Drawing.Size(112, 31);
+            this.Value_ParaSlopeMax.Size = new System.Drawing.Size(56, 21);
             this.Value_ParaSlopeMax.TabIndex = 39;
             this.Value_ParaSlopeMax.Value = new decimal(new int[] {
             75,
@@ -435,15 +419,14 @@
             // 
             // Value_ParaSlopeMin
             // 
-            this.Value_ParaSlopeMin.Location = new System.Drawing.Point(1284, 304);
-            this.Value_ParaSlopeMin.Margin = new System.Windows.Forms.Padding(6);
+            this.Value_ParaSlopeMin.Location = new System.Drawing.Point(642, 146);
             this.Value_ParaSlopeMin.Minimum = new decimal(new int[] {
             25,
             0,
             0,
             0});
             this.Value_ParaSlopeMin.Name = "Value_ParaSlopeMin";
-            this.Value_ParaSlopeMin.Size = new System.Drawing.Size(112, 31);
+            this.Value_ParaSlopeMin.Size = new System.Drawing.Size(56, 21);
             this.Value_ParaSlopeMin.TabIndex = 38;
             this.Value_ParaSlopeMin.Value = new decimal(new int[] {
             50,
@@ -454,73 +437,156 @@
             // Label_Para2Max
             // 
             this.Label_Para2Max.AutoSize = true;
-            this.Label_Para2Max.Location = new System.Drawing.Point(1466, 265);
-            this.Label_Para2Max.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.Label_Para2Max.Location = new System.Drawing.Point(733, 127);
             this.Label_Para2Max.Name = "Label_Para2Max";
-            this.Label_Para2Max.Size = new System.Drawing.Size(75, 25);
+            this.Label_Para2Max.Size = new System.Drawing.Size(41, 12);
             this.Label_Para2Max.TabIndex = 37;
             this.Label_Para2Max.Text = "最大值";
             // 
             // Label_Para2Min
             // 
             this.Label_Para2Min.AutoSize = true;
-            this.Label_Para2Min.Location = new System.Drawing.Point(1300, 265);
-            this.Label_Para2Min.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.Label_Para2Min.Location = new System.Drawing.Point(650, 127);
             this.Label_Para2Min.Name = "Label_Para2Min";
-            this.Label_Para2Min.Size = new System.Drawing.Size(75, 25);
+            this.Label_Para2Min.Size = new System.Drawing.Size(41, 12);
             this.Label_Para2Min.TabIndex = 36;
             this.Label_Para2Min.Text = "最小值";
             // 
             // Label_ParaIntercept
             // 
             this.Label_ParaIntercept.AutoSize = true;
-            this.Label_ParaIntercept.Location = new System.Drawing.Point(922, 396);
-            this.Label_ParaIntercept.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.Label_ParaIntercept.Location = new System.Drawing.Point(461, 190);
             this.Label_ParaIntercept.Name = "Label_ParaIntercept";
-            this.Label_ParaIntercept.Size = new System.Drawing.Size(96, 25);
+            this.Label_ParaIntercept.Size = new System.Drawing.Size(53, 12);
             this.Label_ParaIntercept.TabIndex = 35;
             this.Label_ParaIntercept.Text = "变换幅度";
             // 
             // Label_ParaSlope
             // 
             this.Label_ParaSlope.AutoSize = true;
-            this.Label_ParaSlope.Location = new System.Drawing.Point(922, 312);
-            this.Label_ParaSlope.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.Label_ParaSlope.Location = new System.Drawing.Point(461, 150);
             this.Label_ParaSlope.Name = "Label_ParaSlope";
-            this.Label_ParaSlope.Size = new System.Drawing.Size(75, 25);
+            this.Label_ParaSlope.Size = new System.Drawing.Size(41, 12);
             this.Label_ParaSlope.TabIndex = 34;
             this.Label_ParaSlope.Text = "灵敏度";
             // 
             // TrackBar_ParaIntercept
             // 
             this.TrackBar_ParaIntercept.AutoSize = false;
-            this.TrackBar_ParaIntercept.Location = new System.Drawing.Point(1036, 387);
-            this.TrackBar_ParaIntercept.Margin = new System.Windows.Forms.Padding(6);
+            this.TrackBar_ParaIntercept.Location = new System.Drawing.Point(518, 186);
             this.TrackBar_ParaIntercept.Name = "TrackBar_ParaIntercept";
-            this.TrackBar_ParaIntercept.Size = new System.Drawing.Size(232, 44);
+            this.TrackBar_ParaIntercept.Size = new System.Drawing.Size(116, 21);
             this.TrackBar_ParaIntercept.TabIndex = 33;
             // 
             // TrackBar_ParaSlope
             // 
             this.TrackBar_ParaSlope.AutoSize = false;
-            this.TrackBar_ParaSlope.Location = new System.Drawing.Point(1036, 304);
-            this.TrackBar_ParaSlope.Margin = new System.Windows.Forms.Padding(6);
+            this.TrackBar_ParaSlope.Location = new System.Drawing.Point(518, 146);
             this.TrackBar_ParaSlope.Name = "TrackBar_ParaSlope";
-            this.TrackBar_ParaSlope.Size = new System.Drawing.Size(232, 44);
+            this.TrackBar_ParaSlope.Size = new System.Drawing.Size(116, 21);
             this.TrackBar_ParaSlope.TabIndex = 32;
             // 
             // pBarImg
             // 
-            this.pBarImg.Location = new System.Drawing.Point(927, 862);
+            this.pBarImg.Location = new System.Drawing.Point(464, 414);
+            this.pBarImg.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.pBarImg.Name = "pBarImg";
-            this.pBarImg.Size = new System.Drawing.Size(329, 25);
+            this.pBarImg.Size = new System.Drawing.Size(164, 12);
             this.pBarImg.TabIndex = 42;
+            // 
+            // Value_ParaSigma2Max
+            // 
+            this.Value_ParaSigma2Max.Location = new System.Drawing.Point(725, 242);
+            this.Value_ParaSigma2Max.Name = "Value_ParaSigma2Max";
+            this.Value_ParaSigma2Max.Size = new System.Drawing.Size(56, 21);
+            this.Value_ParaSigma2Max.TabIndex = 49;
+            this.Value_ParaSigma2Max.Value = new decimal(new int[] {
+            60,
+            0,
+            0,
+            0});
+            this.Value_ParaSigma2Max.ValueChanged += new System.EventHandler(this.Value_ParaSigma2Max_ValueChanged);
+            // 
+            // Value_ParaSigma2Min
+            // 
+            this.Value_ParaSigma2Min.Location = new System.Drawing.Point(642, 242);
+            this.Value_ParaSigma2Min.Minimum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            this.Value_ParaSigma2Min.Name = "Value_ParaSigma2Min";
+            this.Value_ParaSigma2Min.Size = new System.Drawing.Size(56, 21);
+            this.Value_ParaSigma2Min.TabIndex = 48;
+            this.Value_ParaSigma2Min.Value = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            this.Value_ParaSigma2Min.ValueChanged += new System.EventHandler(this.Value_ParaSigma2Min_ValueChanged);
+            // 
+            // Label_Para3Max
+            // 
+            this.Label_Para3Max.AutoSize = true;
+            this.Label_Para3Max.Location = new System.Drawing.Point(733, 223);
+            this.Label_Para3Max.Name = "Label_Para3Max";
+            this.Label_Para3Max.Size = new System.Drawing.Size(41, 12);
+            this.Label_Para3Max.TabIndex = 47;
+            this.Label_Para3Max.Text = "最大值";
+            this.Label_Para3Max.Click += new System.EventHandler(this.Label_Para3Max_Click);
+            // 
+            // Label_Para3Min
+            // 
+            this.Label_Para3Min.AutoSize = true;
+            this.Label_Para3Min.Location = new System.Drawing.Point(650, 223);
+            this.Label_Para3Min.Name = "Label_Para3Min";
+            this.Label_Para3Min.Size = new System.Drawing.Size(41, 12);
+            this.Label_Para3Min.TabIndex = 46;
+            this.Label_Para3Min.Text = "最小值";
+            this.Label_Para3Min.Click += new System.EventHandler(this.Label_Para3Min_Click);
+            // 
+            // Label_ParaSigma2
+            // 
+            this.Label_ParaSigma2.AutoSize = true;
+            this.Label_ParaSigma2.Location = new System.Drawing.Point(461, 246);
+            this.Label_ParaSigma2.Name = "Label_ParaSigma2";
+            this.Label_ParaSigma2.Size = new System.Drawing.Size(41, 12);
+            this.Label_ParaSigma2.TabIndex = 45;
+            this.Label_ParaSigma2.Text = "模糊度";
+            this.Label_ParaSigma2.Click += new System.EventHandler(this.Label_ParaSigma2_Click);
+            // 
+            // TrackBar_ParaSigma2
+            // 
+            this.TrackBar_ParaSigma2.AutoSize = false;
+            this.TrackBar_ParaSigma2.Location = new System.Drawing.Point(518, 242);
+            this.TrackBar_ParaSigma2.Name = "TrackBar_ParaSigma2";
+            this.TrackBar_ParaSigma2.Size = new System.Drawing.Size(116, 21);
+            this.TrackBar_ParaSigma2.TabIndex = 44;
+            this.TrackBar_ParaSigma2.Scroll += new System.EventHandler(this.TrackBar_ParaSigma2_Scroll);
+            // 
+            // CheckBoxAlgo3GaussianBlur
+            // 
+            this.CheckBoxAlgo3GaussianBlur.AutoSize = true;
+            this.CheckBoxAlgo3GaussianBlur.Location = new System.Drawing.Point(463, 219);
+            this.CheckBoxAlgo3GaussianBlur.Name = "CheckBoxAlgo3GaussianBlur";
+            this.CheckBoxAlgo3GaussianBlur.Size = new System.Drawing.Size(72, 16);
+            this.CheckBoxAlgo3GaussianBlur.TabIndex = 43;
+            this.CheckBoxAlgo3GaussianBlur.Text = "图像模糊";
+            this.CheckBoxAlgo3GaussianBlur.UseVisualStyleBackColor = true;
+            this.CheckBoxAlgo3GaussianBlur.CheckedChanged += new System.EventHandler(this.CheckBoxAlgo3GaussianBlur_CheckedChanged);
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1614, 940);
+            this.ClientSize = new System.Drawing.Size(807, 451);
+            this.Controls.Add(this.Value_ParaSigma2Max);
+            this.Controls.Add(this.Value_ParaSigma2Min);
+            this.Controls.Add(this.Label_Para3Max);
+            this.Controls.Add(this.Label_Para3Min);
+            this.Controls.Add(this.Label_ParaSigma2);
+            this.Controls.Add(this.TrackBar_ParaSigma2);
+            this.Controls.Add(this.CheckBoxAlgo3GaussianBlur);
             this.Controls.Add(this.pBarImg);
             this.Controls.Add(this.Value_ParaInterceptMax);
             this.Controls.Add(this.Value_ParaInterceptMin);
@@ -556,7 +622,6 @@
             this.Controls.Add(this.CheckBoxAlgo2GrayScale);
             this.Controls.Add(this.CheckBoxAlgo1Gauss);
             this.Controls.Add(this.Button_StartDegradation);
-            this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "Form1";
             this.Text = "图像退化软件";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -573,6 +638,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.Value_ParaSlopeMin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TrackBar_ParaIntercept)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TrackBar_ParaSlope)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Value_ParaSigma2Max)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Value_ParaSigma2Min)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TrackBar_ParaSigma2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -616,6 +684,13 @@
         private System.Windows.Forms.TrackBar TrackBar_ParaIntercept;
         private System.Windows.Forms.TrackBar TrackBar_ParaSlope;
         private System.Windows.Forms.ProgressBar pBarImg;
+        private System.Windows.Forms.NumericUpDown Value_ParaSigma2Max;
+        private System.Windows.Forms.NumericUpDown Value_ParaSigma2Min;
+        private System.Windows.Forms.Label Label_Para3Max;
+        private System.Windows.Forms.Label Label_Para3Min;
+        private System.Windows.Forms.Label Label_ParaSigma2;
+        private System.Windows.Forms.TrackBar TrackBar_ParaSigma2;
+        private System.Windows.Forms.CheckBox CheckBoxAlgo3GaussianBlur;
     }
 }
 

@@ -48,11 +48,12 @@ namespace WfaAutoFacDemo
             string fullpath_Ori = Path.Combine(path_Ori);
             imgOrigin.SaveImage(fullpath_Ori);
 
-            double[,] ParaVal = new double[4, img_num];
+            double[,] ParaVal = new double[5, img_num];
             double[] MiuVal = new double[img_num];
             double[] SigmaVal = new double[img_num];
             double[] SlopeVal = new double[img_num];
             double[] InterceptVal = new double[img_num];
+            double[] Sigma2Val = new double[img_num];
 
             //判断一共有几种算法，统计有多少变量，做成一整个数组
 
@@ -84,7 +85,18 @@ namespace WfaAutoFacDemo
                 SlopeVal = ParaList.GetRandomList(slopeMin, slopeMax, img_num);
                 InterceptVal = ParaList.GetRandomList(interceptMin, interceptMax, img_num);
             }
-            
+
+            if (CheckBoxAlgo3GaussianBlur.Checked)
+            {
+                double sigma2Scale = 1;//设为0~5
+
+                double sigma2Min = Convert.ToDouble(Value_ParaSigma2Min.Value) / sigma2Scale;
+                double sigma2Max = Convert.ToDouble(Value_ParaSigma2Max.Value) / sigma2Scale;
+
+                Sigma2Val = ParaList.GetRandomList(sigma2Min, sigma2Max, img_num);
+            }
+
+
             //存储数组
             string newTxtPath = ImgStorageFolder.SelectedPath + string.Concat("/", "Para", ".txt");//创建txt文件的具体路径
             StreamWriter sw = new StreamWriter(newTxtPath, false, Encoding.Default);//实例化StreamWriter
@@ -102,10 +114,17 @@ namespace WfaAutoFacDemo
                     transImg = img.GrayScale(transImg, SlopeVal[i], InterceptVal[i]); 
                 }
 
+                if (CheckBoxAlgo3GaussianBlur.Checked)
+                {
+                    transImg = img.LowPassFreq(transImg, Sigma2Val[i]);
+                }
+
                 imgResult = transImg.Clone();
 
                 //存储图片
-                String[] path = {ImgStorageFolder.SelectedPath, string.Concat("Images", i.ToString("D5"),".jpg") };
+                string imgNamePrefix = TextBox_FileNamePrefix.Text;
+                //String[] path = {ImgStorageFolder.SelectedPath, string.Concat("Images", i.ToString("D5"),".jpg") };
+                String[] path = { ImgStorageFolder.SelectedPath, string.Concat(imgNamePrefix, i.ToString("D5"), ".jpg") };
                 string fullpath = Path.Combine(path);
                 imgResult.SaveImage(fullpath);
 
@@ -120,6 +139,7 @@ namespace WfaAutoFacDemo
                     + SigmaVal[i].ToString("F5") + "\t"
                     + SlopeVal[i].ToString("F5") + "\t"
                     + InterceptVal[i].ToString("F5") + "\t"
+                    + Sigma2Val[i].ToString("F5") + "\t"
                     );
 
                 //double[][] Val = new double[2][];
@@ -207,6 +227,41 @@ namespace WfaAutoFacDemo
         }
 
         private void FileNamePrefix_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CheckBoxAlgo3GaussianBlur_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Value_ParaSigma2Max_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Label_Para3Max_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Label_Para3Min_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Label_ParaSigma2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TrackBar_ParaSigma2_Scroll(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Value_ParaSigma2Min_ValueChanged(object sender, EventArgs e)
         {
 
         }
