@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Imagenation
+namespace ImageNation
 {
-    public partial class TestForm : Form
+    public partial class PreviewForm : Form
     {
-        public TestForm()
+        public PreviewForm()
         {
             InitializeComponent();
         }
