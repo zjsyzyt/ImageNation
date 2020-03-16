@@ -39,6 +39,7 @@ namespace ImageNation
             //}
         }
 
+        //高斯噪声
         public Mat GaussianNoise(Mat Mat, double miu, double sigma)
         {
             Mat dstImage = ImgPreProcess(Mat);
@@ -113,6 +114,23 @@ namespace ImageNation
         //    return BitConverter.ToInt32(bytes, 0);
         //} 
 
+        //椒盐噪声
+        public Mat PepperNoise(Mat Mat,int n)
+        {
+            Mat dstImage = ImgPreProcess(Mat);
+
+            int w = Mat.Cols;
+            int h = Mat.Rows;
+
+            for (int k = 0;k<(w*h);k++)
+            {
+
+            }
+        }
+            
+
+
+        //灰度线性变化
         public Mat GrayScale(Mat Mat, double k, double b)
         {
             Mat dstImage = ImgPreProcess(Mat);
@@ -168,7 +186,14 @@ namespace ImageNation
             //dstImage.ConvertTo(dstImage,MatType.CV_8UC1);
             //out = out *255;
             dstImage = dstImage * 255;
-            return dstImage;
+            //return dstImage;
+
+
+            //除去边框
+            Rect roi = new Rect(0, 0, oriImage.Cols, oriImage.Rows);//首先要用个rect确定我们的兴趣区域在哪
+            Mat dstImageROI = new Mat(dstImage, roi);//新建一个mat，把roi内的图像加载到里面去。
+
+            return dstImageROI;
         }
 
 

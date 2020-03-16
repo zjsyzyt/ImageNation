@@ -13,9 +13,9 @@ using OpenCvSharp;
 
 namespace ImageNation
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();//构造函数
         }
@@ -26,6 +26,20 @@ namespace ImageNation
         }
 
         public Mat imgOrigin;//定义初始图像
+
+        //public OpenFileDialog GetOpenFileDialog
+        //Mat(OpenImgFileDialog.FileName, ImreadModes.Grayscale);
+        public Mat ImgOriginPublic
+        {
+            get
+            {
+                imgOrigin = new Mat(OpenImgFileDialog.FileName, ImreadModes.Grayscale);
+                return imgOrigin;
+            }
+
+        }
+
+
         public Mat imgResult;
         ParaProcess ParaList= new ParaProcess();//动态类，需要实例化；工具类一般用静态类，函数前加static即可直接调用
         ImgProcess img = new ImgProcess();
@@ -42,7 +56,8 @@ namespace ImageNation
             int img_num = Convert.ToInt32(ImgNum.Value); //获取输入框中的数字,目标图片总数
             pBarImg.Maximum = img_num;//设置最大长度值
             pBarImg.Value = 0;//设置当前值
-            imgOrigin = new Mat(OpenImgFileDialog.FileName,ImreadModes.Grayscale);
+            //imgOrigin = new Mat(OpenImgFileDialog.FileName,ImreadModes.Grayscale);
+            Mat imgOrigin = this.ImgOriginPublic;
 
             String[] path_Ori = { ImgStorageFolder.SelectedPath, string.Concat("Image_Original", ".jpg") };
             string fullpath_Ori = Path.Combine(path_Ori);
@@ -74,8 +89,26 @@ namespace ImageNation
 
             if (CheckBoxAlgo2GrayScale.Checked)
             {
+                ComboBox_GrayScale.Visible = true;
+
                 double slopeScale = 25;//设为-4~4
                 double interceptScale = 2;//设为-50~50
+
+                switch (ComboBox_GrayScale.SelectedIndex)
+                {
+                    case 0:
+                        slopeScale = 1;
+                        break;
+                    case 1:
+
+                        break;
+
+                    default:
+                        break;
+                }
+
+
+
 
                 double slopeMin = Convert.ToDouble(Value_ParaSlopeMin.Value)/slopeScale;
                 double slopeMax = Convert.ToDouble(Value_ParaSlopeMax.Value)/slopeScale;
@@ -271,8 +304,16 @@ namespace ImageNation
 
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void MainForm_Load(object sender, EventArgs e)
         {
+
+        }
+
+        private void Button_PreviewForm_Click(object sender, EventArgs e)
+        {
+            PreviewForm previewForm = new PreviewForm(this);
+            previewForm.Show();
+
 
         }
     }
