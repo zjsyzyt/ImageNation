@@ -101,26 +101,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MainForm.cs">
+    <Compile Include="UI\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
+    <Compile Include="UI\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ImgProcess.cs" />
-    <Compile Include="ParaProcess.cs" />
-    <Compile Include="PreviewForm.cs">
+    <Compile Include="Service\ImgProcess.cs" />
+    <Compile Include="Service\ParaProcess.cs" />
+    <Compile Include="UI\PreviewForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PreviewForm.Designer.cs">
+    <Compile Include="UI\PreviewForm.Designer.cs">
       <DependentUpon>PreviewForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Program.cs" />
+    <Compile Include="Service\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="MainForm.resx">
+    <EmbeddedResource Include="UI\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PreviewForm.resx">
+    <EmbeddedResource Include="UI\PreviewForm.resx">
       <DependentUpon>PreviewForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

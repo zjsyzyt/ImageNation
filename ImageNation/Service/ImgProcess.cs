@@ -11,6 +11,7 @@ namespace ImageNation
     {
         private Mat ImgPreProcess(Mat Mat)
         {
+
             Mat dstImage=Mat.Clone();//先要初始化；
             int channels = dstImage.Channels();
             switch (channels)
@@ -115,17 +116,38 @@ namespace ImageNation
         //} 
 
         //椒盐噪声
-        public Mat PepperNoise(Mat Mat,int n)
+        public Mat PepperNoise(Mat Mat,double noise_coeff,int noise_type_index)
         {
             Mat dstImage = ImgPreProcess(Mat);
 
-            int w = Mat.Cols;
-            int h = Mat.Rows;
+            int w = dstImage.Cols;
+            int h = dstImage.Rows;
+            int n = (int) (w * h * noise_coeff/100);
+            int value = 0;
+            int noiseCols = 0;
+            int noiseRows = 0;
+            Random rnd = new Random();
 
-            for (int k = 0;k<(w*h);k++)
+            for (int k = 0; k<n ; k++)
             {
+                noiseCols = rnd.Next(dstImage.Cols);
+                noiseRows = rnd.Next(dstImage.Rows);
+                if (noise_type_index==0)
+                {
+                    value = 0;
+                }
+                else if (noise_type_index == 1)
+                {
+                    value = 255;
+                }
+                else
+                {
+                    value = rnd.Next(0,2)*255;
+                }
+                dstImage.Set(noiseRows, noiseCols, (byte)value);
 
             }
+            return dstImage;
         }
             
 

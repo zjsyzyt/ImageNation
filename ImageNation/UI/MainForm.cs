@@ -18,12 +18,56 @@ namespace ImageNation
         public MainForm()
         {
             InitializeComponent();//构造函数
+            ComboBox_GrayScale.Enabled = false;
+            ComboBox_PepperNoise.Enabled = false;
         }
 
-        private void CheckBox_Algo1_Gauss_CheckedChanged(object sender, EventArgs e)
+        public PreviewForm previewForm { get; set;}
+
+        //将私有的勾选状态转成可以用公有的方法获取;通过属性传递
+        //mainForm和previewForm之间状态同步
+        public CheckBox State_CheckBoxAlgo1Gauss()
         {
-
+            //this.CheckBoxAlgo1Gauss.CheckState = previewForm.State_CheckBoxAlgo1Gauss().CheckState;
+            return this.CheckBoxAlgo1Gauss;
         }
+
+        public CheckBox State_CheckBoxAlgo2GrayScale()
+        {
+            //this.CheckBoxAlgo2GrayScale.CheckState = previewForm.State_CheckBoxAlgo2GrayScale().CheckState;
+            return this.CheckBoxAlgo2GrayScale;
+        }
+
+        public CheckBox State_CheckBoxAlgo3GaussianBlur()
+        {
+            //this.CheckBoxAlgo3GaussianBlur.CheckState = previewForm.State_CheckBoxAlgo3GaussianBlur().CheckState;
+            return this.CheckBoxAlgo3GaussianBlur;
+        }
+
+        public CheckBox State_CheckBoxAlgo4PepperNoise()
+        {
+            //this.CheckBoxAlgo4PepperNoise.CheckState = previewForm.State_CheckBoxAlgo4PepperNoise().CheckState;
+            return this.CheckBoxAlgo4PepperNoise;
+        }
+
+        public ComboBox State_ComboBox_PepperNoise()
+        {
+            return this.ComboBox_PepperNoise;
+        }
+
+        public ComboBox State_ComboBox_GrayScale()
+        {
+            return this.ComboBox_GrayScale;
+        }
+
+        ////委托方法接收PreView传来的参数
+        //private void RecvPara(decimal para)
+        //{
+        //    Value_ParaSlopeMin.Value = para;
+
+        //}
+
+
 
         public Mat imgOrigin;//定义初始图像
 
@@ -38,7 +82,6 @@ namespace ImageNation
             }
 
         }
-
 
         public Mat imgResult;
         ParaProcess ParaList= new ParaProcess();//动态类，需要实例化；工具类一般用静态类，函数前加static即可直接调用
@@ -63,12 +106,14 @@ namespace ImageNation
             string fullpath_Ori = Path.Combine(path_Ori);
             imgOrigin.SaveImage(fullpath_Ori);
 
-            double[,] ParaVal = new double[5, img_num];
+            double[,] ParaVal = new double[6, img_num];
             double[] MiuVal = new double[img_num];
             double[] SigmaVal = new double[img_num];
             double[] SlopeVal = new double[img_num];
             double[] InterceptVal = new double[img_num];
             double[] Sigma2Val = new double[img_num];
+            double[] CoeffVal = new double[img_num];
+
 
             //判断一共有几种算法，统计有多少变量，做成一整个数组
 
@@ -86,34 +131,13 @@ namespace ImageNation
                 SigmaVal = ParaList.GetRandomList(sigmaMin, sigmaMax, img_num);
             }
 
-
             if (CheckBoxAlgo2GrayScale.Checked)
             {
-                ComboBox_GrayScale.Visible = true;
 
-                double slopeScale = 25;//设为-4~4
-                double interceptScale = 2;//设为-50~50
-
-                switch (ComboBox_GrayScale.SelectedIndex)
-                {
-                    case 0:
-                        slopeScale = 1;
-                        break;
-                    case 1:
-
-                        break;
-
-                    default:
-                        break;
-                }
-
-
-
-
-                double slopeMin = Convert.ToDouble(Value_ParaSlopeMin.Value)/slopeScale;
-                double slopeMax = Convert.ToDouble(Value_ParaSlopeMax.Value)/slopeScale;
-                double interceptMin = Convert.ToDouble(Value_ParaInterceptMin.Value)/interceptScale;
-                double interceptMax = Convert.ToDouble(Value_ParaInterceptMax.Value)/interceptScale;
+                double slopeMin = Convert.ToDouble(Value_ParaSlopeMin.Value);
+                double slopeMax = Convert.ToDouble(Value_ParaSlopeMax.Value);
+                double interceptMin = Convert.ToDouble(Value_ParaInterceptMin.Value);
+                double interceptMax = Convert.ToDouble(Value_ParaInterceptMax.Value);
 
                 SlopeVal = ParaList.GetRandomList(slopeMin, slopeMax, img_num);
                 InterceptVal = ParaList.GetRandomList(interceptMin, interceptMax, img_num);
@@ -127,6 +151,17 @@ namespace ImageNation
                 double sigma2Max = Convert.ToDouble(Value_ParaSigma2Max.Value) / sigma2Scale;
 
                 Sigma2Val = ParaList.GetRandomList(sigma2Min, sigma2Max, img_num);
+            }
+
+            if (CheckBoxAlgo4PepperNoise.Checked)
+            {
+                ComboBox_PepperNoise.Visible = true;
+
+                double coeffMin = Convert.ToDouble(Value_ParaNoiseCoeffMin.Value);
+                double coeffMax = Convert.ToDouble(Value_ParaNoiseCoeffMax.Value);
+
+                CoeffVal = ParaList.GetRandomList(coeffMin, coeffMax, img_num);
+
             }
 
 
@@ -152,6 +187,11 @@ namespace ImageNation
                     transImg = img.LowPassFreq(transImg, Sigma2Val[i]);
                 }
 
+                if (CheckBoxAlgo4PepperNoise.Checked)
+                {
+                    transImg = img.PepperNoise(transImg, CoeffVal[i], ComboBox_PepperNoise.SelectedIndex);
+                }
+
                 imgResult = transImg.Clone();
 
                 //存储图片
@@ -173,6 +213,7 @@ namespace ImageNation
                     + SlopeVal[i].ToString("F5") + "\t"
                     + InterceptVal[i].ToString("F5") + "\t"
                     + Sigma2Val[i].ToString("F5") + "\t"
+                    + CoeffVal[i].ToString("F5") + "\t"
                     );
 
                 //double[][] Val = new double[2][];
@@ -228,7 +269,7 @@ namespace ImageNation
         {
 
         }
-
+        
         private void Value_ParaMiuMin_ValueChanged(object sender, EventArgs e)
         {
 
@@ -246,7 +287,15 @@ namespace ImageNation
 
         private void CheckBoxAlgo2GrayScale_CheckedChanged(object sender, EventArgs e)
         {
-
+            switch (CheckBoxAlgo2GrayScale.Checked)
+            {
+                case true:
+                    ComboBox_GrayScale.Enabled = true;
+                    break;
+                case false:
+                    ComboBox_GrayScale.Enabled = false;
+                    break;
+            }
         }
 
         private void Value_ParaSigmaMin_ValueChanged(object sender, EventArgs e)
@@ -311,10 +360,78 @@ namespace ImageNation
 
         private void Button_PreviewForm_Click(object sender, EventArgs e)
         {
-            PreviewForm previewForm = new PreviewForm(this);
+            PreviewForm previewForm = new PreviewForm(this);//引用Preview(MainForm)
+
+            //用这个方法无法传输图像和数据，仅实例化Preview()
+            //PreviewForm previewForm = new PreviewForm();//实例化，引用Preview()
+            //previewForm.mainForm = this;//建立父子关系,此时this指向mainform窗口
+
             previewForm.Show();
 
 
+
+
+        }
+
+        private void CheckBoxAlgo4PepperNoise_CheckedChanged(object sender, EventArgs e)
+        {
+            switch (CheckBoxAlgo4PepperNoise.Checked)
+            {
+                case true:
+                    ComboBox_PepperNoise.Enabled = true;
+                    break;
+                case false:
+                    ComboBox_PepperNoise.Enabled = false;
+                    break;
+            }
+        }
+
+        private void comboBox_PepperNoise_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ComboBox_GrayScale_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (ComboBox_GrayScale.SelectedIndex)
+            {
+                case 0://增大对比度
+                    Value_ParaSlopeMin.Minimum = 1;
+                    Value_ParaSlopeMin.Maximum = 5;
+                    Value_ParaSlopeMax.Minimum = 1;
+                    Value_ParaSlopeMax.Maximum = 5;
+                    Value_ParaSlopeMin.DecimalPlaces = 1;
+                    Value_ParaSlopeMin.Increment = 0.2M;
+                    Value_ParaSlopeMax.DecimalPlaces = 1;
+                    Value_ParaSlopeMax.Increment = 0.2M;
+                    break;
+                case 1://减小对比度
+                    Value_ParaSlopeMin.Minimum = 0;
+                    Value_ParaSlopeMin.Maximum = 1;
+                    Value_ParaSlopeMax.Minimum = 0;
+                    Value_ParaSlopeMax.Maximum = 1;
+                    Value_ParaSlopeMin.DecimalPlaces = 1;
+                    Value_ParaSlopeMin.Increment = 0.1M;
+                    Value_ParaSlopeMax.DecimalPlaces = 1;
+                    Value_ParaSlopeMax.Increment = 0.1M;
+                    break;
+                case 2://倒置
+                    Value_ParaSlopeMin.Minimum = -1;
+                    Value_ParaSlopeMin.Maximum = -1;
+                    Value_ParaSlopeMax.Minimum = -1;
+                    Value_ParaSlopeMax.Maximum = -1;
+                    Value_ParaSlopeMin.Value = -1;
+                    Value_ParaSlopeMax.Value = -1;
+                    Value_ParaInterceptMin.Minimum = 255;
+                    Value_ParaInterceptMin.Maximum = 255;
+                    Value_ParaInterceptMax.Minimum = 255;
+                    Value_ParaInterceptMax.Maximum = 255;
+                    Value_ParaInterceptMin.Value = 255;
+                    Value_ParaInterceptMax.Value = 255;
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
