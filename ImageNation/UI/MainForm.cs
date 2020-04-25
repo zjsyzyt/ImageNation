@@ -24,6 +24,7 @@ namespace ImageNation
 
         public PreviewForm previewForm { get; set;}
 
+
         //将私有的勾选状态转成可以用公有的方法获取;通过属性传递
         //mainForm和previewForm之间状态同步
         public CheckBox State_CheckBoxAlgo1Gauss()
@@ -60,12 +61,12 @@ namespace ImageNation
             return this.ComboBox_GrayScale;
         }
 
-        ////委托方法接收PreView传来的参数
-        //private void RecvPara(decimal para)
-        //{
-        //    Value_ParaSlopeMin.Value = para;
+        //委托方法接收PreView传来的参数
+        private void RecvPara(decimal para)
+        {
+            Value_ParaSlopeMin.Value = para;
 
-        //}
+        }
 
 
 
@@ -119,7 +120,7 @@ namespace ImageNation
 
             if (CheckBoxAlgo1Gauss.Checked)
             {
-                double miuScale = 5;//设为-20~20
+                double miuScale = 1;//设为-100~100
                 double sigmaScale = 20;//设为0~5
 
                 double miuMin = Convert.ToDouble(Value_ParaMiuMin.Value)/miuScale;
@@ -145,7 +146,7 @@ namespace ImageNation
 
             if (CheckBoxAlgo3GaussianBlur.Checked)
             {
-                double sigma2Scale = 1;//设为0~5
+                double sigma2Scale = 1;//参数值设为0~100，值越小越模糊，故需反转
 
                 double sigma2Min = Convert.ToDouble(Value_ParaSigma2Min.Value) / sigma2Scale;
                 double sigma2Max = Convert.ToDouble(Value_ParaSigma2Max.Value) / sigma2Scale;
@@ -204,7 +205,7 @@ namespace ImageNation
                 pBarImg.Value = i+1;//进度条更新
                 //if (i == img_num)
                 //{
-                //    Console.WriteLine("退化完成！");
+                //    Console.WriteLine("退化完成！");//只有控制台程序中才有
                 //}
 
                 //存储参数数据

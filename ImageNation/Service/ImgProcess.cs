@@ -200,6 +200,8 @@ namespace ImageNation
             Mat paddedImage= new Mat();
             Cv2.CopyMakeBorder(oriImage, paddedImage, 0, h - oriImage.Rows, 0, w - oriImage.Cols, BorderTypes.Constant, Scalar.All(0));//边界填充
             paddedImage.ConvertTo(paddedImage, MatType.CV_64FC1); //将图像转换为double型
+            //大小值反转，使得用户设定参数小的为模糊程度更小的
+            sigma = 100 - sigma;
             Mat GaussianKernel = GaussianLowPassFreq(paddedImage, sigma);//高斯低通滤波器
 
             Mat dstImage = new Mat();

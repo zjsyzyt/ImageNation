@@ -179,15 +179,15 @@ namespace ImageNation
             mainForm.State_ComboBox_PepperNoise().SelectedIndex = this.ComboBox_PepperNoise.SelectedIndex;
         }
 
-        ////委托方法传递参数到MainForm
-        //public delegate void SendPara(decimal para);
-        //public event SendPara SendToMainForm;
+        //委托方法传递参数到MainForm
+        public delegate void SendPara(decimal para);
+        public event SendPara SendToMainForm;
 
-        //private void Button_SetParaInterceptMin_Click(object sender, EventArgs e)
-        //{
-        //    SendToMainForm(this.Value_ParaSlope_PreView.Value);
+        private void Button_SetParaInterceptMin_Click(object sender, EventArgs e)
+        {
+            SendToMainForm(this.Value_ParaSlope_PreView.Value);
 
-        //}
+        }
 
         private void Button_SetParaInterceptMax_Click(object sender, EventArgs e)
         {
