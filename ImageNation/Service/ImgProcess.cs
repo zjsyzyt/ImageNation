@@ -320,18 +320,43 @@ namespace ImageNation
             return plane[0];//返回参数
         }
 
-        //public Mat ImgAffine(Mat Mat,double x,double y,double angle)
-        //{
-        //    double[,] M = new double[2, 3]
-        //    {
-        //        { }
-        //    };   
-        //    Mat dstImage=Mat.WarpAffine(
 
+        //图像平移
+        public Mat ImgAffine_Offset(Mat Mat, double dx, double dy)
+        {
+            Mat M = Mat.Zeros(2, 3, MatType.CV_64FC1);
+            M.Set<double>(0, 0, 1);
+            M.Set<double>(0, 2, dx);
+            M.Set<double>(1, 1, 1);
+            M.Set<double>(1, 2, dy);
 
+            Mat dstImage = Mat.WarpAffine(M, Mat.Size(), InterpolationFlags.Linear, BorderTypes.Constant);
 
-        //}
+            return dstImage;
+        }
 
+        //图像旋转
+        public Mat ImgAffine_Rotate(Mat Mat, double angle)
+        {
+            double scale = 1;
+            Point2f RotateCenter = new Point2f
+            {
+                X = (float)(Mat.Cols / 2),
+                Y = (float)(Mat.Rows / 2)
+            };
+
+            //Point2f RotateCenter = new Point2f();
+            //RotateCenter.X = (float)(Mat.Rows / 2);
+            //RotateCenter.Y = (float)(Mat.Cols / 2);
+
+            Mat M = Cv2.GetRotationMatrix2D(RotateCenter, angle, scale);
+
+            Mat dstImage = Mat.WarpAffine(M, Mat.Size(), InterpolationFlags.Linear, BorderTypes.Constant);
+
+            return dstImage;
+        }
+
+        //降采样
 
 
 

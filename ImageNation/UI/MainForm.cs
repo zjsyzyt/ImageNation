@@ -61,6 +61,9 @@ namespace ImageNation
             return this.ComboBox_GrayScale;
         }
 
+
+
+
         public Mat imgOrigin;//定义初始图像
 
         //public OpenFileDialog GetOpenFileDialog
@@ -106,6 +109,10 @@ namespace ImageNation
             double[] Sigma2Val = new double[img_num];
             double[] CoeffVal = new double[img_num];
 
+            double[] OffsetXVal = new double[img_num];
+            double[] OffsetYVal = new double[img_num];
+            double[] AngleVal = new double[img_num];
+            //double[] PyrDownCoeffVal = new double[img_num];
 
             //判断一共有几种算法，统计有多少变量，做成一整个数组
 
@@ -156,10 +163,38 @@ namespace ImageNation
 
             }
 
+            if (CheckBoxOffsetX.Checked)
+            {
+                double offsetXMin = Convert.ToDouble(Value_ParaOffsetXMin.Value);
+                double offsetXMax = Convert.ToDouble(Value_ParaOffsetXMax.Value);
+
+                OffsetXVal = ParaList.GetRandomList(offsetXMin, offsetXMax, img_num);
+            }
+
+            if (CheckBoxOffsetY.Checked)
+            {
+                double offsetYMin = Convert.ToDouble(Value_ParaOffsetYMin.Value);
+                double offsetYMax = Convert.ToDouble(Value_ParaOffsetYMax.Value);
+
+                OffsetYVal = ParaList.GetRandomList(offsetYMin, offsetYMax, img_num);
+            }
+
+            if (CheckBoxRotate.Checked)
+            {
+                double angleMin = Convert.ToDouble(Value_ParaAngleMin.Value);
+                double angleMax = Convert.ToDouble(Value_ParaAngleMax.Value);
+
+                AngleVal = ParaList.GetRandomList(angleMin, angleMax, img_num);
+            }
+
+
+
 
             //存储数组
             string newTxtPath = ImgStorageFolder.SelectedPath + string.Concat("/", "Para", ".txt");//创建txt文件的具体路径
             StreamWriter sw = new StreamWriter(newTxtPath, false, Encoding.Default);//实例化StreamWriter
+
+            double pyrDownCoeff = 0;
 
             for (int i = 0; i < img_num; i++)
             {
@@ -184,6 +219,42 @@ namespace ImageNation
                     transImg = img.PepperNoise(transImg, CoeffVal[i], ComboBox_PepperNoise.SelectedIndex);
                 }
 
+                if (CheckBoxOffsetX.Checked || CheckBoxOffsetY.Checked)
+                {
+                    double offsetx, offsety;
+                    if (CheckBoxOffsetX.Checked)
+                    {
+                        offsetx = OffsetXVal[i];
+                    }
+                    else
+                    {
+                        offsetx = 0;
+                    }
+
+                    if (CheckBoxOffsetY.Checked)
+                    {
+                        offsety = OffsetYVal[i];
+                    }
+                    else
+                    {
+                        offsety = 0;
+                    }
+
+                    transImg = img.ImgAffine_Offset(transImg, offsetx, offsety);
+                }
+
+                if (CheckBoxRotate.Checked)
+                {
+                    transImg = img.ImgAffine_Rotate(transImg, AngleVal[i]);
+                }
+
+                if (CheckBoxPyrDown.Checked)
+                {
+                    pyrDownCoeff = (double)Value_ParaPyrDownCoeff.Value;
+                    transImg = transImg.PyrDown();
+                    //transImg = transImg.PyrDown(new OpenCvSharp.Size((int)(transImg.Cols * pyrDownCoeff), (int)(transImg.Rows * pyrDownCoeff)));
+                }
+
                 imgResult = transImg.Clone();
 
                 //存储图片
@@ -206,6 +277,10 @@ namespace ImageNation
                     + InterceptVal[i].ToString("F5") + "\t"
                     + Sigma2Val[i].ToString("F5") + "\t"
                     + CoeffVal[i].ToString("F5") + "\t"
+                    + OffsetXVal[i].ToString("F5") + "\t"
+                    + OffsetYVal[i].ToString("F5") + "\t"
+                    + AngleVal[i].ToString("F5") + "\t"
+                    + pyrDownCoeff.ToString("F5") + "\t"
                     );
 
                 //double[][] Val = new double[2][];
@@ -226,8 +301,9 @@ namespace ImageNation
         {
             //OpenFileDialog openFileDialog1 = new OpenFileDialog();     //显示选择文件对话框
             OpenImgFileDialog.InitialDirectory = "C:\\Users\\zjsyzyt\\Pictures";//初始加载路径为C盘；
-            OpenImgFileDialog.Filter = "图像文件 (*.bmp)|*.bmp";//过滤你想设置的文本文件类型（这是txt型）
-                                                          // openFileDialog1.Filter = "文本文件 (*.txt)|*.txt|All files (*.*)|*.*";（这是全部类型文件）
+            //OpenImgFileDialog.Filter = "All Image Files|*.bmp;*.ico;*.gif;*.jpeg;*.jpg;*.png;*.tif;*.tiff|";//过滤你想设置的文本文件类型（这是txt型）
+            OpenImgFileDialog.Filter ="图像文件(*.bmp)|*.bmp|图像文件(*.jpg)|*.jpg"; ;//过滤你想设置的文本文件类型（这是txt型）
+                                                            // openFileDialog1.Filter = "文本文件 (*.txt)|*.txt|All files (*.*)|*.*";（这是全部类型文件）
             if (this.OpenImgFileDialog.ShowDialog() == DialogResult.OK)
             {
                 TextBox_ImgPath.Text = Path.GetFileName(OpenImgFileDialog.FileName);//显示文件的名字
@@ -311,6 +387,26 @@ namespace ImageNation
         }
 
         private void Value_ParaSigma2Max_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CheckBoxOffsetX_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CheckBoxOffsetY_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CheckBoxRotate_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CheckBoxPyrDown_CheckedChanged(object sender, EventArgs e)
         {
 
         }
@@ -502,6 +598,46 @@ namespace ImageNation
         private void RecvParaSigma2Max(SendValueEventArgs e)
         {
             Value_ParaSigma2Max.Value = e.Value;
+        }
+
+
+
+
+
+
+        private void Value_ParaOffsetXMin_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Value_ParaOffsetXMax_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Value_ParaOffsetYMin_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Value_ParaOffsetYMax_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Value_ParaAngleMin_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Value_ParaAngleMax_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Value_ParaPyrDownCoeff_ValueChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
