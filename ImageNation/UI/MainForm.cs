@@ -61,15 +61,6 @@ namespace ImageNation
             return this.ComboBox_GrayScale;
         }
 
-        //委托方法接收PreView传来的参数
-        private void RecvPara(decimal para)
-        {
-            Value_ParaSlopeMin.Value = para;
-
-        }
-
-
-
         public Mat imgOrigin;//定义初始图像
 
         //public OpenFileDialog GetOpenFileDialog
@@ -120,8 +111,8 @@ namespace ImageNation
 
             if (CheckBoxAlgo1Gauss.Checked)
             {
-                double miuScale = 1;//设为-100~100
-                double sigmaScale = 20;//设为0~5
+                double miuScale = 1;//设为-128~128
+                double sigmaScale = 1;//设为0~5
 
                 double miuMin = Convert.ToDouble(Value_ParaMiuMin.Value)/miuScale;
                 double miuMax = Convert.ToDouble(Value_ParaMiuMax.Value)/miuScale;
@@ -235,7 +226,7 @@ namespace ImageNation
         {
             //OpenFileDialog openFileDialog1 = new OpenFileDialog();     //显示选择文件对话框
             OpenImgFileDialog.InitialDirectory = "C:\\Users\\zjsyzyt\\Pictures";//初始加载路径为C盘；
-            OpenImgFileDialog.Filter = "图像文件 (*.jpg)|*.jpg";//过滤你想设置的文本文件类型（这是txt型）
+            OpenImgFileDialog.Filter = "图像文件 (*.bmp)|*.bmp";//过滤你想设置的文本文件类型（这是txt型）
                                                           // openFileDialog1.Filter = "文本文件 (*.txt)|*.txt|All files (*.*)|*.*";（这是全部类型文件）
             if (this.OpenImgFileDialog.ShowDialog() == DialogResult.OK)
             {
@@ -367,9 +358,24 @@ namespace ImageNation
             //PreviewForm previewForm = new PreviewForm();//实例化，引用Preview()
             //previewForm.mainForm = this;//建立父子关系,此时this指向mainform窗口
 
+            //添加委托实例定义
+            previewForm.SendParaInterceptMin += new PreviewForm.SendPara(RecvParaInterceptMin);
+            previewForm.SendParaInterceptMax += new PreviewForm.SendPara(RecvParaInterceptMax);
+            previewForm.SendParaSlopeMin += new PreviewForm.SendPara(RecvParaSlopeMin);
+            previewForm.SendParaSlopeMax += new PreviewForm.SendPara(RecvParaSlopeMax);
+
+            previewForm.SendParaMiuMin += new PreviewForm.SendPara(RecvParaMiuMin);
+            previewForm.SendParaMiuMax += new PreviewForm.SendPara(RecvParaMiuMax);
+            previewForm.SendParaSigmaMin += new PreviewForm.SendPara(RecvParaSigmaMin);
+            previewForm.SendParaSigmaMax += new PreviewForm.SendPara(RecvParaSigmaMax);
+
+            previewForm.SendParaNoiseCoeffMin += new PreviewForm.SendPara(RecvParaNoiseCoeffMin);
+            previewForm.SendParaNoiseCoeffMax += new PreviewForm.SendPara(RecvParaNoiseCoeffMax);
+
+            previewForm.SendParaSigma2Min += new PreviewForm.SendPara(RecvParaSigma2Min);
+            previewForm.SendParaSigma2Max += new PreviewForm.SendPara(RecvParaSigma2Max);
+
             previewForm.Show();
-
-
 
 
         }
@@ -387,7 +393,7 @@ namespace ImageNation
             }
         }
 
-        private void comboBox_PepperNoise_SelectedIndexChanged(object sender, EventArgs e)
+        private void ComboBox_PepperNoise_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
@@ -433,6 +439,69 @@ namespace ImageNation
                 default:
                     break;
             }
+        }
+
+
+        //委托方法接收PreView传来的参数
+        private void RecvParaInterceptMin(SendValueEventArgs e)
+        {
+            Value_ParaInterceptMin.Value = e.Value;
+        }
+
+        private void RecvParaInterceptMax(SendValueEventArgs e)
+        {
+            Value_ParaInterceptMax.Value = e.Value;
+        }
+
+        private void RecvParaSlopeMin(SendValueEventArgs e)
+        {
+            Value_ParaSlopeMin.Value = e.Value;
+        }
+
+        private void RecvParaSlopeMax(SendValueEventArgs e)
+        {
+            Value_ParaSlopeMax.Value = e.Value;
+        }
+
+
+        private void RecvParaMiuMin(SendValueEventArgs e)
+        {
+            Value_ParaMiuMin.Value = e.Value;
+        }
+
+        private void RecvParaMiuMax(SendValueEventArgs e)
+        {
+            Value_ParaMiuMax.Value = e.Value;
+        }
+
+        private void RecvParaSigmaMin(SendValueEventArgs e)
+        {
+            Value_ParaSigmaMin.Value = e.Value;
+        }
+
+        private void RecvParaSigmaMax(SendValueEventArgs e)
+        {
+            Value_ParaSigmaMax.Value = e.Value;
+        }
+
+        private void RecvParaNoiseCoeffMin(SendValueEventArgs e)
+        {
+            Value_ParaNoiseCoeffMin.Value = e.Value;
+        }
+
+        private void RecvParaNoiseCoeffMax(SendValueEventArgs e)
+        {
+            Value_ParaNoiseCoeffMax.Value = e.Value;
+        }
+
+        private void RecvParaSigma2Min(SendValueEventArgs e)
+        {
+            Value_ParaSigma2Min.Value = e.Value;
+        }
+
+        private void RecvParaSigma2Max(SendValueEventArgs e)
+        {
+            Value_ParaSigma2Max.Value = e.Value;
         }
     }
 }

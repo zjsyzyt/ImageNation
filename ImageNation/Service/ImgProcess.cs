@@ -320,6 +320,20 @@ namespace ImageNation
             return plane[0];//返回参数
         }
 
+        //public Mat ImgAffine(Mat Mat,double x,double y,double angle)
+        //{
+        //    double[,] M = new double[2, 3]
+        //    {
+        //        { }
+        //    };   
+        //    Mat dstImage=Mat.WarpAffine(
+
+
+
+        //}
+
+
+
 
 
 
