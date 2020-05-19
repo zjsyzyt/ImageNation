@@ -302,7 +302,7 @@ namespace ImageNation
             //OpenFileDialog openFileDialog1 = new OpenFileDialog();     //显示选择文件对话框
             OpenImgFileDialog.InitialDirectory = "C:\\Users\\zjsyzyt\\Pictures";//初始加载路径为C盘；
             //OpenImgFileDialog.Filter = "All Image Files|*.bmp;*.ico;*.gif;*.jpeg;*.jpg;*.png;*.tif;*.tiff|";//过滤你想设置的文本文件类型（这是txt型）
-            OpenImgFileDialog.Filter ="图像文件(*.bmp)|*.bmp|图像文件(*.jpg)|*.jpg"; ;//过滤你想设置的文本文件类型（这是txt型）
+            OpenImgFileDialog.Filter ="图像文件(*.jpg)|*.jpg|图像文件(*.bmp)|*.bmp"; ;//过滤你想设置的文本文件类型（这是txt型）
                                                             // openFileDialog1.Filter = "文本文件 (*.txt)|*.txt|All files (*.*)|*.*";（这是全部类型文件）
             if (this.OpenImgFileDialog.ShowDialog() == DialogResult.OK)
             {
@@ -315,7 +315,7 @@ namespace ImageNation
 
         private void Button_FilePathScan_Click(object sender, EventArgs e)
         {
-            ImgStorageFolder.SelectedPath = "C:\\Users\\zjsyzyt\\Desktop\\test";
+            ImgStorageFolder.SelectedPath = "C:\\Users\\zjsyzyt\\Desktop\\test\\InSight退化测试\\NG-Test1";
             if (this.ImgStorageFolder.ShowDialog() == DialogResult.OK)
             {
                 if (this.ImgStorageFolder.SelectedPath.Trim() != "")
