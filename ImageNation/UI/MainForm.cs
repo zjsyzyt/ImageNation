@@ -271,8 +271,8 @@ namespace ImageNation
                 //}
 
                 //存储参数数据
-                sw.WriteLine(MiuVal[i].ToString("F5") + "\t"
-                    + SigmaVal[i].ToString("F5") + "\t"
+                sw.WriteLine(SigmaVal[i].ToString("F5") + "\t"
+                    + MiuVal[i].ToString("F5") + "\t"
                     + SlopeVal[i].ToString("F5") + "\t"
                     + InterceptVal[i].ToString("F5") + "\t"
                     + Sigma2Val[i].ToString("F5") + "\t"
