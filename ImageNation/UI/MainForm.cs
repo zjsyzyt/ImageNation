@@ -639,5 +639,30 @@ namespace ImageNation
         {
 
         }
+
+        private void tabPage1_MainForm_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabPage3_MainForm_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Label_Para21Min_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
