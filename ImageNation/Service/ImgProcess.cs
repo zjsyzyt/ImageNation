@@ -9,18 +9,18 @@ namespace ImageNation
 {
     public class ImgProcess
     {
-        private Mat ImgPreProcess(Mat Mat)
+        private Mat ImgPreProcess(Mat srcMat)
         {
 
-            Mat dstImage=Mat.Clone();//先要初始化；
+            Mat dstImage = srcMat.Clone();//先要初始化；
             int channels = dstImage.Channels();
             switch (channels)
             {
                 case 1:
-                    dstImage = Mat.Clone();
+                    dstImage = srcMat.Clone();
                     break;
                 case 3:
-                    dstImage = Mat.CvtColor(ColorConversionCodes.BGR2GRAY);
+                    dstImage = srcMat.CvtColor(ColorConversionCodes.BGR2GRAY);
                     break;
                 default:
                     Console.WriteLine("图像格式有误，请重新导入");
@@ -216,6 +216,7 @@ namespace ImageNation
             //除去边框
             Rect roi = new Rect(0, 0, oriImage.Cols, oriImage.Rows);//首先要用个rect确定我们的兴趣区域在哪
             Mat dstImageROI = new Mat(dstImage, roi);//新建一个mat，把roi内的图像加载到里面去。
+            dstImageROI.ConvertTo(dstImageROI, MatType.CV_8UC1);
 
             return dstImageROI;
         }

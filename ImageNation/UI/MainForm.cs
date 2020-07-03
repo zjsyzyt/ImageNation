@@ -113,6 +113,7 @@ namespace ImageNation
             double[] OffsetYVal = new double[img_num];
             double[] AngleVal = new double[img_num];
             //double[] PyrDownCoeffVal = new double[img_num];
+            double[] PSNRVal = new double[img_num];
 
             //判断一共有几种算法，统计有多少变量，做成一整个数组
 
@@ -265,23 +266,28 @@ namespace ImageNation
                 imgResult.SaveImage(fullpath);
 
                 pBarImg.Value = i+1;//进度条更新
-                //if (i == img_num)
-                //{
-                //    Console.WriteLine("退化完成！");//只有控制台程序中才有
-                //}
+                                    //if (i == img_num)
+                                    //{
+                                    //    Console.WriteLine("退化完成！");//只有控制台程序中才有
+                                    //}
 
-                //存储参数数据
-                sw.WriteLine(SigmaVal[i].ToString("F5") + "\t"
-                    + MiuVal[i].ToString("F5") + "\t"
-                    + SlopeVal[i].ToString("F5") + "\t"
-                    + InterceptVal[i].ToString("F5") + "\t"
-                    + Sigma2Val[i].ToString("F5") + "\t"
-                    + CoeffVal[i].ToString("F5") + "\t"
-                    + OffsetXVal[i].ToString("F5") + "\t"
-                    + OffsetYVal[i].ToString("F5") + "\t"
-                    + AngleVal[i].ToString("F5") + "\t"
-                    + pyrDownCoeff.ToString("F5") + "\t"
-                    );
+
+                ImgQE imgQuality = new ImgQE();
+                PSNRVal[i] = imgQuality.ValuePSNR(imgOrigin, imgResult);
+
+                    //存储参数数据
+                    sw.WriteLine(SigmaVal[i].ToString("F5") + "\t"
+                        + MiuVal[i].ToString("F5") + "\t"
+                        + SlopeVal[i].ToString("F5") + "\t"
+                        + InterceptVal[i].ToString("F5") + "\t"
+                        + Sigma2Val[i].ToString("F5") + "\t"
+                        + CoeffVal[i].ToString("F5") + "\t"
+                        + OffsetXVal[i].ToString("F5") + "\t"
+                        + OffsetYVal[i].ToString("F5") + "\t"
+                        + AngleVal[i].ToString("F5") + "\t"
+                        + pyrDownCoeff.ToString("F5") + "\t"
+                        + PSNRVal[i].ToString("F5") + "\t"
+                        );
 
                 //double[][] Val = new double[2][];
                 //Val[0] = MiuVal;
@@ -300,7 +306,8 @@ namespace ImageNation
         private void Button_ImageScan_Click(object sender, EventArgs e)
         {
             //OpenFileDialog openFileDialog1 = new OpenFileDialog();     //显示选择文件对话框
-            OpenImgFileDialog.InitialDirectory = "C:\\Users\\zjsyzyt\\Pictures";//初始加载路径为C盘；
+            string originalPath = "C:\\Users\\zjsyzyt\\Pictures";
+            OpenImgFileDialog.InitialDirectory = originalPath;//初始加载路径为C盘；
             //OpenImgFileDialog.Filter = "All Image Files|*.bmp;*.ico;*.gif;*.jpeg;*.jpg;*.png;*.tif;*.tiff|";//过滤你想设置的文本文件类型（这是txt型）
             OpenImgFileDialog.Filter ="图像文件(*.jpg)|*.jpg|图像文件(*.bmp)|*.bmp"; ;//过滤你想设置的文本文件类型（这是txt型）
                                                             // openFileDialog1.Filter = "文本文件 (*.txt)|*.txt|All files (*.*)|*.*";（这是全部类型文件）

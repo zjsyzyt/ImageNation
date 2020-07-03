@@ -22,5 +22,17 @@ namespace ImageNation.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\\\Users\\\\zjsyzyt\\\\Desktop")]
+        public string originalPath {
+            get {
+                return ((string)(this["originalPath"]));
+            }
+            set {
+                this["originalPath"] = value;
+            }
+        }
     }
 }
