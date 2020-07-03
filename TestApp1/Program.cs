@@ -14,8 +14,8 @@ namespace TestApp1
             double psnrValue;
             //Mat srcMat = Cv2.ImRead("C:\\Users\\zjsyzyt\\Desktop\\test\\Image_Original.jpg",ImreadModes.Grayscale);
             //Mat Mat = Cv2.ImRead("C:\\Users\\zjsyzyt\\Desktop\\test\\Images00000.jpg", ImreadModes.Grayscale);
-            Mat srcMat = Cv2.ImRead("C:\\Users\\zjsyzyt\\OneDrive\\0工作文档\\2020论文征文\\图像退化论文\\质量评估\\质量评估1-offset\\MeasureDown1\\Image_Original.jpg", ImreadModes.Grayscale);
-            Mat Mat = Cv2.ImRead("C:\\Users\\zjsyzyt\\OneDrive\\0工作文档\\2020论文征文\\图像退化论文\\质量评估\\质量评估1-offset\\MeasureDown1\\Images00000.jpg", ImreadModes.Grayscale);
+            Mat srcMat = Cv2.ImRead("C:\\Users\\zjsyzyt\\OneDrive\\0工作文档\\2020论文征文\\图像退化论文\\质量评估\\质量评估2-nooffset\\MeasureDown2\\Images00000.jpg", ImreadModes.Grayscale);
+            Mat Mat = Cv2.ImRead("C:\\Users\\zjsyzyt\\OneDrive\\0工作文档\\2020论文征文\\图像退化论文\\质量评估\\质量评估2-nooffset\\MeasureDown2\\Images00000.jpg", ImreadModes.Grayscale);
 
             /*
             using (Mat tmp_m = new Mat(), tmp_sd = new Mat())
@@ -122,8 +122,8 @@ namespace TestApp1
                 //float k1 = 0.01f;
                 //float k2 = 0.03f;
                 //float L = 255f;
-                srcMat.ConvertTo(I1, MatType.CV_32F);
-                Mat.ConvertTo(I2, MatType.CV_32F);
+                srcMat.ConvertTo(I1, MatType.CV_64F);
+                Mat.ConvertTo(I2, MatType.CV_64F);
                 int ndim = I1.Dims;
                 double NP = (double)Math.Pow(winSize, ndim);//滑动窗口覆盖的像素点个数
                 double cov_norm = NP / (NP - 1);//NP个点上求平均值，无偏估计，需要乘以NP再除以NP-1
@@ -146,7 +146,7 @@ namespace TestApp1
                 Cv2.Blur(uxy, uxy, window, anchorPoint);
 
                 Mat ux_sq = ux.Mul(ux);//对均值矩阵进行元素平方，元素ux^2
-                Mat uy_sq = ux.Mul(uy);
+                Mat uy_sq = uy.Mul(uy);
                 Mat uxy_m = ux.Mul(uy);//对均值矩阵进行元素平方，元素ux*uy
 
                 Mat vx = cov_norm * (uxx - ux_sq);//x方差，=E(x^2)-E^2(x)，无偏估计

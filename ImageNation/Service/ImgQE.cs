@@ -30,7 +30,7 @@ namespace ImageNation
                 Mat1.ConvertTo(I1, MatType.CV_64F);
                 Mat2.ConvertTo(I2, MatType.CV_64F);
                 int ndim = I1.Dims;
-                double NP = Math.Pow((double)winSize, (double)ndim);//滑动窗口覆盖的像素点个数
+                double NP = (double)Math.Pow(winSize, ndim);//滑动窗口覆盖的像素点个数
                 double cov_norm = NP / (NP - 1);//NP个点上求平均值，无偏估计，需要乘以NP再除以NP-1
                 double C1 = (k1 * L) * (k1 * L);
                 double C2 = (k2 * L) * (k2 * L);
@@ -51,12 +51,12 @@ namespace ImageNation
                 Cv2.Blur(uxy, uxy, window, anchorPoint);
 
                 Mat ux_sq = ux.Mul(ux);//对均值矩阵进行元素平方，元素ux^2
-                Mat uy_sq = ux.Mul(uy);
+                Mat uy_sq = uy.Mul(uy);
                 Mat uxy_m = ux.Mul(uy);//对均值矩阵进行元素平方，元素ux*uy
 
-                Mat vx = cov_norm * (uxx - ux_sq);//E(x^2)-E^2(x)，无偏估计
+                Mat vx = cov_norm * (uxx - ux_sq);//x方差，=E(x^2)-E^2(x)，无偏估计
                 Mat vy = cov_norm * (uyy - uy_sq);
-                Mat vxy = cov_norm * (uxy - uxy_m);//E(xy)-E(x)E(y)
+                Mat vxy = cov_norm * (uxy - uxy_m);//x,y协方差，=E(xy)-E(x)E(y)
 
                 Mat A1 = 2 * uxy_m;
                 Mat A2 = 2 * vxy;
@@ -71,9 +71,11 @@ namespace ImageNation
                 //imshow("ssim", ssim_map);
                 ssimValue = mssim[0];
 
+                Console.WriteLine(ssimValue.ToString("F10"));
+                Console.ReadKey();
             }
 
-            return ssimValue;
+                return ssimValue;
         }
 
 

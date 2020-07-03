@@ -114,6 +114,7 @@ namespace ImageNation
             double[] AngleVal = new double[img_num];
             //double[] PyrDownCoeffVal = new double[img_num];
             double[] PSNRVal = new double[img_num];
+            double[] SSIMVal = new double[img_num];
 
             //判断一共有几种算法，统计有多少变量，做成一整个数组
 
@@ -271,12 +272,15 @@ namespace ImageNation
                                     //    Console.WriteLine("退化完成！");//只有控制台程序中才有
                                     //}
 
-
+                //质量评估
                 ImgQE imgQuality = new ImgQE();
                 PSNRVal[i] = imgQuality.ValuePSNR(imgOrigin, imgResult);
 
-                    //存储参数数据
-                    sw.WriteLine(SigmaVal[i].ToString("F5") + "\t"
+                SSIMVal[i] = imgQuality.ValueSSIM(imgOrigin, imgResult);
+
+
+                //存储参数数据
+                sw.WriteLine(SigmaVal[i].ToString("F5") + "\t"
                         + MiuVal[i].ToString("F5") + "\t"
                         + SlopeVal[i].ToString("F5") + "\t"
                         + InterceptVal[i].ToString("F5") + "\t"
@@ -287,6 +291,7 @@ namespace ImageNation
                         + AngleVal[i].ToString("F5") + "\t"
                         + pyrDownCoeff.ToString("F5") + "\t"
                         + PSNRVal[i].ToString("F5") + "\t"
+                        + SSIMVal[i].ToString("F5") + "\t"
                         );
 
                 //double[][] Val = new double[2][];
