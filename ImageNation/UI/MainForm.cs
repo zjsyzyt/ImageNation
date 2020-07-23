@@ -15,11 +15,24 @@ namespace ImageNation
 {
     public partial class MainForm : Form
     {
+        //1.声明自适应类实例  
+        AutoSizeFormClass asc = new AutoSizeFormClass();
         public MainForm()
         {
             InitializeComponent();//构造函数
             ComboBox_GrayScale.Enabled = false;
             ComboBox_PepperNoise.Enabled = false;
+            CheckBoxPyrDown.Enabled = false;
+        }
+        //2. 为窗体添加Load事件，并在其方法MainForm_Load中，调用类的初始化方法，记录窗体和其控件的初始位置和大小  
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            asc.controllInitializeSize(this);
+        }
+        //3.为窗体添加SizeChanged事件，并在其方法MainForm_SizeChanged中，调用类的自适应方法，完成自适应  
+        private void MainForm_SizeChanged(object sender, EventArgs e)
+        {
+            asc.controlAutoSize(this);
         }
 
         public PreviewForm previewForm { get; set;}
@@ -61,12 +74,33 @@ namespace ImageNation
             return this.ComboBox_GrayScale;
         }
 
+        public CheckBox State_CheckBoxOffsetX()
+        {
+            return this.CheckBoxOffsetX;
+        }
+
+        public CheckBox State_CheckBoxOffsetY()
+        {
+            return this.CheckBoxOffsetY;
+        }
+
+        public CheckBox State_CheckBoxRotate()
+        {
+            return this.CheckBoxRotate;
+        }
+
+        public CheckBox State_CheckBoxPyrDown()
+        {
+            return this.CheckBoxPyrDown;
+        }
+
 
 
 
         public Mat imgOrigin;//定义初始图像
 
-        //public OpenFileDialog GetOpenFileDialog
+        public string ImgStorageFolderPath;
+
         //Mat(OpenImgFileDialog.FileName, ImreadModes.Grayscale);
         public Mat ImgOriginPublic
         {
@@ -97,6 +131,8 @@ namespace ImageNation
             //imgOrigin = new Mat(OpenImgFileDialog.FileName,ImreadModes.Grayscale);
             Mat imgOrigin = this.ImgOriginPublic;
 
+            ImgStorageFolderPath= ImgStorageFolder.SelectedPath;
+
             String[] path_Ori = { ImgStorageFolder.SelectedPath, string.Concat("Image_Original", ".jpg") };
             string fullpath_Ori = Path.Combine(path_Ori);
             imgOrigin.SaveImage(fullpath_Ori);
@@ -115,6 +151,7 @@ namespace ImageNation
             //double[] PyrDownCoeffVal = new double[img_num];
             double[] PSNRVal = new double[img_num];
             double[] SSIMVal = new double[img_num];
+            double[] DHashVal = new double[img_num];
 
             //判断一共有几种算法，统计有多少变量，做成一整个数组
 
@@ -189,14 +226,21 @@ namespace ImageNation
                 AngleVal = ParaList.GetRandomList(angleMin, angleMax, img_num);
             }
 
+            int IQAStateFlag;//质量评估勾选状态
 
-
+            if (CheckBoxIQAThreshold.Checked)
+            {
+                IQAStateFlag = 1;
+            }else
+            {
+                IQAStateFlag = 0;
+            }
 
             //存储数组
             string newTxtPath = ImgStorageFolder.SelectedPath + string.Concat("/", "Para", ".txt");//创建txt文件的具体路径
             StreamWriter sw = new StreamWriter(newTxtPath, false, Encoding.Default);//实例化StreamWriter
 
-            double pyrDownCoeff = 0;
+            int pyrDownNum = 0;
 
             for (int i = 0; i < img_num; i++)
             {
@@ -252,31 +296,63 @@ namespace ImageNation
 
                 if (CheckBoxPyrDown.Checked)
                 {
-                    pyrDownCoeff = (double)Value_ParaPyrDownCoeff.Value;
-                    transImg = transImg.PyrDown();
-                    //transImg = transImg.PyrDown(new OpenCvSharp.Size((int)(transImg.Cols * pyrDownCoeff), (int)(transImg.Rows * pyrDownCoeff)));
+                    pyrDownNum = (int)Value_ParaPyrDownCoeff.Value;
+                    transImg = img.ImgPyrDown(transImg, pyrDownNum);
                 }
 
                 imgResult = transImg.Clone();
 
-                //存储图片
-                string imgNamePrefix = TextBox_FileNamePrefix.Text;
-                //String[] path = {ImgStorageFolder.SelectedPath, string.Concat("Images", i.ToString("D5"),".jpg") };
-                String[] path = { ImgStorageFolder.SelectedPath, string.Concat(imgNamePrefix, i.ToString("D5"), ".jpg") };
-                string fullpath = Path.Combine(path);
-                imgResult.SaveImage(fullpath);
+                int OffsetStateFlag;//位移退化状态
+                if (CheckBoxOffsetX.Checked && CheckBoxOffsetY.Checked && CheckBoxRotate.Checked)
+                {
+                    OffsetStateFlag = 1;
+                }else
+                {
+                    OffsetStateFlag = 0;
+                }
 
-                pBarImg.Value = i+1;//进度条更新
-                                    //if (i == img_num)
-                                    //{
-                                    //    Console.WriteLine("退化完成！");//只有控制台程序中才有
-                                    //}
 
                 //质量评估
                 ImgQE imgQuality = new ImgQE();
                 PSNRVal[i] = imgQuality.ValuePSNR(imgOrigin, imgResult);
-
                 SSIMVal[i] = imgQuality.ValueSSIM(imgOrigin, imgResult);
+                DHashVal[i] = imgQuality.ValueDHash(imgOrigin, imgResult);
+
+
+                string NameResult = "";
+                if (IQAStateFlag == 1)
+                {
+                    double SSIMThreshold;
+                    double PSNRThreshold = (double)Value_PSNRThreshold.Value;
+                    double HashThreshold = (double)Value_HashThreshold.Value;
+                    if (OffsetStateFlag == 0)
+                    {
+                        SSIMThreshold = (double)Value_SSIMThreshold.Value;
+                    }else
+                    {
+                        SSIMThreshold = (double)Value_SSIMOffsetThreshold.Value;
+                    }
+
+                    //判断
+                    if (PSNRVal[i]>PSNRThreshold && SSIMVal[i] > SSIMThreshold && DHashVal[i] > HashThreshold)
+                    {
+                        NameResult = "OK";
+                    }
+                    else
+                    {
+                        NameResult = "NG";
+                    }
+                }
+
+
+                //存储图片
+                string imgNamePrefix = TextBox_FileNamePrefix.Text;
+                //String[] path = {ImgStorageFolder.SelectedPath, string.Concat("Images", i.ToString("D5"),".jpg") };
+                String[] path = { ImgStorageFolder.SelectedPath, string.Concat(imgNamePrefix, i.ToString("D5"), NameResult,".jpg") };
+                string fullpath = Path.Combine(path);
+                imgResult.SaveImage(fullpath);
+
+                pBarImg.Value = i+1;//进度条更新
 
 
                 //存储参数数据
@@ -289,9 +365,10 @@ namespace ImageNation
                         + OffsetXVal[i].ToString("F5") + "\t"
                         + OffsetYVal[i].ToString("F5") + "\t"
                         + AngleVal[i].ToString("F5") + "\t"
-                        + pyrDownCoeff.ToString("F5") + "\t"
+                        + pyrDownNum.ToString("F0") + "\t"
                         + PSNRVal[i].ToString("F5") + "\t"
                         + SSIMVal[i].ToString("F5") + "\t"
+                        + DHashVal[i].ToString("F5") + "\t"
                         );
 
                 //double[][] Val = new double[2][];
@@ -300,13 +377,22 @@ namespace ImageNation
                 //String[] ValPath = { folderBrowserDialog1.SelectedPath, string.Concat("Para", i.ToString("D5"), ".txt") };
                 //string ValFullPath = Path.Combine(ValPath);
                 //File.WriteAllLines(ValFullPath, Val, Encoding.Default);
-                
+
+
+                if (i == img_num - 1)
+                {
+                    //Console.WriteLine("退化完成！");//只有控制台程序中才有
+                    ConfirmForm confirmForm = new ConfirmForm(this);//引用Confirm(MainForm)
+                    confirmForm.Show();
+                }
 
             }
             sw.Flush();
             sw.Close();
             //Console.WriteLine("退化完成！");
         }
+
+
 
         private void Button_ImageScan_Click(object sender, EventArgs e)
         {
@@ -423,6 +509,11 @@ namespace ImageNation
 
         }
 
+        private void CheckBoxIQAThreshold_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
         private void Label_Para3Max_Click(object sender, EventArgs e)
         {
 
@@ -453,11 +544,6 @@ namespace ImageNation
 
         }
 
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void Button_PreviewForm_Click(object sender, EventArgs e)
         {
             PreviewForm previewForm = new PreviewForm(this);//引用Preview(MainForm)
@@ -482,6 +568,17 @@ namespace ImageNation
 
             previewForm.SendParaSigma2Min += new PreviewForm.SendPara(RecvParaSigma2Min);
             previewForm.SendParaSigma2Max += new PreviewForm.SendPara(RecvParaSigma2Max);
+
+            previewForm.SendParaOffsetXMin += new PreviewForm.SendPara(RecvParaOffsetXMin);
+            previewForm.SendParaOffsetXMax += new PreviewForm.SendPara(RecvParaOffsetXMax);
+
+            previewForm.SendParaOffsetYMin += new PreviewForm.SendPara(RecvParaOffsetYMin);
+            previewForm.SendParaOffsetYMax += new PreviewForm.SendPara(RecvParaOffsetYMax);
+
+            previewForm.SendParaAngleMin += new PreviewForm.SendPara(RecvParaAngleMin);
+            previewForm.SendParaAngleMax += new PreviewForm.SendPara(RecvParaAngleMax);
+
+            previewForm.SendParaPyrDownCoeff += new PreviewForm.SendPara(RecvParaPyrDownCoeff);
 
             previewForm.Show();
 
@@ -612,9 +709,41 @@ namespace ImageNation
             Value_ParaSigma2Max.Value = e.Value;
         }
 
+        private void RecvParaOffsetXMin(SendValueEventArgs e)
+        {
+            Value_ParaOffsetXMin.Value = e.Value;
+        }
 
+        private void RecvParaOffsetXMax(SendValueEventArgs e)
+        {
+            Value_ParaOffsetXMax.Value = e.Value;
+        }
 
+        private void RecvParaOffsetYMin(SendValueEventArgs e)
+        {
+            Value_ParaOffsetYMin.Value = e.Value;
+        }
 
+        private void RecvParaOffsetYMax(SendValueEventArgs e)
+        {
+            Value_ParaOffsetYMax.Value = e.Value;
+        }
+
+        private void RecvParaAngleMin(SendValueEventArgs e)
+        {
+            Value_ParaAngleMin.Value = e.Value;
+        }
+
+        private void RecvParaAngleMax(SendValueEventArgs e)
+        {
+            Value_ParaAngleMax.Value = e.Value;
+        }
+
+        private void RecvParaPyrDownCoeff(SendValueEventArgs e)
+        {
+            Value_ParaPyrDownCoeff.Value = e.Value;
+        }
+        
 
 
         private void Value_ParaOffsetXMin_ValueChanged(object sender, EventArgs e)
@@ -676,5 +805,7 @@ namespace ImageNation
         {
 
         }
+
+
     }
 }

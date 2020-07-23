@@ -13,7 +13,6 @@ namespace ImageNation
         public double ValuePSNR(Mat srcMat, Mat dstMat)
         {
             double psnrValue = Cv2.PSNR(dstMat, srcMat);
-            
             return psnrValue;
         }
 
@@ -71,14 +70,71 @@ namespace ImageNation
                 //imshow("ssim", ssim_map);
                 ssimValue = mssim[0];
 
-                Console.WriteLine(ssimValue.ToString("F10"));
-                Console.ReadKey();
+                //Console.WriteLine(ssimValue.ToString("F10"));
+                //Console.ReadKey();
             }
 
                 return ssimValue;
         }
 
-
+        //dhash
+        public double ValueDHash(Mat Mat1, Mat Mat2)
+        {
+            double dhashValue, dhashSigValue;
+            string dhashString1, dhashString2;
+            using (Mat I1 = new Mat(), I2 = new Mat())
+            {
+                Size window = new Size(17, 16);
+                Cv2.Resize(Mat1, I1, window, 0, 0, InterpolationFlags.Cubic);
+                Cv2.Resize(Mat2, I2, window, 0, 0, InterpolationFlags.Cubic);
+                dhashString1 = StringDHash(I1);
+                dhashString2 = StringDHash(I2);
+                int nValue = CmpHash(dhashString1, dhashString2);
+                dhashValue = 1 - ((double)nValue) / 256;
+                double SigValue = Sigmoid(dhashValue);
+                dhashSigValue = SigValue * dhashValue;
+            }
+            return dhashSigValue;
+        }
+        //生成哈希数列
+        private string StringDHash(Mat Mat)
+        {
+            string hash_str = "";
+            for (int i = 0; i < 16; i++)
+            {
+                for (int j = 0; j < 16; j++)
+                {
+                    if (Mat.At<byte>(i, j) > Mat.At<byte>(i, j + 1))
+                        hash_str = hash_str + '1';
+                    else
+                        hash_str = hash_str + '0';
+                }
+            }
+            return hash_str;
+        }
+        //比较图像哈希值
+        private int CmpHash(string hash1,string hash2)
+        {
+            int n = 0;
+            if (hash1.Length != hash2.Length)
+                return -1;
+            for (int i = 0; i < hash1.Length; i++)
+            {
+                if (hash1[i] != hash2[i])
+                    n = n + 1;
+            }
+            return n;
+        }
+        //结构调整系数
+        private double Sigmoid(double hashValue)
+        {
+            double SigValue;
+            if (hashValue >= 0.993)
+                SigValue = hashValue;
+            else
+                SigValue = Math.Round(1 / (1 + Math.Exp(-10 * (hashValue - 0.5 - 1e-4))), 3);
+            return SigValue;
+        }
 
     }
 }

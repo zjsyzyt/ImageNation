@@ -149,7 +149,6 @@ namespace ImageNation
             }
             return dstImage;
         }
-            
 
 
         //灰度线性变化
@@ -358,7 +357,16 @@ namespace ImageNation
         }
 
         //降采样
+        public Mat ImgPyrDown(Mat Mat, int num)
+        {
+            Mat dstImage = Mat;
+            for (int i=0; i<num;i++)
+            {
+                dstImage = dstImage.PyrDown();
+            }
 
+            return dstImage;
+        }
 
 
 
