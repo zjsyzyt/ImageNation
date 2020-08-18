@@ -136,10 +136,10 @@ namespace ImageNation
             return SigValue;
         }
 
-        public void Dispose()
-        {
-            throw new NotImplementedException();
-        }
+        //public void Dispose()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         //void IDisposable.Dispose()
         //{
@@ -151,6 +151,13 @@ namespace ImageNation
         //    void Dispose();
         //}
 
+        ///
+        /// 释放对象
+        /// 
+        public void Dispose()
+        {
+            //
+        }
     }
 
 }

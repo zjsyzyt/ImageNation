@@ -34,6 +34,7 @@ namespace ImageNation
         {
             string ImgStoragePath = this.mainForm.ImgStorageFolderPath;
             System.Diagnostics.Process.Start("explorer.exe", ImgStoragePath);
+            Close();
         }
     }
 }

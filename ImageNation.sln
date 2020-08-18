@@ -5,8 +5,6 @@ VisualStudioVersion = 15.0.28307.705
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageNation", "ImageNation\ImageNation.csproj", "{4AB63D96-8B5C-4169-81A5-16A07E026C25}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApp1", "TestApp1\TestApp1.csproj", "{37C01E3E-9C0B-4D6C-AE9A-133E38F5EA5D}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,26 +39,6 @@ Global
 		{4AB63D96-8B5C-4169-81A5-16A07E026C25}.Release|x64.Build.0 = Release|Any CPU
 		{4AB63D96-8B5C-4169-81A5-16A07E026C25}.Release|x86.ActiveCfg = Release|Any CPU
 		{4AB63D96-8B5C-4169-81A5-16A07E026C25}.Release|x86.Build.0 = Release|Any CPU
-		{37C01E3E-9C0B-4D6C-AE9A-133E38F5EA5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{37C01E3E-9C0B-4D6C-AE9A-133E38F5EA5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{37C01E3E-9C0B-4D6C-AE9A-133E38F5EA5D}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{37C01E3E-9C0B-4D6C-AE9A-133E38F5EA5D}.Debug|ARM.Build.0 = Debug|Any CPU
-		{37C01E3E-9C0B-4D6C-AE9A-133E38F5EA5D}.Debug|ARM64.ActiveCfg = Debug|Any CPU
-		{37C01E3E-9C0B-4D6C-AE9A-133E38F5EA5D}.Debug|ARM64.Build.0 = Debug|Any CPU
-		{37C01E3E-9C0B-4D6C-AE9A-133E38F5EA5D}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{37C01E3E-9C0B-4D6C-AE9A-133E38F5EA5D}.Debug|x64.Build.0 = Debug|Any CPU
-		{37C01E3E-9C0B-4D6C-AE9A-133E38F5EA5D}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{37C01E3E-9C0B-4D6C-AE9A-133E38F5EA5D}.Debug|x86.Build.0 = Debug|Any CPU
-		{37C01E3E-9C0B-4D6C-AE9A-133E38F5EA5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{37C01E3E-9C0B-4D6C-AE9A-133E38F5EA5D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{37C01E3E-9C0B-4D6C-AE9A-133E38F5EA5D}.Release|ARM.ActiveCfg = Release|Any CPU
-		{37C01E3E-9C0B-4D6C-AE9A-133E38F5EA5D}.Release|ARM.Build.0 = Release|Any CPU
-		{37C01E3E-9C0B-4D6C-AE9A-133E38F5EA5D}.Release|ARM64.ActiveCfg = Release|Any CPU
-		{37C01E3E-9C0B-4D6C-AE9A-133E38F5EA5D}.Release|ARM64.Build.0 = Release|Any CPU
-		{37C01E3E-9C0B-4D6C-AE9A-133E38F5EA5D}.Release|x64.ActiveCfg = Release|Any CPU
-		{37C01E3E-9C0B-4D6C-AE9A-133E38F5EA5D}.Release|x64.Build.0 = Release|Any CPU
-		{37C01E3E-9C0B-4D6C-AE9A-133E38F5EA5D}.Release|x86.ActiveCfg = Release|Any CPU
-		{37C01E3E-9C0B-4D6C-AE9A-133E38F5EA5D}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

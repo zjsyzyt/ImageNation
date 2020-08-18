@@ -237,8 +237,24 @@ namespace ImageNation
             }
 
             //存储数组
-            string newTxtPath = ImgStorageFolder.SelectedPath + string.Concat("/", "Para", ".txt");//创建txt文件的具体路径
+            string newTxtPath = ImgStorageFolder.SelectedPath + string.Concat("/", "Para", ".xlsx");//创建txt文件的具体路径
             StreamWriter sw = new StreamWriter(newTxtPath, false, Encoding.Default);//实例化StreamWriter
+
+            //存储参数表头
+            sw.WriteLine("高斯方差" + "\t"
+                    + "高斯均值" + "\t"
+                    + "灰度变换斜率" + "\t"
+                    + "灰度变换截距" + "\t"
+                    + "模糊程度" + "\t"
+                    + "椒盐噪声比例" + "\t"
+                    + "X像素偏移" + "\t"
+                    + "Y像素偏移" + "\t"
+                    + "旋转角度偏移" + "\t"
+                    + "降采样因子" + "\t"
+                    + "PSNR" + "\t"
+                    + "SSIM" + "\t"
+                    + "DHash" + "\t"
+                    );
 
             int pyrDownNum = 0;
 
@@ -398,8 +414,9 @@ namespace ImageNation
             //OpenFileDialog openFileDialog1 = new OpenFileDialog();     //显示选择文件对话框
             string originalPath = "C:\\Users\\zjsyzyt\\Pictures";
             OpenImgFileDialog.InitialDirectory = originalPath;//初始加载路径为C盘；
+            OpenImgFileDialog.Filter = "All Image Files|*.bmp;*.jpg";//过滤你想设置的文本文件类型（这是txt型）
             //OpenImgFileDialog.Filter = "All Image Files|*.bmp;*.ico;*.gif;*.jpeg;*.jpg;*.png;*.tif;*.tiff|";//过滤你想设置的文本文件类型（这是txt型）
-            OpenImgFileDialog.Filter ="图像文件(*.jpg)|*.jpg|图像文件(*.bmp)|*.bmp"; ;//过滤你想设置的文本文件类型（这是txt型）
+            //OpenImgFileDialog.Filter ="图像文件(*.jpg)|*.jpg|图像文件(*.bmp)|*.bmp"; ;//过滤你想设置的文本文件类型（这是txt型）
                                                             // openFileDialog1.Filter = "文本文件 (*.txt)|*.txt|All files (*.*)|*.*";（这是全部类型文件）
             if (this.OpenImgFileDialog.ShowDialog() == DialogResult.OK)
             {
