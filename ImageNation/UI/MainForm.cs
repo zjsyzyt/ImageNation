@@ -313,10 +313,12 @@ namespace ImageNation
 
 
                 //质量评估
-                ImgQE imgQuality = new ImgQE();
-                PSNRVal[i] = imgQuality.ValuePSNR(imgOrigin, imgResult);
-                SSIMVal[i] = imgQuality.ValueSSIM(imgOrigin, imgResult);
-                DHashVal[i] = imgQuality.ValueDHash(imgOrigin, imgResult);
+                using (ImgQE imgQuality = new ImgQE())
+                {
+                    PSNRVal[i] = imgQuality.ValuePSNR(imgOrigin, imgResult);
+                    SSIMVal[i] = imgQuality.ValueSSIM(imgOrigin, imgResult);
+                    DHashVal[i] = imgQuality.ValueDHash(imgOrigin, imgResult);
+                }
 
 
                 string NameResult = "";
@@ -352,7 +354,7 @@ namespace ImageNation
                 string fullpath = Path.Combine(path);
                 imgResult.SaveImage(fullpath);
 
-                pBarImg.Value = i+1;//进度条更新
+                
 
 
                 //存储参数数据
@@ -378,18 +380,15 @@ namespace ImageNation
                 //string ValFullPath = Path.Combine(ValPath);
                 //File.WriteAllLines(ValFullPath, Val, Encoding.Default);
 
-
-                if (i == img_num - 1)
-                {
-                    //Console.WriteLine("退化完成！");//只有控制台程序中才有
-                    ConfirmForm confirmForm = new ConfirmForm(this);//引用Confirm(MainForm)
-                    confirmForm.Show();
-                }
+                pBarImg.Value = i + 1;//进度条更新
 
             }
             sw.Flush();
             sw.Close();
             //Console.WriteLine("退化完成！");
+            ConfirmForm confirmForm = new ConfirmForm(this);//引用Confirm(MainForm)
+            confirmForm.Show();
+
         }
 
 

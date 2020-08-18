@@ -7,7 +7,7 @@ using OpenCvSharp;
 
 namespace ImageNation
 {
-    class ImgQE
+    class ImgQE:IDisposable
     {
         //PSNR
         public double ValuePSNR(Mat srcMat, Mat dstMat)
@@ -136,5 +136,21 @@ namespace ImageNation
             return SigValue;
         }
 
+        public void Dispose()
+        {
+            throw new NotImplementedException();
+        }
+
+        //void IDisposable.Dispose()
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //public interface IDisposable
+        //{
+        //    void Dispose();
+        //}
+
     }
+
 }
