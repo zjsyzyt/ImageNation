@@ -237,7 +237,7 @@ namespace ImageNation
             }
 
             //存储数组
-            string newTxtPath = ImgStorageFolder.SelectedPath + string.Concat("/", "Para", ".xlsx");//创建txt文件的具体路径
+            string newTxtPath = ImgStorageFolder.SelectedPath + string.Concat("/", "Para", ".csv");//创建txt文件的具体路径
             StreamWriter sw = new StreamWriter(newTxtPath, false, Encoding.Default);//实例化StreamWriter
 
             //存储参数表头
@@ -402,6 +402,7 @@ namespace ImageNation
             sw.Flush();
             sw.Close();
             //Console.WriteLine("退化完成！");
+
             ConfirmForm confirmForm = new ConfirmForm(this);//引用Confirm(MainForm)
             confirmForm.Show();
 
