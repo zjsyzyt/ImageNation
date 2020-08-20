@@ -131,7 +131,7 @@ namespace ImageNation
             //imgOrigin = new Mat(OpenImgFileDialog.FileName,ImreadModes.Grayscale);
             Mat imgOrigin = this.ImgOriginPublic;
 
-            ImgStorageFolderPath= ImgStorageFolder.SelectedPath;
+            ImgStorageFolderPath = ImgStorageFolder.SelectedPath;
 
             String[] path_Ori = { ImgStorageFolder.SelectedPath, string.Concat("Image_Original", ".jpg") };
             string fullpath_Ori = Path.Combine(path_Ori);
@@ -160,12 +160,12 @@ namespace ImageNation
                 double miuScale = 1;//设为-128~128
                 double sigmaScale = 1;//设为0~5
 
-                double miuMin = Convert.ToDouble(Value_ParaMiuMin.Value)/miuScale;
-                double miuMax = Convert.ToDouble(Value_ParaMiuMax.Value)/miuScale;
-                double sigmaMin = Convert.ToDouble(Value_ParaSigmaMin.Value)/sigmaScale;
-                double sigmaMax = Convert.ToDouble(Value_ParaSigmaMax.Value)/sigmaScale;
+                double miuMin = Convert.ToDouble(Value_ParaMiuMin.Value) / miuScale;
+                double miuMax = Convert.ToDouble(Value_ParaMiuMax.Value) / miuScale;
+                double sigmaMin = Convert.ToDouble(Value_ParaSigmaMin.Value) / sigmaScale;
+                double sigmaMax = Convert.ToDouble(Value_ParaSigmaMax.Value) / sigmaScale;
 
-                MiuVal = ParaList.GetRandomList(miuMin,miuMax,img_num);
+                MiuVal = ParaList.GetRandomList(miuMin, miuMax, img_num);
                 SigmaVal = ParaList.GetRandomList(sigmaMin, sigmaMax, img_num);
             }
 
@@ -231,29 +231,31 @@ namespace ImageNation
             if (CheckBoxIQAThreshold.Checked)
             {
                 IQAStateFlag = 1;
-            }else
+            } else
             {
                 IQAStateFlag = 0;
             }
 
             //存储数组
-            string newTxtPath = ImgStorageFolder.SelectedPath + string.Concat("/", "Para", ".xlsx");//创建txt文件的具体路径
+            string newTxtPath = ImgStorageFolder.SelectedPath + string.Concat("/", "Para", ".txt");//创建txt文件的具体路径
             StreamWriter sw = new StreamWriter(newTxtPath, false, Encoding.Default);//实例化StreamWriter
 
             //存储参数表头
-            sw.WriteLine("高斯方差" + "\t"
-                    + "高斯均值" + "\t"
-                    + "灰度变换斜率" + "\t"
-                    + "灰度变换截距" + "\t"
-                    + "模糊程度" + "\t"
-                    + "椒盐噪声比例" + "\t"
-                    + "X像素偏移" + "\t"
-                    + "Y像素偏移" + "\t"
-                    + "旋转角度偏移" + "\t"
-                    + "降采样因子" + "\t"
-                    + "PSNR" + "\t"
-                    + "SSIM" + "\t"
-                    + "DHash" + "\t"
+
+            //sw.WriteLine(string.Format("{0,-20}{1,-20}{2,- + (20 - NewLineStr(temp[2], temp[2].Length)) + "}", temp[0], temp[1], temp[2]));
+            sw.WriteLine(String.Format("{0,-16}", "高斯方差") 
+                    + String.Format("{0,-20}", "高斯均值") 
+                    + String.Format("{0,-20}", "灰度变换斜率") 
+                    + String.Format("{0,-20}", "灰度变换截距") 
+                    + String.Format("{0,-20}", "模糊程度") 
+                    + String.Format("{0,-20}", "椒盐噪声比例") 
+                    + String.Format("{0,-20}", "X像素偏移") 
+                    + String.Format("{0,-20}", "Y像素偏移") 
+                    + String.Format("{0,-20}", "旋转角度偏移") 
+                    + String.Format("{0,-20}", "降采样因子") 
+                    + String.Format("{0,-20}", "PSNR") 
+                    + String.Format("{0,-20}", "SSIM") 
+                    + String.Format("{0,-20}", "DHash")
                     );
 
             int pyrDownNum = 0;
@@ -374,19 +376,19 @@ namespace ImageNation
 
 
                 //存储参数数据
-                sw.WriteLine(SigmaVal[i].ToString("F5") + "\t"
-                        + MiuVal[i].ToString("F5") + "\t"
-                        + SlopeVal[i].ToString("F5") + "\t"
-                        + InterceptVal[i].ToString("F5") + "\t"
-                        + Sigma2Val[i].ToString("F5") + "\t"
-                        + CoeffVal[i].ToString("F5") + "\t"
-                        + OffsetXVal[i].ToString("F5") + "\t"
-                        + OffsetYVal[i].ToString("F5") + "\t"
-                        + AngleVal[i].ToString("F5") + "\t"
-                        + pyrDownNum.ToString("F0") + "\t"
-                        + PSNRVal[i].ToString("F5") + "\t"
-                        + SSIMVal[i].ToString("F5") + "\t"
-                        + DHashVal[i].ToString("F5") + "\t"
+                sw.WriteLine(String.Format("{0,-20}",SigmaVal[i].ToString("F5")) 
+                        + String.Format("{0,-20}", MiuVal[i].ToString("F5")) 
+                        + String.Format("{0,-20}", SlopeVal[i].ToString("F5"))
+                        + String.Format("{0,-20}", InterceptVal[i].ToString("F5"))
+                        + String.Format("{0,-20}", Sigma2Val[i].ToString("F5"))
+                        + String.Format("{0,-20}", CoeffVal[i].ToString("F5"))
+                        + String.Format("{0,-20}", OffsetXVal[i].ToString("F5"))
+                        + String.Format("{0,-20}", OffsetYVal[i].ToString("F5"))
+                        + String.Format("{0,-20}", AngleVal[i].ToString("F5"))
+                        + String.Format("{0,-20}", pyrDownNum.ToString("F0"))
+                        + String.Format("{0,-20}", PSNRVal[i].ToString("F5"))
+                        + String.Format("{0,-20}", SSIMVal[i].ToString("F5"))
+                        + String.Format("{0,-20}", DHashVal[i].ToString("F5"))
                         );
 
                 //double[][] Val = new double[2][];
