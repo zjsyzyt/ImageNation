@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -22,7 +23,9 @@ namespace ImageNation
             InitializeComponent();//构造函数
             ComboBox_GrayScale.Enabled = false;
             ComboBox_PepperNoise.Enabled = false;
-            CheckBoxPyrDown.Enabled = false;
+            //CheckBoxPyrDown.Enabled = false;
+            this.bgWorker_pBarImg.WorkerReportsProgress = true;  //设置能报告进度更新
+            this.bgWorker_pBarImg.WorkerSupportsCancellation = true;  //设置支持异步取消
         }
         //2. 为窗体添加Load事件，并在其方法MainForm_Load中，调用类的初始化方法，记录窗体和其控件的初始位置和大小  
         private void MainForm_Load(object sender, EventArgs e)
@@ -120,14 +123,44 @@ namespace ImageNation
         //[System.Runtime.InteropServices.DllImport("kernel32.dll", SetLastError = true)]
         //[return: System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.Bool)]
         //static extern bool AllocConsole();
+        public int img_num;
+        public int imgCurrentValue;
 
 
         private void Button_StartDegradation_Click(object sender, EventArgs e)
         {
+            //
+            this.bgWorker_pBarImg.RunWorkerAsync();  //运行backgroundWorker组件
+            ConfirmForm confirmForm = new ConfirmForm(this.bgWorker_pBarImg);//显示进度窗口，引用Confirm(MainForm)
+            confirmForm.ShowDialog(this);
+            confirmForm.Close();
+
+
             //AllocConsole();
-            int img_num = Convert.ToInt32(ImgNum.Value); //获取输入框中的数字,目标图片总数
-            pBarImg.Maximum = img_num;//设置最大长度值
-            pBarImg.Value = 0;//设置当前值
+            img_num = Convert.ToInt32(ImgNum.Value); //获取输入框中的数字,目标图片总数
+            //pBarImg.Maximum = img_num;//设置最大长度值
+            //pBarImg.Value = 0;//设置当前值
+            imgCurrentValue = 0;
+
+            ////多线程开启进度条更新
+            //ThreadMethod method = new ThreadMethod();
+            ////先订阅一下事件
+            //method.threadStartEvent += new EventHandler(method_threadStartEvent);
+            //method.threadEvent += new EventHandler(method_threadEvent);
+            //method.threadEndEvent += new EventHandler(method_threadEndEvent);
+
+            ////ParameterizedThreadStart ts = new ParameterizedThreadStart(method.runMethod);
+            //method.count = img_num;
+            //method.value = imgCurrentValue;
+            //Thread thread = new Thread(new ThreadStart(method.MethodStart));
+            ////Thread thread = new Thread(ts);
+            //thread.IsBackground = true;
+            //thread.Start();
+
+
+
+
+
             //imgOrigin = new Mat(OpenImgFileDialog.FileName,ImreadModes.Grayscale);
             Mat imgOrigin = this.ImgOriginPublic;
 
@@ -137,7 +170,7 @@ namespace ImageNation
             string fullpath_Ori = Path.Combine(path_Ori);
             imgOrigin.SaveImage(fullpath_Ori);
 
-            double[,] ParaVal = new double[6, img_num];
+            //double[,] ParaVal = new double[6, img_num];
             double[] MiuVal = new double[img_num];
             double[] SigmaVal = new double[img_num];
             double[] SlopeVal = new double[img_num];
@@ -153,6 +186,17 @@ namespace ImageNation
             double[] SSIMVal = new double[img_num];
             double[] DHashVal = new double[img_num];
 
+            double miuMin = 0, miuMax = 0;
+            double sigmaMin = 0, sigmaMax = 0;
+            double slopeMin = 0, slopeMax = 0;
+            double interceptMin = 0, interceptMax = 0;
+            double sigma2Min = 0, sigma2Max = 0;
+            double coeffMin = 0, coeffMax = 0;
+            double offsetXMin = 0, offsetXMax = 0;
+            double offsetYMin = 0, offsetYMax = 0;
+            double angleMin = 0, angleMax = 0;
+            int pyrDownNum = 0;
+
             //判断一共有几种算法，统计有多少变量，做成一整个数组
 
             if (CheckBoxAlgo1Gauss.Checked)
@@ -160,10 +204,10 @@ namespace ImageNation
                 double miuScale = 1;//设为-128~128
                 double sigmaScale = 1;//设为0~5
 
-                double miuMin = Convert.ToDouble(Value_ParaMiuMin.Value)/miuScale;
-                double miuMax = Convert.ToDouble(Value_ParaMiuMax.Value)/miuScale;
-                double sigmaMin = Convert.ToDouble(Value_ParaSigmaMin.Value)/sigmaScale;
-                double sigmaMax = Convert.ToDouble(Value_ParaSigmaMax.Value)/sigmaScale;
+                miuMin = Convert.ToDouble(Value_ParaMiuMin.Value)/miuScale;
+                miuMax = Convert.ToDouble(Value_ParaMiuMax.Value)/miuScale;
+                sigmaMin = Convert.ToDouble(Value_ParaSigmaMin.Value)/sigmaScale;
+                sigmaMax = Convert.ToDouble(Value_ParaSigmaMax.Value)/sigmaScale;
 
                 MiuVal = ParaList.GetRandomList(miuMin,miuMax,img_num);
                 SigmaVal = ParaList.GetRandomList(sigmaMin, sigmaMax, img_num);
@@ -172,10 +216,10 @@ namespace ImageNation
             if (CheckBoxAlgo2GrayScale.Checked)
             {
 
-                double slopeMin = Convert.ToDouble(Value_ParaSlopeMin.Value);
-                double slopeMax = Convert.ToDouble(Value_ParaSlopeMax.Value);
-                double interceptMin = Convert.ToDouble(Value_ParaInterceptMin.Value);
-                double interceptMax = Convert.ToDouble(Value_ParaInterceptMax.Value);
+                slopeMin = Convert.ToDouble(Value_ParaSlopeMin.Value);
+                slopeMax = Convert.ToDouble(Value_ParaSlopeMax.Value);
+                interceptMin = Convert.ToDouble(Value_ParaInterceptMin.Value);
+                interceptMax = Convert.ToDouble(Value_ParaInterceptMax.Value);
 
                 SlopeVal = ParaList.GetRandomList(slopeMin, slopeMax, img_num);
                 InterceptVal = ParaList.GetRandomList(interceptMin, interceptMax, img_num);
@@ -185,8 +229,8 @@ namespace ImageNation
             {
                 double sigma2Scale = 1;//参数值设为0~100，值越小越模糊，故需反转
 
-                double sigma2Min = Convert.ToDouble(Value_ParaSigma2Min.Value) / sigma2Scale;
-                double sigma2Max = Convert.ToDouble(Value_ParaSigma2Max.Value) / sigma2Scale;
+                sigma2Min = Convert.ToDouble(Value_ParaSigma2Min.Value) / sigma2Scale;
+                sigma2Max = Convert.ToDouble(Value_ParaSigma2Max.Value) / sigma2Scale;
 
                 Sigma2Val = ParaList.GetRandomList(sigma2Min, sigma2Max, img_num);
             }
@@ -195,8 +239,8 @@ namespace ImageNation
             {
                 ComboBox_PepperNoise.Visible = true;
 
-                double coeffMin = Convert.ToDouble(Value_ParaNoiseCoeffMin.Value);
-                double coeffMax = Convert.ToDouble(Value_ParaNoiseCoeffMax.Value);
+                coeffMin = Convert.ToDouble(Value_ParaNoiseCoeffMin.Value);
+                coeffMax = Convert.ToDouble(Value_ParaNoiseCoeffMax.Value);
 
                 CoeffVal = ParaList.GetRandomList(coeffMin, coeffMax, img_num);
 
@@ -204,34 +248,41 @@ namespace ImageNation
 
             if (CheckBoxOffsetX.Checked)
             {
-                double offsetXMin = Convert.ToDouble(Value_ParaOffsetXMin.Value);
-                double offsetXMax = Convert.ToDouble(Value_ParaOffsetXMax.Value);
+                offsetXMin = Convert.ToDouble(Value_ParaOffsetXMin.Value);
+                offsetXMax = Convert.ToDouble(Value_ParaOffsetXMax.Value);
 
                 OffsetXVal = ParaList.GetRandomList(offsetXMin, offsetXMax, img_num);
             }
 
             if (CheckBoxOffsetY.Checked)
             {
-                double offsetYMin = Convert.ToDouble(Value_ParaOffsetYMin.Value);
-                double offsetYMax = Convert.ToDouble(Value_ParaOffsetYMax.Value);
+                offsetYMin = Convert.ToDouble(Value_ParaOffsetYMin.Value);
+                offsetYMax = Convert.ToDouble(Value_ParaOffsetYMax.Value);
 
                 OffsetYVal = ParaList.GetRandomList(offsetYMin, offsetYMax, img_num);
             }
 
             if (CheckBoxRotate.Checked)
             {
-                double angleMin = Convert.ToDouble(Value_ParaAngleMin.Value);
-                double angleMax = Convert.ToDouble(Value_ParaAngleMax.Value);
+                angleMin = Convert.ToDouble(Value_ParaAngleMin.Value);
+                angleMax = Convert.ToDouble(Value_ParaAngleMax.Value);
 
                 AngleVal = ParaList.GetRandomList(angleMin, angleMax, img_num);
             }
+
+            if (CheckBoxPyrDown.Checked)
+            {
+                pyrDownNum = (int)Value_ParaPyrDownCoeff.Value;
+            }
+
 
             int IQAStateFlag;//质量评估勾选状态
 
             if (CheckBoxIQAThreshold.Checked)
             {
                 IQAStateFlag = 1;
-            }else
+            }
+            else
             {
                 IQAStateFlag = 0;
             }
@@ -250,17 +301,42 @@ namespace ImageNation
                     + "X像素偏移" + "\t"
                     + "Y像素偏移" + "\t"
                     + "旋转角度偏移" + "\t"
-                    + "降采样因子" + "\t"
+                    + "降采样次数" + "\t"
                     + "PSNR" + "\t"
                     + "SSIM" + "\t"
-                    + "DHash" + "\t"
+                    + "DHash" + "\n"
+                    + sigmaMin.ToString("F2") + "\t"
+                    + miuMin.ToString("F2") + "\t"
+                    + slopeMin.ToString("F2") + "\t"
+                    + interceptMin.ToString("F2") + "\t"
+                    + sigma2Min.ToString("F2") + "\t"
+                    + coeffMin.ToString("F2") + "\t"
+                    + offsetXMin.ToString("F2") + "\t"
+                    + offsetYMin.ToString("F2") + "\t"
+                    + angleMin.ToString("F2") + "\t"
+                    + pyrDownNum.ToString("F0") 
+                    + "\t" 
+                    + "\t" 
+                    + "\n"
+                    + sigmaMax.ToString("F2") + "\t"
+                    + miuMax.ToString("F2") + "\t"
+                    + slopeMax.ToString("F2") + "\t"
+                    + interceptMax.ToString("F2") + "\t"
+                    + sigma2Max.ToString("F2") + "\t"
+                    + coeffMax.ToString("F2") + "\t"
+                    + offsetXMax.ToString("F2") + "\t"
+                    + offsetYMax.ToString("F2") + "\t"
+                    + angleMax.ToString("F2") + "\t"
+                    + pyrDownNum.ToString("F0")
+                    + "\t"
+                    + "\t"
+                    + "\n"
                     );
 
-            int pyrDownNum = 0;
 
             for (int i = 0; i < img_num; i++)
             {
-                Mat transImg= imgOrigin.Clone();
+                Mat transImg = imgOrigin.Clone();
                 if (CheckBoxAlgo1Gauss.Checked)
                 {
                     transImg = img.GaussianNoise(transImg, MiuVal[i], SigmaVal[i]);
@@ -268,7 +344,7 @@ namespace ImageNation
 
                 if (CheckBoxAlgo2GrayScale.Checked)
                 {
-                    transImg = img.GrayScale(transImg, SlopeVal[i], InterceptVal[i]); 
+                    transImg = img.GrayScale(transImg, SlopeVal[i], InterceptVal[i]);
                 }
 
                 if (CheckBoxAlgo3GaussianBlur.Checked)
@@ -316,43 +392,46 @@ namespace ImageNation
                     transImg = img.ImgPyrDown(transImg, pyrDownNum);
                 }
 
+                //img.Dispose();
+                //GC.Collect();
                 imgResult = transImg.Clone();
+                transImg.Release();
 
                 int OffsetStateFlag;//位移退化状态
                 if (CheckBoxOffsetX.Checked && CheckBoxOffsetY.Checked && CheckBoxRotate.Checked)
                 {
                     OffsetStateFlag = 1;
-                }else
+                }
+                else
                 {
                     OffsetStateFlag = 0;
-                }
-
-
-                //质量评估
-                using (ImgQE imgQuality = new ImgQE())
-                {
-                    PSNRVal[i] = imgQuality.ValuePSNR(imgOrigin, imgResult);
-                    SSIMVal[i] = imgQuality.ValueSSIM(imgOrigin, imgResult);
-                    DHashVal[i] = imgQuality.ValueDHash(imgOrigin, imgResult);
                 }
 
 
                 string NameResult = "";
                 if (IQAStateFlag == 1)
                 {
+                    //质量评估
+                    using (ImgQE imgQuality = new ImgQE())
+                    {
+                        PSNRVal[i] = imgQuality.ValuePSNR(imgOrigin, imgResult);
+                        SSIMVal[i] = imgQuality.ValueSSIM(imgOrigin, imgResult);
+                        DHashVal[i] = imgQuality.ValueDHash(imgOrigin, imgResult);
+                    }
                     double SSIMThreshold;
                     double PSNRThreshold = (double)Value_PSNRThreshold.Value;
                     double HashThreshold = (double)Value_HashThreshold.Value;
                     if (OffsetStateFlag == 0)
                     {
                         SSIMThreshold = (double)Value_SSIMThreshold.Value;
-                    }else
+                    }
+                    else
                     {
                         SSIMThreshold = (double)Value_SSIMOffsetThreshold.Value;
                     }
 
                     //判断
-                    if (PSNRVal[i]>PSNRThreshold && SSIMVal[i] > SSIMThreshold && DHashVal[i] > HashThreshold)
+                    if (PSNRVal[i] > PSNRThreshold && SSIMVal[i] > SSIMThreshold && DHashVal[i] > HashThreshold)
                     {
                         NameResult = "OK";
                     }
@@ -366,11 +445,11 @@ namespace ImageNation
                 //存储图片
                 string imgNamePrefix = TextBox_FileNamePrefix.Text;
                 //String[] path = {ImgStorageFolder.SelectedPath, string.Concat("Images", i.ToString("D5"),".jpg") };
-                String[] path = { ImgStorageFolder.SelectedPath, string.Concat(imgNamePrefix, i.ToString("D5"), NameResult,".jpg") };
+                String[] path = { ImgStorageFolder.SelectedPath, string.Concat(imgNamePrefix, i.ToString("D5"), NameResult, ".jpg") };
                 string fullpath = Path.Combine(path);
                 imgResult.SaveImage(fullpath);
 
-                
+
 
 
                 //存储参数数据
@@ -396,24 +475,91 @@ namespace ImageNation
                 //string ValFullPath = Path.Combine(ValPath);
                 //File.WriteAllLines(ValFullPath, Val, Encoding.Default);
 
-                pBarImg.Value = i + 1;//进度条更新
+                //pBarImg.Value = i + 1;//进度条更新
+                //Thread.Sleep(1000);  //窗体显示1秒
 
+
+                imgCurrentValue = i + 1;
+                //method.MethodEvent();
             }
+                
             sw.Flush();
             sw.Close();
             //Console.WriteLine("退化完成！");
 
-            ConfirmForm confirmForm = new ConfirmForm(this);//引用Confirm(MainForm)
+            
             confirmForm.Show();
+        }
 
+
+        //线程开始的时候调用的委托
+        private delegate void maxValueDelegate(int maxValue);
+        //线程执行中调用的委托
+        private delegate void nowValueDelegate(int nowValue);
+
+
+        /// <summary>
+        /// 线程开始事件,设置进度条最大值
+        /// 但是我不能直接操作进度条,需要一个委托来替我完成
+        /// </summary>
+        /// <param name="sender">ThreadMethod函数中传过来的最大值</param>
+        /// <param name="e"></param>
+        void method_threadStartEvent(object sender, EventArgs e)
+        {
+            int maxValue = Convert.ToInt32(sender);
+            maxValueDelegate max = new maxValueDelegate(setMax);
+            this.Invoke(max, maxValue);
+        }
+
+        /// <summary>
+        /// 线程执行中的事件,设置进度条当前进度
+        /// 但是我不能直接操作进度条,需要一个委托来替我完成
+        /// </summary>
+        /// <param name="sender">ThreadMethod函数中传过来的当前值</param>
+        /// <param name="e"></param>
+        void method_threadEvent(object sender, EventArgs e)
+        {
+            int nowValue = Convert.ToInt32(sender);
+            nowValueDelegate now = new nowValueDelegate(setNow);
+            this.Invoke(now, nowValue);
+        }
+
+        /// <summary>
+        /// 线程完成事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void method_threadEndEvent(object sender, EventArgs e)
+        {
+            MessageBox.Show("执行已经完成!");
+        }
+
+        /// <summary>
+        /// 我被委托调用,专门设置进度条最大值的
+        /// </summary>
+        /// <param name="maxValue"></param>
+        private void setMax(int maxValue)
+        {
+            this.pBarImg.Maximum = maxValue;
+        }
+
+        /// <summary>
+        /// 我被委托调用,专门设置进度条当前值的
+        /// </summary>
+        /// <param name="nowValue"></param>
+        private void setNow(int nowValue)
+        {
+            this.pBarImg.Value = nowValue;
         }
 
 
 
+        public string originalPath = "C:\\Users\\zjsyzyt\\Pictures";
+
         private void Button_ImageScan_Click(object sender, EventArgs e)
         {
             //OpenFileDialog openFileDialog1 = new OpenFileDialog();     //显示选择文件对话框
-            string originalPath = "C:\\Users\\zjsyzyt\\Pictures";
+            //string originalPath = "C:\\Users\\zjsyzyt\\Pictures";
             OpenImgFileDialog.InitialDirectory = originalPath;//初始加载路径为C盘；
             OpenImgFileDialog.Filter = "All Image Files|*.bmp;*.jpg";//过滤你想设置的文本文件类型（这是txt型）
             //OpenImgFileDialog.Filter = "All Image Files|*.bmp;*.ico;*.gif;*.jpeg;*.jpg;*.png;*.tif;*.tiff|";//过滤你想设置的文本文件类型（这是txt型）
@@ -422,19 +568,24 @@ namespace ImageNation
             if (this.OpenImgFileDialog.ShowDialog() == DialogResult.OK)
             {
                 TextBox_ImgPath.Text = Path.GetFileName(OpenImgFileDialog.FileName);//显示文件的名字
+                originalPath = Path.GetFullPath(OpenImgFileDialog.FileName);
                 this.pictureBox1.Load(OpenImgFileDialog.FileName);
                 
             }
 
         }
 
+        public string originalStoragePath = "C:\\Users\\zjsyzyt\\Pictures";
+
         private void Button_FilePathScan_Click(object sender, EventArgs e)
         {
-            ImgStorageFolder.SelectedPath = "C:\\Users\\zjsyzyt\\Desktop\\test\\InSight退化测试\\NG-Test1";
+            ImgStorageFolder.SelectedPath = originalStoragePath;
             if (this.ImgStorageFolder.ShowDialog() == DialogResult.OK)
             {
                 if (this.ImgStorageFolder.SelectedPath.Trim() != "")
                     this.TextBox_ImgStoragePath.Text = this.ImgStorageFolder.SelectedPath.Trim();
+                originalStoragePath = this.ImgStorageFolder.SelectedPath;
+
             }
         }
 
@@ -474,6 +625,7 @@ namespace ImageNation
             {
                 case true:
                     ComboBox_GrayScale.Enabled = true;
+                    ComboBox_GrayScale.SelectedIndex = 0;
                     break;
                 case false:
                     ComboBox_GrayScale.Enabled = false;
@@ -528,7 +680,16 @@ namespace ImageNation
 
         private void CheckBoxIQAThreshold_CheckedChanged(object sender, EventArgs e)
         {
-
+            switch (CheckBoxIQAThreshold.Checked)
+            {
+                case true:
+                    CheckBoxPyrDown.CheckState = 0;
+                    CheckBoxPyrDown.Enabled = false;
+                    break;
+                case false:
+                    CheckBoxPyrDown.Enabled = true;
+                    break;
+            }
         }
 
         private void Label_Para3Max_Click(object sender, EventArgs e)
@@ -556,10 +717,6 @@ namespace ImageNation
 
         }
 
-        private void pBarImg_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void Button_PreviewForm_Click(object sender, EventArgs e)
         {
@@ -608,6 +765,7 @@ namespace ImageNation
             {
                 case true:
                     ComboBox_PepperNoise.Enabled = true;
+                    ComboBox_PepperNoise.SelectedIndex = 2;
                     break;
                 case false:
                     ComboBox_PepperNoise.Enabled = false;
@@ -622,17 +780,25 @@ namespace ImageNation
 
         private void ComboBox_GrayScale_SelectedIndexChanged(object sender, EventArgs e)
         {
+            Value_ParaInterceptMin.Minimum = -255;
+            Value_ParaInterceptMin.Maximum = 255;
+            Value_ParaInterceptMax.Minimum = -255;
+            Value_ParaInterceptMax.Maximum = 255;
             switch (ComboBox_GrayScale.SelectedIndex)
             {
                 case 0://增大对比度
                     Value_ParaSlopeMin.Minimum = 1;
-                    Value_ParaSlopeMin.Maximum = 5;
+                    Value_ParaSlopeMin.Maximum = 2.5M;
                     Value_ParaSlopeMax.Minimum = 1;
-                    Value_ParaSlopeMax.Maximum = 5;
+                    Value_ParaSlopeMax.Maximum = 2.5M;
                     Value_ParaSlopeMin.DecimalPlaces = 1;
-                    Value_ParaSlopeMin.Increment = 0.2M;
+                    Value_ParaSlopeMin.Increment = 0.1M;
                     Value_ParaSlopeMax.DecimalPlaces = 1;
-                    Value_ParaSlopeMax.Increment = 0.2M;
+                    Value_ParaSlopeMax.Increment = 0.1M;
+                    Value_ParaSlopeMin.Value = 1.8M;
+                    Value_ParaSlopeMax.Value = 1.8M;
+                    Value_ParaInterceptMin.Value = 30;
+                    Value_ParaInterceptMax.Value = 30;
                     break;
                 case 1://减小对比度
                     Value_ParaSlopeMin.Minimum = 0;
@@ -643,6 +809,10 @@ namespace ImageNation
                     Value_ParaSlopeMin.Increment = 0.1M;
                     Value_ParaSlopeMax.DecimalPlaces = 1;
                     Value_ParaSlopeMax.Increment = 0.1M;
+                    Value_ParaSlopeMin.Value = 0.7M;
+                    Value_ParaSlopeMax.Value = 0.7M;
+                    Value_ParaInterceptMin.Value = -30;
+                    Value_ParaInterceptMax.Value = -30;
                     break;
                 case 2://倒置
                     Value_ParaSlopeMin.Minimum = -1;
@@ -824,5 +994,74 @@ namespace ImageNation
         }
 
 
+        //在另一个线程上开始运行(处理进度条)
+        private void bgWorker_pBarImg_DoWork(object sender, DoWorkEventArgs e)
+        {
+            BackgroundWorker worker = sender as BackgroundWorker;
+
+            Thread.Sleep(100);
+            worker.ReportProgress(imgCurrentValue);
+            if (worker.CancellationPending) //获取程序是否已请求取消后台操作
+            {
+                e.Cancel = true;
+            }
+        }
+
+        private void bgWorker_pBarImg_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Error != null)
+            {
+                MessageBox.Show(e.Error.Message);
+            }
+            else if (e.Cancelled)
+            {
+                MessageBox.Show("取消");
+            }
+            else
+            {
+                MessageBox.Show("完成");
+            }
+        }
+
     }
+
+    //public class ThreadMethod
+    //{
+    //    /// <summary>
+    //    /// 线程开始事件
+    //    /// </summary>
+    //    public event EventHandler threadStartEvent;
+    //    /// <summary>
+    //    /// 线程执行时事件
+    //    /// </summary>
+    //    public event EventHandler threadEvent;
+    //    /// <summary>
+    //    /// 线程结束事件
+    //    /// </summary>
+    //    public event EventHandler threadEndEvent;
+
+    //    public int count, value;
+
+    //    //public void runMethod()
+    //    //{
+    //    //    threadStartEvent.Invoke(count, new EventArgs());//通知主界面,我开始了,count用来设置进度条的最大值
+    //    //    threadEvent.Invoke(value, new EventArgs());//通知主界面我正在执行,value表示进度条当前进度
+    //    //    threadEndEvent.Invoke(new object(), new EventArgs());//通知主界面我已经完成了
+    //    //}
+
+    //    public void MethodStart()
+    //    {
+    //        threadStartEvent.Invoke(count, new EventArgs());//通知主界面,我开始了,count用来设置进度条的最大值
+    //    }
+    //    public void MethodEvent()
+    //    {
+    //        threadEvent.Invoke(value, new EventArgs());//通知主界面我正在执行,value表示进度条当前进度
+    //    }
+    //    public void MethodEnd()
+    //    {
+    //        threadEndEvent.Invoke(new object(), new EventArgs());//通知主界面我已经完成了
+    //    }
+
+
+    //}
 }

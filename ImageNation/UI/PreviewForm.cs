@@ -76,7 +76,9 @@ namespace ImageNation
             this.CheckBoxOffsetX.CheckState = mainForm.State_CheckBoxOffsetX().CheckState;
             this.CheckBoxOffsetY.CheckState = mainForm.State_CheckBoxOffsetY().CheckState;
             this.CheckBoxRotate.CheckState = mainForm.State_CheckBoxRotate().CheckState;
+            
             this.CheckBoxPyrDown.CheckState = mainForm.State_CheckBoxPyrDown().CheckState;
+            this.CheckBoxPyrDown.Enabled = mainForm.State_CheckBoxPyrDown().Enabled;
 
             this.ComboBox_GrayScale.Enabled = mainForm.State_ComboBox_GrayScale().Enabled;
             this.ComboBox_GrayScale.SelectedIndex = mainForm.State_ComboBox_GrayScale().SelectedIndex;
@@ -259,12 +261,13 @@ namespace ImageNation
             {
                 case 0://增大对比度
                     Value_ParaSlope_PreView.Minimum = 1;
-                    Value_ParaSlope_PreView.Maximum = 5;
+                    Value_ParaSlope_PreView.Maximum = 2.5M;
                     Value_ParaSlope_PreView.DecimalPlaces = 1;
-                    Value_ParaSlope_PreView.Increment = 0.2M;
-                    TrackBar_ParaSlope.Maximum = 20;
+                    Value_ParaSlope_PreView.Increment = 0.1M;
+                    TrackBar_ParaSlope.Maximum = 15;
                     //TrackBar_ParaSlope.Value = 0;
-                    //Value_ParaSlope_PreView.Value = 1;
+                    Value_ParaSlope_PreView.Value = 1.8M;
+                    Value_ParaIntercept_PreView.Value = 30;
                     break;
                 case 1://减小对比度
                     Value_ParaSlope_PreView.Minimum = 0;
@@ -272,6 +275,8 @@ namespace ImageNation
                     Value_ParaSlope_PreView.DecimalPlaces = 1;
                     Value_ParaSlope_PreView.Increment = 0.1M;
                     TrackBar_ParaSlope.Maximum = 10;
+                    Value_ParaSlope_PreView.Value = 0.7M;
+                    Value_ParaIntercept_PreView.Value = -30;
                     //TrackBar_ParaSlope.Value = 0;
                     //Value_ParaSlope_PreView.Value = 1;
                     break;
@@ -305,7 +310,7 @@ namespace ImageNation
             switch (ComboBox_GrayScale.SelectedIndex)
             {
                 case 0://增大对比度
-                    Value_ParaSlope_PreView.Value = TrackBar_ParaSlope.Value * 0.2M + 1;
+                    Value_ParaSlope_PreView.Value = TrackBar_ParaSlope.Value * 0.1M + 1;
                     break;
                 case 1://减小对比度
                     Value_ParaSlope_PreView.Value = 1- TrackBar_ParaSlope.Value * 0.1M;
@@ -320,7 +325,7 @@ namespace ImageNation
             switch (ComboBox_GrayScale.SelectedIndex)
             {
                 case 0://增大对比度
-                    TrackBar_ParaSlope.Value = (int)(5 * (Value_ParaSlope_PreView.Value - 1));
+                    TrackBar_ParaSlope.Value = (int)(10 * (Value_ParaSlope_PreView.Value - 1));
                     break;
                 case 1://减小对比度
                     TrackBar_ParaSlope.Value = (int)(10 * (1 - Value_ParaSlope_PreView.Value));

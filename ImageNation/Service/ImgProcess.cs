@@ -7,7 +7,7 @@ using OpenCvSharp;
 
 namespace ImageNation
 {
-    public class ImgProcess
+    public class ImgProcess:IDisposable
     {
         private Mat ImgPreProcess(Mat srcMat)
         {
@@ -122,7 +122,7 @@ namespace ImageNation
 
             int w = dstImage.Cols;
             int h = dstImage.Rows;
-            int n = (int) (w * h * noise_coeff/100);
+            int n = (int) (w * h * noise_coeff/10000);
             int value = 0;
             int noiseCols = 0;
             int noiseRows = 0;
@@ -369,7 +369,10 @@ namespace ImageNation
         }
 
 
-
+        public void Dispose()
+        {
+            //
+        }
 
     }
 
