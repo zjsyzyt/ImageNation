@@ -357,14 +357,23 @@ namespace ImageNation
         }
 
         //降采样
-        public Mat ImgPyrDown(Mat Mat, int num)
+        public Mat ImgPyrDown(Mat Mat, int num, bool pyrUpStateFlag)
         {
             Mat dstImage = Mat;
-            for (int i=0; i<num;i++)
+            for (int i = 0; i < num; i++)
             {
-                dstImage = dstImage.PyrDown();
+                dstImage = dstImage.PyrDown(null,BorderTypes.Reflect101);
             }
-
+            if (pyrUpStateFlag)
+            {
+                for (int i = 0; i < num; i++)
+                {
+                    dstImage = dstImage.PyrUp(null, BorderTypes.Reflect101);
+                }
+                //裁剪上采样后的图像，使其与原图像尺寸一致
+                Rect roi = new Rect(0, 0, Mat.Cols, Mat.Rows);
+                dstImage = new Mat(dstImage, roi);
+            }
             return dstImage;
         }
 

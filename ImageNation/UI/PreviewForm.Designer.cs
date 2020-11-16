@@ -56,6 +56,7 @@
             this.Value_ParaMiu_PreView = new System.Windows.Forms.NumericUpDown();
             this.Value_ParaSigma_PreView = new System.Windows.Forms.NumericUpDown();
             this.tabPage2_MainForm = new System.Windows.Forms.TabPage();
+            this.ComboBox_PyrDown = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.Button_SetParaPyrDownCoeff = new System.Windows.Forms.Button();
             this.TrackBar_ParaPyrDownCoeff = new System.Windows.Forms.TrackBar();
@@ -487,6 +488,7 @@
             // 
             // tabPage2_MainForm
             // 
+            this.tabPage2_MainForm.Controls.Add(this.ComboBox_PyrDown);
             this.tabPage2_MainForm.Controls.Add(this.label1);
             this.tabPage2_MainForm.Controls.Add(this.Button_SetParaPyrDownCoeff);
             this.tabPage2_MainForm.Controls.Add(this.TrackBar_ParaPyrDownCoeff);
@@ -513,10 +515,24 @@
             this.tabPage2_MainForm.Text = "分辨率、对比度";
             this.tabPage2_MainForm.UseVisualStyleBackColor = true;
             // 
+            // ComboBox_PyrDown
+            // 
+            this.ComboBox_PyrDown.FormattingEnabled = true;
+            this.ComboBox_PyrDown.Items.AddRange(new object[] {
+            "复原尺寸-通过上采样",
+            "不复原"});
+            this.ComboBox_PyrDown.Location = new System.Drawing.Point(210, 266);
+            this.ComboBox_PyrDown.Margin = new System.Windows.Forms.Padding(6);
+            this.ComboBox_PyrDown.Name = "ComboBox_PyrDown";
+            this.ComboBox_PyrDown.Size = new System.Drawing.Size(238, 37);
+            this.ComboBox_PyrDown.TabIndex = 57;
+            this.ComboBox_PyrDown.Text = "选择是否复原尺寸";
+            this.ComboBox_PyrDown.SelectedIndexChanged += new System.EventHandler(this.ComboBoxPyrDown_SelectedIndexChanged);
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(567, 272);
+            this.label1.Location = new System.Drawing.Point(568, 323);
             this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(166, 29);
@@ -525,7 +541,7 @@
             // 
             // Button_SetParaPyrDownCoeff
             // 
-            this.Button_SetParaPyrDownCoeff.Location = new System.Drawing.Point(798, 262);
+            this.Button_SetParaPyrDownCoeff.Location = new System.Drawing.Point(799, 313);
             this.Button_SetParaPyrDownCoeff.Margin = new System.Windows.Forms.Padding(6);
             this.Button_SetParaPyrDownCoeff.Name = "Button_SetParaPyrDownCoeff";
             this.Button_SetParaPyrDownCoeff.Size = new System.Drawing.Size(150, 48);
@@ -538,7 +554,7 @@
             // 
             this.TrackBar_ParaPyrDownCoeff.AutoSize = false;
             this.TrackBar_ParaPyrDownCoeff.LargeChange = 1;
-            this.TrackBar_ParaPyrDownCoeff.Location = new System.Drawing.Point(204, 264);
+            this.TrackBar_ParaPyrDownCoeff.Location = new System.Drawing.Point(205, 315);
             this.TrackBar_ParaPyrDownCoeff.Margin = new System.Windows.Forms.Padding(6);
             this.TrackBar_ParaPyrDownCoeff.Maximum = 8;
             this.TrackBar_ParaPyrDownCoeff.Minimum = 1;
@@ -550,7 +566,7 @@
             // 
             // Value_ParaPyrDownCoeff
             // 
-            this.Value_ParaPyrDownCoeff.Location = new System.Drawing.Point(452, 269);
+            this.Value_ParaPyrDownCoeff.Location = new System.Drawing.Point(453, 320);
             this.Value_ParaPyrDownCoeff.Margin = new System.Windows.Forms.Padding(6);
             this.Value_ParaPyrDownCoeff.Maximum = new decimal(new int[] {
             8,
@@ -769,11 +785,11 @@
             this.tabPage3_MainForm.Controls.Add(this.CheckBoxOffsetY);
             this.tabPage3_MainForm.Controls.Add(this.Value_ParaOffsetX);
             this.tabPage3_MainForm.Controls.Add(this.CheckBoxOffsetX);
-            this.tabPage3_MainForm.Location = new System.Drawing.Point(8, 43);
+            this.tabPage3_MainForm.Location = new System.Drawing.Point(8, 39);
             this.tabPage3_MainForm.Margin = new System.Windows.Forms.Padding(6);
             this.tabPage3_MainForm.Name = "tabPage3_MainForm";
             this.tabPage3_MainForm.Padding = new System.Windows.Forms.Padding(6);
-            this.tabPage3_MainForm.Size = new System.Drawing.Size(1016, 484);
+            this.tabPage3_MainForm.Size = new System.Drawing.Size(1016, 488);
             this.tabPage3_MainForm.TabIndex = 2;
             this.tabPage3_MainForm.Text = "空间移动";
             this.tabPage3_MainForm.UseVisualStyleBackColor = true;
@@ -1120,5 +1136,6 @@
         private System.Windows.Forms.CheckBox CheckBoxPyrDown;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button Button_PreviewFormExit;
+        private System.Windows.Forms.ComboBox ComboBox_PyrDown;
     }
 }

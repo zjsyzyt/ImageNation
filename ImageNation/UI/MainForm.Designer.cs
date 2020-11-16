@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.CheckBoxAlgo1Gauss = new System.Windows.Forms.CheckBox();
             this.CheckBoxAlgo2GrayScale = new System.Windows.Forms.CheckBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -60,7 +61,6 @@
             this.Label_Para21Min = new System.Windows.Forms.Label();
             this.Label_ParaIntercept = new System.Windows.Forms.Label();
             this.Label_ParaSlope = new System.Windows.Forms.Label();
-            this.pBarImg = new System.Windows.Forms.ProgressBar();
             this.Value_ParaSigma2Max = new System.Windows.Forms.NumericUpDown();
             this.Value_ParaSigma2Min = new System.Windows.Forms.NumericUpDown();
             this.Label_Para3Max = new System.Windows.Forms.Label();
@@ -77,6 +77,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.Value_ParaNoiseCoeffMin = new System.Windows.Forms.NumericUpDown();
             this.tabPage2_MainForm = new System.Windows.Forms.TabPage();
+            this.ComboBox_PyrDown = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.Value_ParaPyrDownCoeff = new System.Windows.Forms.NumericUpDown();
             this.CheckBoxPyrDown = new System.Windows.Forms.CheckBox();
@@ -104,6 +105,7 @@
             this.label9 = new System.Windows.Forms.Label();
             this.Value_SSIMOffsetThreshold = new System.Windows.Forms.NumericUpDown();
             this.bgWorker_pBarImg = new System.ComponentModel.BackgroundWorker();
+            this.timer_ComfirmForm = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ImgNum)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Value_ParaMiuMin)).BeginInit();
@@ -304,7 +306,7 @@
             this.Label_FileNamePrefix.Location = new System.Drawing.Point(940, 859);
             this.Label_FileNamePrefix.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.Label_FileNamePrefix.Name = "Label_FileNamePrefix";
-            this.Label_FileNamePrefix.Size = new System.Drawing.Size(205, 29);
+            this.Label_FileNamePrefix.Size = new System.Drawing.Size(169, 29);
             this.Label_FileNamePrefix.TabIndex = 17;
             this.Label_FileNamePrefix.Text = "文件名（前缀）：";
             // 
@@ -367,10 +369,10 @@
             this.Value_ParaMiuMin.TabIndex = 28;
             this.Value_ParaMiuMin.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Value_ParaMiuMin.Value = new decimal(new int[] {
-            30,
+            20,
             0,
             0,
-            -2147483648});
+            0});
             this.Value_ParaMiuMin.ValueChanged += new System.EventHandler(this.Value_ParaMiuMin_ValueChanged);
             // 
             // Value_ParaMiuMax
@@ -392,7 +394,7 @@
             this.Value_ParaMiuMax.TabIndex = 29;
             this.Value_ParaMiuMax.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Value_ParaMiuMax.Value = new decimal(new int[] {
-            30,
+            40,
             0,
             0,
             0});
@@ -619,16 +621,6 @@
             this.Label_ParaSlope.TabIndex = 34;
             this.Label_ParaSlope.Text = "变化倍数";
             // 
-            // pBarImg
-            // 
-            this.pBarImg.Location = new System.Drawing.Point(1320, 765);
-            this.pBarImg.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
-            this.pBarImg.Maximum = 10;
-            this.pBarImg.Name = "pBarImg";
-            this.pBarImg.Size = new System.Drawing.Size(222, 124);
-            this.pBarImg.Step = 1;
-            this.pBarImg.TabIndex = 42;
-            // 
             // Value_ParaSigma2Max
             // 
             this.Value_ParaSigma2Max.Location = new System.Drawing.Point(402, 400);
@@ -852,6 +844,7 @@
             // 
             // tabPage2_MainForm
             // 
+            this.tabPage2_MainForm.Controls.Add(this.ComboBox_PyrDown);
             this.tabPage2_MainForm.Controls.Add(this.label1);
             this.tabPage2_MainForm.Controls.Add(this.Value_ParaPyrDownCoeff);
             this.tabPage2_MainForm.Controls.Add(this.CheckBoxPyrDown);
@@ -874,10 +867,24 @@
             this.tabPage2_MainForm.Text = "分辨率、对比度";
             this.tabPage2_MainForm.UseVisualStyleBackColor = true;
             // 
+            // ComboBox_PyrDown
+            // 
+            this.ComboBox_PyrDown.FormattingEnabled = true;
+            this.ComboBox_PyrDown.Items.AddRange(new object[] {
+            "复原尺寸-通过上采样",
+            "不复原"});
+            this.ComboBox_PyrDown.Location = new System.Drawing.Point(192, 304);
+            this.ComboBox_PyrDown.Margin = new System.Windows.Forms.Padding(6);
+            this.ComboBox_PyrDown.Name = "ComboBox_PyrDown";
+            this.ComboBox_PyrDown.Size = new System.Drawing.Size(238, 37);
+            this.ComboBox_PyrDown.TabIndex = 56;
+            this.ComboBox_PyrDown.Text = "选择是否复原尺寸";
+            this.ComboBox_PyrDown.SelectedIndexChanged += new System.EventHandler(this.ComboBox_PyrDown_SelectedIndexChanged);
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(187, 311);
+            this.label1.Location = new System.Drawing.Point(187, 356);
             this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(166, 29);
@@ -886,7 +893,7 @@
             // 
             // Value_ParaPyrDownCoeff
             // 
-            this.Value_ParaPyrDownCoeff.Location = new System.Drawing.Point(360, 308);
+            this.Value_ParaPyrDownCoeff.Location = new System.Drawing.Point(360, 353);
             this.Value_ParaPyrDownCoeff.Margin = new System.Windows.Forms.Padding(6);
             this.Value_ParaPyrDownCoeff.Maximum = new decimal(new int[] {
             8,
@@ -925,8 +932,8 @@
             // 
             this.ComboBox_GrayScale.FormattingEnabled = true;
             this.ComboBox_GrayScale.Items.AddRange(new object[] {
-            "增大对比度",
-            "减小对比度",
+            "增大对比度和亮度",
+            "减小对比度和亮度",
             "倒置"});
             this.ComboBox_GrayScale.Location = new System.Drawing.Point(192, 23);
             this.ComboBox_GrayScale.Margin = new System.Windows.Forms.Padding(6);
@@ -1207,7 +1214,7 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(940, 660);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(175, 29);
+            this.label6.Size = new System.Drawing.Size(163, 29);
             this.label6.TabIndex = 57;
             this.label6.Text = "SSIM(无位移）";
             // 
@@ -1255,7 +1262,7 @@
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(940, 711);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(175, 29);
+            this.label9.Size = new System.Drawing.Size(163, 29);
             this.label9.TabIndex = 61;
             this.label9.Text = "SSIM(有位移）";
             // 
@@ -1279,10 +1286,15 @@
             this.bgWorker_pBarImg.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgWorker_pBarImg_DoWork);
             this.bgWorker_pBarImg.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bgWorker_pBarImg_RunWorkerCompleted);
             // 
+            // timer_ComfirmForm
+            // 
+            this.timer_ComfirmForm.Interval = 500;
+            this.timer_ComfirmForm.Tick += new System.EventHandler(this.timer_ComfirmForm_Tick);
+            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(1574, 1060);
+            this.ClientSize = new System.Drawing.Size(1574, 929);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.Value_SSIMOffsetThreshold);
             this.Controls.Add(this.label7);
@@ -1306,7 +1318,6 @@
             this.Controls.Add(this.ImgNum);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.Button_StartDegradation);
-            this.Controls.Add(this.pBarImg);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "MainForm";
@@ -1385,7 +1396,6 @@
         private System.Windows.Forms.Label Label_Para21Min;
         private System.Windows.Forms.Label Label_ParaIntercept;
         private System.Windows.Forms.Label Label_ParaSlope;
-        private System.Windows.Forms.ProgressBar pBarImg;
         private System.Windows.Forms.NumericUpDown Value_ParaSigma2Max;
         private System.Windows.Forms.NumericUpDown Value_ParaSigma2Min;
         private System.Windows.Forms.Label Label_Para3Max;
@@ -1429,6 +1439,8 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.NumericUpDown Value_SSIMOffsetThreshold;
         private System.ComponentModel.BackgroundWorker bgWorker_pBarImg;
+        private System.Windows.Forms.Timer timer_ComfirmForm;
+        private System.Windows.Forms.ComboBox ComboBox_PyrDown;
     }
 }
 

@@ -79,6 +79,7 @@ namespace ImageNation
             
             this.CheckBoxPyrDown.CheckState = mainForm.State_CheckBoxPyrDown().CheckState;
             this.CheckBoxPyrDown.Enabled = mainForm.State_CheckBoxPyrDown().Enabled;
+            this.ComboBox_PyrDown.SelectedIndex = mainForm.State_ComboBoxPyrDown().SelectedIndex;
 
             this.ComboBox_GrayScale.Enabled = mainForm.State_ComboBox_GrayScale().Enabled;
             this.ComboBox_GrayScale.SelectedIndex = mainForm.State_ComboBox_GrayScale().SelectedIndex;
@@ -150,7 +151,27 @@ namespace ImageNation
             if (CheckBoxPyrDown.Checked)
             {
                 int pyrDownNum = (int)Value_ParaPyrDownCoeff.Value;
-                transImg = img.ImgPyrDown(transImg, pyrDownNum);
+                bool pyrUpStateFlag = false;
+                switch (ComboBox_PyrDown.SelectedIndex)
+                {
+                    case 1:
+                        pyrUpStateFlag = false;
+                        break;
+                    case 0:
+                        pyrUpStateFlag = true;
+                        break;
+                }
+                //bool pyrUpStateFlag;
+                //Func<int, bool> pyrUpState = (pyrDownIndex) =>
+                //      {
+                //          if(pyrDownIndex==1)
+                //          {
+                //              return true;
+                //          }
+                //          return false;
+                //  };
+
+                transImg = img.ImgPyrDown(transImg, pyrDownNum, pyrUpStateFlag);
             }
 
             Mat imgResult = transImg.Clone();
@@ -243,6 +264,11 @@ namespace ImageNation
         private void CheckBoxPyrDown_CheckedChanged(object sender, EventArgs e)
         {
             mainForm.State_CheckBoxPyrDown().CheckState = this.CheckBoxPyrDown.CheckState;
+        }
+
+        private void ComboBoxPyrDown_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            mainForm.State_ComboBoxPyrDown().SelectedIndex = this.ComboBox_PyrDown.SelectedIndex;
         }
 
         private void ComboBox_GrayScale_SelectedIndexChanged(object sender, EventArgs e)
@@ -558,6 +584,7 @@ namespace ImageNation
             SendParaSigma2Max(args);
         }
 
+        //X偏移
         private void Button_SetParaParaOffsetXMin_Click(object sender, EventArgs e)
         {
             var args = new SendValueEventArgs(Value_ParaOffsetX.Value);
@@ -570,6 +597,7 @@ namespace ImageNation
             SendParaOffsetXMax(args);
         }
 
+        //Y偏移
         private void Button_SetParaParaOffsetYMin_Click(object sender, EventArgs e)
         {
             var args = new SendValueEventArgs(Value_ParaOffsetY.Value);
@@ -582,6 +610,7 @@ namespace ImageNation
             SendParaOffsetYMax(args);
         }
 
+        //角度偏移
         private void Button_SetParaParaAngleMin_Click(object sender, EventArgs e)
         {
             var args = new SendValueEventArgs(Value_ParaAngle.Value);
@@ -594,12 +623,12 @@ namespace ImageNation
             SendParaAngleMax(args);
         }
 
+        //降采样
         private void Button_SetParaPyrDownCoeff_Click(object sender, EventArgs e)
         {
             var args = new SendValueEventArgs(Value_ParaPyrDownCoeff.Value);
             SendParaPyrDownCoeff(args);
         }
-
 
     }
 
