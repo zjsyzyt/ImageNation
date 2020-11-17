@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.CheckBoxAlgo1Gauss = new System.Windows.Forms.CheckBox();
             this.CheckBoxAlgo2GrayScale = new System.Windows.Forms.CheckBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -143,7 +144,7 @@
             this.CheckBoxAlgo1Gauss.Location = new System.Drawing.Point(34, 33);
             this.CheckBoxAlgo1Gauss.Margin = new System.Windows.Forms.Padding(6);
             this.CheckBoxAlgo1Gauss.Name = "CheckBoxAlgo1Gauss";
-            this.CheckBoxAlgo1Gauss.Size = new System.Drawing.Size(141, 33);
+            this.CheckBoxAlgo1Gauss.Size = new System.Drawing.Size(90, 22);
             this.CheckBoxAlgo1Gauss.TabIndex = 4;
             this.CheckBoxAlgo1Gauss.Text = "高斯噪声";
             this.CheckBoxAlgo1Gauss.UseVisualStyleBackColor = true;
@@ -156,7 +157,7 @@
             this.CheckBoxAlgo2GrayScale.Location = new System.Drawing.Point(32, 25);
             this.CheckBoxAlgo2GrayScale.Margin = new System.Windows.Forms.Padding(6);
             this.CheckBoxAlgo2GrayScale.Name = "CheckBoxAlgo2GrayScale";
-            this.CheckBoxAlgo2GrayScale.Size = new System.Drawing.Size(141, 33);
+            this.CheckBoxAlgo2GrayScale.Size = new System.Drawing.Size(90, 22);
             this.CheckBoxAlgo2GrayScale.TabIndex = 5;
             this.CheckBoxAlgo2GrayScale.Text = "灰度变化";
             this.CheckBoxAlgo2GrayScale.UseVisualStyleBackColor = true;
@@ -165,7 +166,9 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox1.BackColor = System.Drawing.Color.White;
+            this.pictureBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.BackgroundImage")));
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.pictureBox1.Location = new System.Drawing.Point(24, 25);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(6);
@@ -197,7 +200,7 @@
             0,
             0});
             this.ImgNum.Name = "ImgNum";
-            this.ImgNum.Size = new System.Drawing.Size(126, 35);
+            this.ImgNum.Size = new System.Drawing.Size(126, 24);
             this.ImgNum.TabIndex = 8;
             this.ImgNum.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.ImgNum.Value = new decimal(new int[] {
@@ -214,7 +217,7 @@
             this.Label_ImgNum.Location = new System.Drawing.Point(940, 813);
             this.Label_ImgNum.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.Label_ImgNum.Name = "Label_ImgNum";
-            this.Label_ImgNum.Size = new System.Drawing.Size(130, 24);
+            this.Label_ImgNum.Size = new System.Drawing.Size(82, 15);
             this.Label_ImgNum.TabIndex = 9;
             this.Label_ImgNum.Text = "图像数量：";
             // 
@@ -250,7 +253,7 @@
             this.TextBox_ImgPath.Location = new System.Drawing.Point(154, 795);
             this.TextBox_ImgPath.Margin = new System.Windows.Forms.Padding(6);
             this.TextBox_ImgPath.Name = "TextBox_ImgPath";
-            this.TextBox_ImgPath.Size = new System.Drawing.Size(560, 35);
+            this.TextBox_ImgPath.Size = new System.Drawing.Size(560, 24);
             this.TextBox_ImgPath.TabIndex = 12;
             // 
             // TextBox_ImgStoragePath
@@ -258,7 +261,7 @@
             this.TextBox_ImgStoragePath.Location = new System.Drawing.Point(154, 857);
             this.TextBox_ImgStoragePath.Margin = new System.Windows.Forms.Padding(6);
             this.TextBox_ImgStoragePath.Name = "TextBox_ImgStoragePath";
-            this.TextBox_ImgStoragePath.Size = new System.Drawing.Size(560, 35);
+            this.TextBox_ImgStoragePath.Size = new System.Drawing.Size(560, 24);
             this.TextBox_ImgStoragePath.TabIndex = 13;
             // 
             // Label_ImgPath
@@ -268,7 +271,7 @@
             this.Label_ImgPath.Location = new System.Drawing.Point(24, 800);
             this.Label_ImgPath.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.Label_ImgPath.Name = "Label_ImgPath";
-            this.Label_ImgPath.Size = new System.Drawing.Size(118, 24);
+            this.Label_ImgPath.Size = new System.Drawing.Size(75, 15);
             this.Label_ImgPath.TabIndex = 14;
             this.Label_ImgPath.Text = "图像路径:";
             // 
@@ -279,7 +282,7 @@
             this.Label_ImgStoragePath.Location = new System.Drawing.Point(24, 862);
             this.Label_ImgStoragePath.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.Label_ImgStoragePath.Name = "Label_ImgStoragePath";
-            this.Label_ImgStoragePath.Size = new System.Drawing.Size(118, 24);
+            this.Label_ImgStoragePath.Size = new System.Drawing.Size(75, 15);
             this.Label_ImgStoragePath.TabIndex = 15;
             this.Label_ImgStoragePath.Text = "存储路径:";
             // 
@@ -294,7 +297,7 @@
             this.TextBox_FileNamePrefix.Location = new System.Drawing.Point(1146, 856);
             this.TextBox_FileNamePrefix.Margin = new System.Windows.Forms.Padding(6);
             this.TextBox_FileNamePrefix.Name = "TextBox_FileNamePrefix";
-            this.TextBox_FileNamePrefix.Size = new System.Drawing.Size(126, 35);
+            this.TextBox_FileNamePrefix.Size = new System.Drawing.Size(126, 24);
             this.TextBox_FileNamePrefix.TabIndex = 16;
             this.TextBox_FileNamePrefix.Text = "Images";
             this.TextBox_FileNamePrefix.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -306,7 +309,7 @@
             this.Label_FileNamePrefix.Location = new System.Drawing.Point(940, 859);
             this.Label_FileNamePrefix.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.Label_FileNamePrefix.Name = "Label_FileNamePrefix";
-            this.Label_FileNamePrefix.Size = new System.Drawing.Size(169, 29);
+            this.Label_FileNamePrefix.Size = new System.Drawing.Size(128, 18);
             this.Label_FileNamePrefix.TabIndex = 17;
             this.Label_FileNamePrefix.Text = "文件名（前缀）：";
             // 
@@ -316,7 +319,7 @@
             this.Label_ParaMiu.Location = new System.Drawing.Point(30, 93);
             this.Label_ParaMiu.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.Label_ParaMiu.Name = "Label_ParaMiu";
-            this.Label_ParaMiu.Size = new System.Drawing.Size(109, 29);
+            this.Label_ParaMiu.Size = new System.Drawing.Size(68, 18);
             this.Label_ParaMiu.TabIndex = 20;
             this.Label_ParaMiu.Text = "噪声均值";
             // 
@@ -326,7 +329,7 @@
             this.Label_ParaSigma.Location = new System.Drawing.Point(30, 150);
             this.Label_ParaSigma.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.Label_ParaSigma.Name = "Label_ParaSigma";
-            this.Label_ParaSigma.Size = new System.Drawing.Size(109, 29);
+            this.Label_ParaSigma.Size = new System.Drawing.Size(68, 18);
             this.Label_ParaSigma.TabIndex = 21;
             this.Label_ParaSigma.Text = "噪声方差";
             // 
@@ -336,7 +339,7 @@
             this.Label_Para1Min.Location = new System.Drawing.Point(230, 42);
             this.Label_Para1Min.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.Label_Para1Min.Name = "Label_Para1Min";
-            this.Label_Para1Min.Size = new System.Drawing.Size(85, 29);
+            this.Label_Para1Min.Size = new System.Drawing.Size(53, 18);
             this.Label_Para1Min.TabIndex = 22;
             this.Label_Para1Min.Text = "最小值";
             // 
@@ -346,7 +349,7 @@
             this.Label_Para1Max.Location = new System.Drawing.Point(418, 42);
             this.Label_Para1Max.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.Label_Para1Max.Name = "Label_Para1Max";
-            this.Label_Para1Max.Size = new System.Drawing.Size(85, 29);
+            this.Label_Para1Max.Size = new System.Drawing.Size(53, 18);
             this.Label_Para1Max.TabIndex = 23;
             this.Label_Para1Max.Text = "最大值";
             // 
@@ -365,7 +368,7 @@
             0,
             -2147483648});
             this.Value_ParaMiuMin.Name = "Value_ParaMiuMin";
-            this.Value_ParaMiuMin.Size = new System.Drawing.Size(112, 35);
+            this.Value_ParaMiuMin.Size = new System.Drawing.Size(112, 24);
             this.Value_ParaMiuMin.TabIndex = 28;
             this.Value_ParaMiuMin.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Value_ParaMiuMin.Value = new decimal(new int[] {
@@ -390,7 +393,7 @@
             0,
             -2147483648});
             this.Value_ParaMiuMax.Name = "Value_ParaMiuMax";
-            this.Value_ParaMiuMax.Size = new System.Drawing.Size(112, 35);
+            this.Value_ParaMiuMax.Size = new System.Drawing.Size(112, 24);
             this.Value_ParaMiuMax.TabIndex = 29;
             this.Value_ParaMiuMax.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Value_ParaMiuMax.Value = new decimal(new int[] {
@@ -421,7 +424,7 @@
             0,
             0});
             this.Value_ParaSigmaMax.Name = "Value_ParaSigmaMax";
-            this.Value_ParaSigmaMax.Size = new System.Drawing.Size(112, 35);
+            this.Value_ParaSigmaMax.Size = new System.Drawing.Size(112, 24);
             this.Value_ParaSigmaMax.TabIndex = 31;
             this.Value_ParaSigmaMax.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Value_ParaSigmaMax.Value = new decimal(new int[] {
@@ -452,7 +455,7 @@
             0,
             0});
             this.Value_ParaSigmaMin.Name = "Value_ParaSigmaMin";
-            this.Value_ParaSigmaMin.Size = new System.Drawing.Size(112, 35);
+            this.Value_ParaSigmaMin.Size = new System.Drawing.Size(112, 24);
             this.Value_ParaSigmaMin.TabIndex = 30;
             this.Value_ParaSigmaMin.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Value_ParaSigmaMin.Value = new decimal(new int[] {
@@ -482,7 +485,7 @@
             0,
             -2147483648});
             this.Value_ParaInterceptMax.Name = "Value_ParaInterceptMax";
-            this.Value_ParaInterceptMax.Size = new System.Drawing.Size(112, 35);
+            this.Value_ParaInterceptMax.Size = new System.Drawing.Size(112, 24);
             this.Value_ParaInterceptMax.TabIndex = 41;
             this.Value_ParaInterceptMax.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Value_ParaInterceptMax.Value = new decimal(new int[] {
@@ -511,7 +514,7 @@
             0,
             -2147483648});
             this.Value_ParaInterceptMin.Name = "Value_ParaInterceptMin";
-            this.Value_ParaInterceptMin.Size = new System.Drawing.Size(112, 35);
+            this.Value_ParaInterceptMin.Size = new System.Drawing.Size(112, 24);
             this.Value_ParaInterceptMin.TabIndex = 40;
             this.Value_ParaInterceptMin.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Value_ParaInterceptMin.Value = new decimal(new int[] {
@@ -541,7 +544,7 @@
             0,
             0});
             this.Value_ParaSlopeMax.Name = "Value_ParaSlopeMax";
-            this.Value_ParaSlopeMax.Size = new System.Drawing.Size(112, 35);
+            this.Value_ParaSlopeMax.Size = new System.Drawing.Size(112, 24);
             this.Value_ParaSlopeMax.TabIndex = 39;
             this.Value_ParaSlopeMax.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Value_ParaSlopeMax.Value = new decimal(new int[] {
@@ -571,7 +574,7 @@
             0,
             0});
             this.Value_ParaSlopeMin.Name = "Value_ParaSlopeMin";
-            this.Value_ParaSlopeMin.Size = new System.Drawing.Size(112, 35);
+            this.Value_ParaSlopeMin.Size = new System.Drawing.Size(112, 24);
             this.Value_ParaSlopeMin.TabIndex = 38;
             this.Value_ParaSlopeMin.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Value_ParaSlopeMin.Value = new decimal(new int[] {
@@ -586,7 +589,7 @@
             this.Label_Para21Max.Location = new System.Drawing.Point(374, 96);
             this.Label_Para21Max.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.Label_Para21Max.Name = "Label_Para21Max";
-            this.Label_Para21Max.Size = new System.Drawing.Size(85, 29);
+            this.Label_Para21Max.Size = new System.Drawing.Size(53, 18);
             this.Label_Para21Max.TabIndex = 37;
             this.Label_Para21Max.Text = "最大值";
             // 
@@ -596,7 +599,7 @@
             this.Label_Para21Min.Location = new System.Drawing.Point(208, 96);
             this.Label_Para21Min.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.Label_Para21Min.Name = "Label_Para21Min";
-            this.Label_Para21Min.Size = new System.Drawing.Size(85, 29);
+            this.Label_Para21Min.Size = new System.Drawing.Size(53, 18);
             this.Label_Para21Min.TabIndex = 36;
             this.Label_Para21Min.Text = "最小值";
             this.Label_Para21Min.Click += new System.EventHandler(this.Label_Para21Min_Click);
@@ -607,7 +610,7 @@
             this.Label_ParaIntercept.Location = new System.Drawing.Point(30, 219);
             this.Label_ParaIntercept.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.Label_ParaIntercept.Name = "Label_ParaIntercept";
-            this.Label_ParaIntercept.Size = new System.Drawing.Size(109, 29);
+            this.Label_ParaIntercept.Size = new System.Drawing.Size(68, 18);
             this.Label_ParaIntercept.TabIndex = 35;
             this.Label_ParaIntercept.Text = "灰度平移";
             // 
@@ -617,7 +620,7 @@
             this.Label_ParaSlope.Location = new System.Drawing.Point(30, 135);
             this.Label_ParaSlope.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.Label_ParaSlope.Name = "Label_ParaSlope";
-            this.Label_ParaSlope.Size = new System.Drawing.Size(109, 29);
+            this.Label_ParaSlope.Size = new System.Drawing.Size(68, 18);
             this.Label_ParaSlope.TabIndex = 34;
             this.Label_ParaSlope.Text = "变化倍数";
             // 
@@ -631,7 +634,7 @@
             0,
             0});
             this.Value_ParaSigma2Max.Name = "Value_ParaSigma2Max";
-            this.Value_ParaSigma2Max.Size = new System.Drawing.Size(112, 35);
+            this.Value_ParaSigma2Max.Size = new System.Drawing.Size(112, 24);
             this.Value_ParaSigma2Max.TabIndex = 49;
             this.Value_ParaSigma2Max.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Value_ParaSigma2Max.Value = new decimal(new int[] {
@@ -651,7 +654,7 @@
             0,
             0});
             this.Value_ParaSigma2Min.Name = "Value_ParaSigma2Min";
-            this.Value_ParaSigma2Min.Size = new System.Drawing.Size(112, 35);
+            this.Value_ParaSigma2Min.Size = new System.Drawing.Size(112, 24);
             this.Value_ParaSigma2Min.TabIndex = 48;
             this.Value_ParaSigma2Min.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Value_ParaSigma2Min.Value = new decimal(new int[] {
@@ -667,7 +670,7 @@
             this.Label_Para3Max.Location = new System.Drawing.Point(418, 363);
             this.Label_Para3Max.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.Label_Para3Max.Name = "Label_Para3Max";
-            this.Label_Para3Max.Size = new System.Drawing.Size(85, 29);
+            this.Label_Para3Max.Size = new System.Drawing.Size(53, 18);
             this.Label_Para3Max.TabIndex = 47;
             this.Label_Para3Max.Text = "最大值";
             this.Label_Para3Max.Click += new System.EventHandler(this.Label_Para3Max_Click);
@@ -678,7 +681,7 @@
             this.Label_Para3Min.Location = new System.Drawing.Point(230, 363);
             this.Label_Para3Min.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.Label_Para3Min.Name = "Label_Para3Min";
-            this.Label_Para3Min.Size = new System.Drawing.Size(85, 29);
+            this.Label_Para3Min.Size = new System.Drawing.Size(53, 18);
             this.Label_Para3Min.TabIndex = 46;
             this.Label_Para3Min.Text = "最小值";
             this.Label_Para3Min.Click += new System.EventHandler(this.Label_Para3Min_Click);
@@ -689,7 +692,7 @@
             this.Label_ParaSigma2.Location = new System.Drawing.Point(30, 403);
             this.Label_ParaSigma2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.Label_ParaSigma2.Name = "Label_ParaSigma2";
-            this.Label_ParaSigma2.Size = new System.Drawing.Size(109, 29);
+            this.Label_ParaSigma2.Size = new System.Drawing.Size(68, 18);
             this.Label_ParaSigma2.TabIndex = 45;
             this.Label_ParaSigma2.Text = "模糊程度";
             this.Label_ParaSigma2.Click += new System.EventHandler(this.Label_ParaSigma2_Click);
@@ -700,7 +703,7 @@
             this.CheckBoxAlgo3GaussianBlur.Location = new System.Drawing.Point(34, 361);
             this.CheckBoxAlgo3GaussianBlur.Margin = new System.Windows.Forms.Padding(6);
             this.CheckBoxAlgo3GaussianBlur.Name = "CheckBoxAlgo3GaussianBlur";
-            this.CheckBoxAlgo3GaussianBlur.Size = new System.Drawing.Size(141, 33);
+            this.CheckBoxAlgo3GaussianBlur.Size = new System.Drawing.Size(90, 22);
             this.CheckBoxAlgo3GaussianBlur.TabIndex = 43;
             this.CheckBoxAlgo3GaussianBlur.Text = "图像模糊";
             this.CheckBoxAlgo3GaussianBlur.UseVisualStyleBackColor = true;
@@ -742,11 +745,11 @@
             this.tabPage1_MainForm.Controls.Add(this.Value_ParaMiuMin);
             this.tabPage1_MainForm.Controls.Add(this.Value_ParaSigmaMin);
             this.tabPage1_MainForm.Controls.Add(this.Value_ParaSigmaMax);
-            this.tabPage1_MainForm.Location = new System.Drawing.Point(8, 43);
+            this.tabPage1_MainForm.Location = new System.Drawing.Point(4, 27);
             this.tabPage1_MainForm.Margin = new System.Windows.Forms.Padding(6);
             this.tabPage1_MainForm.Name = "tabPage1_MainForm";
             this.tabPage1_MainForm.Padding = new System.Windows.Forms.Padding(6);
-            this.tabPage1_MainForm.Size = new System.Drawing.Size(600, 475);
+            this.tabPage1_MainForm.Size = new System.Drawing.Size(608, 495);
             this.tabPage1_MainForm.TabIndex = 0;
             this.tabPage1_MainForm.Text = "加噪、模糊";
             this.tabPage1_MainForm.UseVisualStyleBackColor = true;
@@ -762,7 +765,7 @@
             this.ComboBox_PepperNoise.Location = new System.Drawing.Point(232, 209);
             this.ComboBox_PepperNoise.Margin = new System.Windows.Forms.Padding(6);
             this.ComboBox_PepperNoise.Name = "ComboBox_PepperNoise";
-            this.ComboBox_PepperNoise.Size = new System.Drawing.Size(242, 37);
+            this.ComboBox_PepperNoise.Size = new System.Drawing.Size(242, 26);
             this.ComboBox_PepperNoise.TabIndex = 56;
             this.ComboBox_PepperNoise.Text = "请选择噪声种类";
             this.ComboBox_PepperNoise.SelectedIndexChanged += new System.EventHandler(this.ComboBox_PepperNoise_SelectedIndexChanged);
@@ -777,7 +780,7 @@
             0,
             0});
             this.Value_ParaNoiseCoeffMax.Name = "Value_ParaNoiseCoeffMax";
-            this.Value_ParaNoiseCoeffMax.Size = new System.Drawing.Size(112, 35);
+            this.Value_ParaNoiseCoeffMax.Size = new System.Drawing.Size(112, 24);
             this.Value_ParaNoiseCoeffMax.TabIndex = 55;
             this.Value_ParaNoiseCoeffMax.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Value_ParaNoiseCoeffMax.Value = new decimal(new int[] {
@@ -792,7 +795,7 @@
             this.CheckBoxAlgo4PepperNoise.Location = new System.Drawing.Point(34, 214);
             this.CheckBoxAlgo4PepperNoise.Margin = new System.Windows.Forms.Padding(6);
             this.CheckBoxAlgo4PepperNoise.Name = "CheckBoxAlgo4PepperNoise";
-            this.CheckBoxAlgo4PepperNoise.Size = new System.Drawing.Size(141, 33);
+            this.CheckBoxAlgo4PepperNoise.Size = new System.Drawing.Size(90, 22);
             this.CheckBoxAlgo4PepperNoise.TabIndex = 50;
             this.CheckBoxAlgo4PepperNoise.Text = "椒盐噪声";
             this.CheckBoxAlgo4PepperNoise.UseVisualStyleBackColor = true;
@@ -804,7 +807,7 @@
             this.Label_PepperNoise.Location = new System.Drawing.Point(28, 300);
             this.Label_PepperNoise.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.Label_PepperNoise.Name = "Label_PepperNoise";
-            this.Label_PepperNoise.Size = new System.Drawing.Size(109, 29);
+            this.Label_PepperNoise.Size = new System.Drawing.Size(68, 18);
             this.Label_PepperNoise.TabIndex = 51;
             this.Label_PepperNoise.Text = "噪声比例";
             // 
@@ -814,7 +817,7 @@
             this.label2.Location = new System.Drawing.Point(228, 258);
             this.label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(85, 29);
+            this.label2.Size = new System.Drawing.Size(53, 18);
             this.label2.TabIndex = 52;
             this.label2.Text = "最小值";
             // 
@@ -824,7 +827,7 @@
             this.label3.Location = new System.Drawing.Point(418, 258);
             this.label3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(85, 29);
+            this.label3.Size = new System.Drawing.Size(53, 18);
             this.label3.TabIndex = 53;
             this.label3.Text = "最大值";
             // 
@@ -838,7 +841,7 @@
             0,
             0});
             this.Value_ParaNoiseCoeffMin.Name = "Value_ParaNoiseCoeffMin";
-            this.Value_ParaNoiseCoeffMin.Size = new System.Drawing.Size(112, 35);
+            this.Value_ParaNoiseCoeffMin.Size = new System.Drawing.Size(112, 24);
             this.Value_ParaNoiseCoeffMin.TabIndex = 54;
             this.Value_ParaNoiseCoeffMin.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -858,11 +861,11 @@
             this.tabPage2_MainForm.Controls.Add(this.Value_ParaSlopeMin);
             this.tabPage2_MainForm.Controls.Add(this.Label_ParaSlope);
             this.tabPage2_MainForm.Controls.Add(this.Value_ParaInterceptMin);
-            this.tabPage2_MainForm.Location = new System.Drawing.Point(8, 39);
+            this.tabPage2_MainForm.Location = new System.Drawing.Point(4, 27);
             this.tabPage2_MainForm.Margin = new System.Windows.Forms.Padding(6);
             this.tabPage2_MainForm.Name = "tabPage2_MainForm";
             this.tabPage2_MainForm.Padding = new System.Windows.Forms.Padding(6);
-            this.tabPage2_MainForm.Size = new System.Drawing.Size(600, 479);
+            this.tabPage2_MainForm.Size = new System.Drawing.Size(608, 495);
             this.tabPage2_MainForm.TabIndex = 1;
             this.tabPage2_MainForm.Text = "分辨率、对比度";
             this.tabPage2_MainForm.UseVisualStyleBackColor = true;
@@ -876,7 +879,7 @@
             this.ComboBox_PyrDown.Location = new System.Drawing.Point(192, 304);
             this.ComboBox_PyrDown.Margin = new System.Windows.Forms.Padding(6);
             this.ComboBox_PyrDown.Name = "ComboBox_PyrDown";
-            this.ComboBox_PyrDown.Size = new System.Drawing.Size(238, 37);
+            this.ComboBox_PyrDown.Size = new System.Drawing.Size(238, 26);
             this.ComboBox_PyrDown.TabIndex = 56;
             this.ComboBox_PyrDown.Text = "选择是否复原尺寸";
             this.ComboBox_PyrDown.SelectedIndexChanged += new System.EventHandler(this.ComboBox_PyrDown_SelectedIndexChanged);
@@ -887,7 +890,7 @@
             this.label1.Location = new System.Drawing.Point(187, 356);
             this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(166, 29);
+            this.label1.Size = new System.Drawing.Size(103, 18);
             this.label1.TabIndex = 55;
             this.label1.Text = "1/2降采样次数";
             // 
@@ -906,7 +909,7 @@
             0,
             0});
             this.Value_ParaPyrDownCoeff.Name = "Value_ParaPyrDownCoeff";
-            this.Value_ParaPyrDownCoeff.Size = new System.Drawing.Size(112, 35);
+            this.Value_ParaPyrDownCoeff.Size = new System.Drawing.Size(112, 24);
             this.Value_ParaPyrDownCoeff.TabIndex = 46;
             this.Value_ParaPyrDownCoeff.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Value_ParaPyrDownCoeff.Value = new decimal(new int[] {
@@ -922,7 +925,7 @@
             this.CheckBoxPyrDown.Location = new System.Drawing.Point(34, 309);
             this.CheckBoxPyrDown.Margin = new System.Windows.Forms.Padding(6);
             this.CheckBoxPyrDown.Name = "CheckBoxPyrDown";
-            this.CheckBoxPyrDown.Size = new System.Drawing.Size(117, 33);
+            this.CheckBoxPyrDown.Size = new System.Drawing.Size(75, 22);
             this.CheckBoxPyrDown.TabIndex = 45;
             this.CheckBoxPyrDown.Text = "降采样";
             this.CheckBoxPyrDown.UseVisualStyleBackColor = true;
@@ -938,7 +941,7 @@
             this.ComboBox_GrayScale.Location = new System.Drawing.Point(192, 23);
             this.ComboBox_GrayScale.Margin = new System.Windows.Forms.Padding(6);
             this.ComboBox_GrayScale.Name = "ComboBox_GrayScale";
-            this.ComboBox_GrayScale.Size = new System.Drawing.Size(238, 37);
+            this.ComboBox_GrayScale.Size = new System.Drawing.Size(238, 26);
             this.ComboBox_GrayScale.TabIndex = 42;
             this.ComboBox_GrayScale.Text = "请选择变化形式";
             this.ComboBox_GrayScale.SelectedIndexChanged += new System.EventHandler(this.ComboBox_GrayScale_SelectedIndexChanged);
@@ -956,11 +959,11 @@
             this.tabPage3_MainForm.Controls.Add(this.Value_ParaOffsetXMax);
             this.tabPage3_MainForm.Controls.Add(this.Value_ParaOffsetXMin);
             this.tabPage3_MainForm.Controls.Add(this.CheckBoxOffsetX);
-            this.tabPage3_MainForm.Location = new System.Drawing.Point(8, 39);
+            this.tabPage3_MainForm.Location = new System.Drawing.Point(4, 27);
             this.tabPage3_MainForm.Margin = new System.Windows.Forms.Padding(6);
             this.tabPage3_MainForm.Name = "tabPage3_MainForm";
             this.tabPage3_MainForm.Padding = new System.Windows.Forms.Padding(6);
-            this.tabPage3_MainForm.Size = new System.Drawing.Size(600, 479);
+            this.tabPage3_MainForm.Size = new System.Drawing.Size(608, 495);
             this.tabPage3_MainForm.TabIndex = 2;
             this.tabPage3_MainForm.Text = "空间移动";
             this.tabPage3_MainForm.UseVisualStyleBackColor = true;
@@ -981,7 +984,7 @@
             0,
             -2147483648});
             this.Value_ParaAngleMax.Name = "Value_ParaAngleMax";
-            this.Value_ParaAngleMax.Size = new System.Drawing.Size(112, 35);
+            this.Value_ParaAngleMax.Size = new System.Drawing.Size(112, 24);
             this.Value_ParaAngleMax.TabIndex = 53;
             this.Value_ParaAngleMax.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Value_ParaAngleMax.Value = new decimal(new int[] {
@@ -997,7 +1000,7 @@
             this.label8.Location = new System.Drawing.Point(366, 29);
             this.label8.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(85, 29);
+            this.label8.Size = new System.Drawing.Size(53, 18);
             this.label8.TabIndex = 51;
             this.label8.Text = "最大值";
             // 
@@ -1021,7 +1024,7 @@
             0,
             -2147483648});
             this.Value_ParaAngleMin.Name = "Value_ParaAngleMin";
-            this.Value_ParaAngleMin.Size = new System.Drawing.Size(112, 35);
+            this.Value_ParaAngleMin.Size = new System.Drawing.Size(112, 24);
             this.Value_ParaAngleMin.TabIndex = 52;
             this.Value_ParaAngleMin.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Value_ParaAngleMin.Value = new decimal(new int[] {
@@ -1037,7 +1040,7 @@
             this.CheckBoxRotate.Location = new System.Drawing.Point(32, 225);
             this.CheckBoxRotate.Margin = new System.Windows.Forms.Padding(6);
             this.CheckBoxRotate.Name = "CheckBoxRotate";
-            this.CheckBoxRotate.Size = new System.Drawing.Size(93, 33);
+            this.CheckBoxRotate.Size = new System.Drawing.Size(60, 22);
             this.CheckBoxRotate.TabIndex = 49;
             this.CheckBoxRotate.Text = "旋转";
             this.CheckBoxRotate.UseVisualStyleBackColor = true;
@@ -1053,7 +1056,7 @@
             0,
             -2147483648});
             this.Value_ParaOffsetYMax.Name = "Value_ParaOffsetYMax";
-            this.Value_ParaOffsetYMax.Size = new System.Drawing.Size(112, 35);
+            this.Value_ParaOffsetYMax.Size = new System.Drawing.Size(112, 24);
             this.Value_ParaOffsetYMax.TabIndex = 48;
             this.Value_ParaOffsetYMax.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Value_ParaOffsetYMax.Value = new decimal(new int[] {
@@ -1069,7 +1072,7 @@
             this.label5.Location = new System.Drawing.Point(196, 29);
             this.label5.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(85, 29);
+            this.label5.Size = new System.Drawing.Size(53, 18);
             this.label5.TabIndex = 45;
             this.label5.Text = "最小值";
             // 
@@ -1083,7 +1086,7 @@
             0,
             -2147483648});
             this.Value_ParaOffsetYMin.Name = "Value_ParaOffsetYMin";
-            this.Value_ParaOffsetYMin.Size = new System.Drawing.Size(112, 35);
+            this.Value_ParaOffsetYMin.Size = new System.Drawing.Size(112, 24);
             this.Value_ParaOffsetYMin.TabIndex = 47;
             this.Value_ParaOffsetYMin.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Value_ParaOffsetYMin.Value = new decimal(new int[] {
@@ -1099,7 +1102,7 @@
             this.CheckBoxOffsetY.Location = new System.Drawing.Point(32, 154);
             this.CheckBoxOffsetY.Margin = new System.Windows.Forms.Padding(6);
             this.CheckBoxOffsetY.Name = "CheckBoxOffsetY";
-            this.CheckBoxOffsetY.Size = new System.Drawing.Size(109, 33);
+            this.CheckBoxOffsetY.Size = new System.Drawing.Size(69, 22);
             this.CheckBoxOffsetY.TabIndex = 44;
             this.CheckBoxOffsetY.Text = "Y平移";
             this.CheckBoxOffsetY.UseVisualStyleBackColor = true;
@@ -1115,7 +1118,7 @@
             0,
             -2147483648});
             this.Value_ParaOffsetXMax.Name = "Value_ParaOffsetXMax";
-            this.Value_ParaOffsetXMax.Size = new System.Drawing.Size(112, 35);
+            this.Value_ParaOffsetXMax.Size = new System.Drawing.Size(112, 24);
             this.Value_ParaOffsetXMax.TabIndex = 43;
             this.Value_ParaOffsetXMax.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Value_ParaOffsetXMax.Value = new decimal(new int[] {
@@ -1135,7 +1138,7 @@
             0,
             -2147483648});
             this.Value_ParaOffsetXMin.Name = "Value_ParaOffsetXMin";
-            this.Value_ParaOffsetXMin.Size = new System.Drawing.Size(112, 35);
+            this.Value_ParaOffsetXMin.Size = new System.Drawing.Size(112, 24);
             this.Value_ParaOffsetXMin.TabIndex = 42;
             this.Value_ParaOffsetXMin.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Value_ParaOffsetXMin.Value = new decimal(new int[] {
@@ -1151,7 +1154,7 @@
             this.CheckBoxOffsetX.Location = new System.Drawing.Point(32, 75);
             this.CheckBoxOffsetX.Margin = new System.Windows.Forms.Padding(6);
             this.CheckBoxOffsetX.Name = "CheckBoxOffsetX";
-            this.CheckBoxOffsetX.Size = new System.Drawing.Size(110, 33);
+            this.CheckBoxOffsetX.Size = new System.Drawing.Size(70, 22);
             this.CheckBoxOffsetX.TabIndex = 6;
             this.CheckBoxOffsetX.Text = "X平移";
             this.CheckBoxOffsetX.UseVisualStyleBackColor = true;
@@ -1179,7 +1182,7 @@
             0,
             0});
             this.Value_PSNRThreshold.Name = "Value_PSNRThreshold";
-            this.Value_PSNRThreshold.Size = new System.Drawing.Size(126, 35);
+            this.Value_PSNRThreshold.Size = new System.Drawing.Size(126, 24);
             this.Value_PSNRThreshold.TabIndex = 53;
             this.Value_PSNRThreshold.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Value_PSNRThreshold.Value = new decimal(new int[] {
@@ -1194,7 +1197,7 @@
             this.CheckBoxIQAThreshold.Location = new System.Drawing.Point(940, 564);
             this.CheckBoxIQAThreshold.Margin = new System.Windows.Forms.Padding(6);
             this.CheckBoxIQAThreshold.Name = "CheckBoxIQAThreshold";
-            this.CheckBoxIQAThreshold.Size = new System.Drawing.Size(189, 33);
+            this.CheckBoxIQAThreshold.Size = new System.Drawing.Size(120, 22);
             this.CheckBoxIQAThreshold.TabIndex = 54;
             this.CheckBoxIQAThreshold.Text = "质量评估筛选";
             this.CheckBoxIQAThreshold.UseVisualStyleBackColor = true;
@@ -1205,7 +1208,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(940, 609);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(80, 29);
+            this.label4.Size = new System.Drawing.Size(50, 18);
             this.label4.TabIndex = 55;
             this.label4.Text = "PSNR";
             // 
@@ -1214,7 +1217,7 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(940, 660);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(163, 29);
+            this.label6.Size = new System.Drawing.Size(109, 18);
             this.label6.TabIndex = 57;
             this.label6.Text = "SSIM(无位移）";
             // 
@@ -1224,7 +1227,7 @@
             this.Value_SSIMThreshold.Location = new System.Drawing.Point(1146, 657);
             this.Value_SSIMThreshold.Margin = new System.Windows.Forms.Padding(6);
             this.Value_SSIMThreshold.Name = "Value_SSIMThreshold";
-            this.Value_SSIMThreshold.Size = new System.Drawing.Size(126, 35);
+            this.Value_SSIMThreshold.Size = new System.Drawing.Size(126, 24);
             this.Value_SSIMThreshold.TabIndex = 56;
             this.Value_SSIMThreshold.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Value_SSIMThreshold.Value = new decimal(new int[] {
@@ -1238,7 +1241,7 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(940, 762);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(78, 29);
+            this.label7.Size = new System.Drawing.Size(49, 18);
             this.label7.TabIndex = 59;
             this.label7.Text = "HASH";
             // 
@@ -1248,7 +1251,7 @@
             this.Value_HashThreshold.Location = new System.Drawing.Point(1146, 759);
             this.Value_HashThreshold.Margin = new System.Windows.Forms.Padding(6);
             this.Value_HashThreshold.Name = "Value_HashThreshold";
-            this.Value_HashThreshold.Size = new System.Drawing.Size(126, 35);
+            this.Value_HashThreshold.Size = new System.Drawing.Size(126, 24);
             this.Value_HashThreshold.TabIndex = 58;
             this.Value_HashThreshold.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Value_HashThreshold.Value = new decimal(new int[] {
@@ -1262,7 +1265,7 @@
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(940, 711);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(163, 29);
+            this.label9.Size = new System.Drawing.Size(109, 18);
             this.label9.TabIndex = 61;
             this.label9.Text = "SSIM(有位移）";
             // 
@@ -1272,7 +1275,7 @@
             this.Value_SSIMOffsetThreshold.Location = new System.Drawing.Point(1146, 708);
             this.Value_SSIMOffsetThreshold.Margin = new System.Windows.Forms.Padding(6);
             this.Value_SSIMOffsetThreshold.Name = "Value_SSIMOffsetThreshold";
-            this.Value_SSIMOffsetThreshold.Size = new System.Drawing.Size(126, 35);
+            this.Value_SSIMOffsetThreshold.Size = new System.Drawing.Size(126, 24);
             this.Value_SSIMOffsetThreshold.TabIndex = 60;
             this.Value_SSIMOffsetThreshold.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Value_SSIMOffsetThreshold.Value = new decimal(new int[] {
